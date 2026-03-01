@@ -2,7 +2,7 @@
 import Layout from './Layout.astro';
 const { szczyt, slug } = Astro.props;
 const { nazwa, region, wysokosc, czas, przewyzszenie, trudnosc,
-        done, data, photo, photos, instagram, tiktok, gpx, parking } = szczyt;
+        done, data, photo, photos, instagram, tiktok, gpx, parking, trasa } = szczyt;
 
 const trudnoscLabel: Record<string, string> = { 'łatwa': 'Łatwa', 'średnia': 'Średnia', 'trudna': 'Trudna' };
 const base = import.meta.env.BASE_URL;
@@ -260,6 +260,7 @@ const base = import.meta.env.BASE_URL;
       </a>
     )}
     {gpx && <a href={gpx} download class="btn-outline">↓ Pobierz GPX</a>}
+    {trasa && <a href={trasa} target="_blank" rel="noopener" class="btn-outline">⊕ Trasa → Mapy.com</a>}
     {parking && <a href={parking} target="_blank" rel="noopener" class="btn-outline">⊕ Parking → Maps</a>}
   </div>
 

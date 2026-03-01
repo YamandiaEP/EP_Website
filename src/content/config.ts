@@ -17,6 +17,7 @@ const szczyty = defineCollection({
     tiktok:        z.string().optional(),
     gpx:           z.string().optional(),
     parking:       z.string().optional(),
+    trasa:         z.string().optional(),
     kolejnosc:     z.number(),  // pozycja w KGP od najniższego
   }),
 });
