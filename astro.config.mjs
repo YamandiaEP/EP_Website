@@ -1,5 +1,6 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
 
-// https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  site: 'https://YamandiaEP.github.io',  // ← zmień na swój username GitHub
+  base: '/EP_Website',                   // ← zmień na nazwę swojego repo
+});

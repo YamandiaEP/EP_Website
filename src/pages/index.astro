@@ -1,17 +1,280 @@
 ---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
 
+const wszystkieSzczyty = await getCollection('szczyty');
+const szczyty = wszystkieSzczyty.sort((a, b) => a.data.kolejnosc - b.data.kolejnosc);
+const zdobyte = szczyty.filter(s => s.data.done);
+const base = import.meta.env.BASE_URL;
+
+function mountainSVG(seed: number) {
+  const shapes = [
+    'M0 160 L0 110 L60 75 L130 95 L200 45 L270 85 L340 65 L400 75 L400 160 Z',
+    'M0 160 L0 100 L80 70 L150 88 L230 38 L300 78 L370 55 L400 65 L400 160 Z',
+    'M0 160 L0 115 L70 82 L140 100 L210 52 L280 88 L350 68 L400 78 L400 160 Z',
+    'M0 160 L0 105 L90 72 L160 92 L220 42 L290 80 L360 60 L400 70 L400 160 Z',
+    'M0 160 L0 108 L75 76 L145 94 L215 48 L285 84 L355 62 L400 72 L400 160 Z',
+  ];
+  const bgs = ['#111','#0f0f0f','#131313','#0e0e0e','#121212'];
+  const fills = ['#1e1e1e','#1c1c1c','#1f1f1f','#1b1b1b','#1d1d1d'];
+  return `<svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;" preserveAspectRatio="xMidYMid slice">
+    <rect width="400" height="160" fill="${bgs[seed % 5]}"/>
+    <path d="${shapes[seed % 5]}" fill="${fills[seed % 5]}"/>
+    <path d="M0 160 L0 132 L150 122 L300 127 L400 120 L400 160 Z" fill="#161616"/>
+  </svg>`;
+}
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+<style>
+/* HERO */
+.hero { min-height:100vh; display:grid; grid-template-rows:1fr auto; position:relative; overflow:hidden; border-bottom:1px solid var(--border); }
+.hero-main { display:flex; flex-direction:column; justify-content:flex-end; padding:8rem 2rem 3rem; }
+.hero-bg-text { position:absolute; top:50%; left:-2%; transform:translateY(-50%); font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(12rem,28vw,26rem); line-height:0.85; color:transparent; -webkit-text-stroke:1px rgba(242,240,235,0.05); letter-spacing:-0.04em; text-transform:uppercase; white-space:nowrap; pointer-events:none; user-select:none; }
+.hero-kicker { font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-bottom:1rem; display:flex; align-items:center; gap:1rem; animation:fadeUp 0.5s ease both; }
+.hero-kicker::before { content:''; width:2.5rem; height:1px; background:var(--muted); }
+.hero-title { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(4rem,11vw,9.5rem); line-height:0.88; letter-spacing:-0.02em; text-transform:uppercase; color:var(--white); margin-bottom:2.5rem; animation:fadeUp 0.7s ease 0.1s both; }
+.hero-title .line-inv { display:inline-block; background:var(--white); color:var(--black); padding:0 0.15em; }
+.hero-title .line-outline { display:block; color:transparent; -webkit-text-stroke:2px var(--white); }
+.hero-bottom { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--border); animation:fadeUp 0.5s ease 0.25s both; }
+.hbc { padding:1.5rem 2rem; border-right:1px solid var(--border); }
+.hbc:last-child { border-right:none; }
+.hbc-label { font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:0.4rem; }
+.hbc-val { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:1.6rem; }
+
+/* TICKER */
+.ticker { background:var(--white); color:var(--black); padding:0.6rem 0; overflow:hidden; border-bottom:1px solid var(--border); }
+.ticker-inner { display:flex; white-space:nowrap; animation:ticker 30s linear infinite; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.85rem; letter-spacing:0.12em; text-transform:uppercase; }
+.ticker-inner span { flex-shrink:0; padding:0 1.5rem; }
+.ticker-sep { color:#999; }
+@keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* SECTION HEADER */
+.section-head { padding:3rem 2rem 2rem; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:baseline; }
+.sh-title { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(2rem,5vw,3.5rem); text-transform:uppercase; letter-spacing:-0.02em; line-height:1; }
+.sh-sub { font-family:'Space Mono',monospace; font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; }
+
+/* PEAK CARDS */
+.peaks-list { display:grid; grid-template-columns:repeat(3,1fr); }
+.pk { border-right:1px solid var(--border); border-bottom:1px solid var(--border); overflow:hidden; transition:background 0.2s; position:relative; }
+.pk:nth-child(3n) { border-right:none; }
+.pk-done { border-bottom:2px solid var(--white); }
+.pk-img { height:160px; background:var(--grey); position:relative; overflow:hidden; }
+.pk-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.4s; display:block; }
+.pk:hover .pk-img img { transform:scale(1.04); }
+.pk-num { position:absolute; bottom:0.8rem; right:0.8rem; font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:3rem; line-height:1; color:rgba(255,255,255,0.12); letter-spacing:-0.03em; }
+.pk-diff { position:absolute; top:0.7rem; left:0.7rem; font-family:'Space Mono',monospace; font-size:0.55rem; letter-spacing:0.08em; text-transform:uppercase; padding:0.2rem 0.5rem; border:1px solid currentColor; }
+.diff-e { color:#ccc; }
+.diff-m { color:#999; }
+.diff-h { color:var(--white); background:rgba(255,255,255,0.1); }
+.pk-done-badge { position:absolute; bottom:0.7rem; left:0.7rem; background:var(--white); color:var(--black); font-family:'Space Mono',monospace; font-size:0.55rem; font-weight:700; letter-spacing:0.1em; padding:0.25rem 0.6rem; }
+.pk-body { padding:1.2rem 1.5rem; }
+.pk-region { font-family:'Space Mono',monospace; font-size:0.58rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:0.3rem; }
+.pk-name { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.6rem; text-transform:uppercase; letter-spacing:-0.01em; line-height:1; margin-bottom:1rem; }
+.pk-stats { display:flex; gap:1.2rem; flex-wrap:wrap; padding-top:0.8rem; border-top:1px solid var(--border); }
+.pk-stat-v { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:1rem; color:var(--white); line-height:1; }
+.pk-stat-k { font-family:'Space Mono',monospace; font-size:0.55rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); }
+.pk-read-row { padding-top:0.8rem; margin-top:0.8rem; border-top:1px solid var(--border); }
+.pk-read { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.85rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--white); text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem; transition:gap 0.2s; }
+.pk-read:hover { gap:0.8rem; }
+
+/* KGP */
+.kgp-section { padding:3rem 2rem; border-bottom:1px solid var(--border); }
+.kgp-top { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:2rem; }
+.kgp-counter { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); }
+.kgp-frac { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:3rem; letter-spacing:-0.03em; line-height:1; }
+.prog-track { height:2px; background:var(--border); margin-bottom:2rem; }
+.prog-fill { height:100%; background:var(--white); transition:width 1s ease; }
+.kgp-grid { display:flex; gap:3px; flex-wrap:wrap; }
+.kgp-cell { width:2rem; height:2rem; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:0.5rem; color:var(--muted); transition:all 0.15s; }
+.kgp-cell.done { background:var(--white); color:var(--black); border-color:var(--white); font-weight:700; }
+.kgp-cell.done a { color:var(--black); text-decoration:none; display:flex; align-items:center; justify-content:center; width:100%; height:100%; }
+.kgp-cell:hover { border-color:var(--white); }
+
+/* NEWSLETTER */
+.nl-section { display:grid; grid-template-columns:1fr 1fr; border-bottom:1px solid var(--border); }
+.nl-left { padding:4rem 3rem; border-right:1px solid var(--border); }
+.nl-eyebrow { font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:1.2rem; display:flex; align-items:center; gap:0.7rem; }
+.nl-eyebrow::before { content:''; width:2rem; height:1px; background:var(--muted); }
+.nl-title { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(2.5rem,4vw,3.5rem); text-transform:uppercase; letter-spacing:-0.02em; line-height:0.95; margin-bottom:1.5rem; }
+.nl-title .inv { background:var(--white); color:var(--black); display:inline; padding:0 0.1em; }
+.nl-body { color:var(--muted); font-size:0.9rem; line-height:1.75; max-width:38ch; margin-bottom:2rem; }
+.nl-items { list-style:none; display:flex; flex-direction:column; gap:0.6rem; }
+.nl-items li { font-family:'Space Mono',monospace; font-size:0.7rem; color:var(--muted); display:flex; align-items:center; gap:0.7rem; letter-spacing:0.04em; }
+.nl-items li::before { content:'+'; color:var(--white); font-weight:700; }
+.nl-right { padding:4rem 3rem; display:flex; flex-direction:column; justify-content:center; }
+.nl-form-title { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:1rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:1.5rem; }
+.nl-input { width:100%; background:transparent; border:none; border-bottom:1px solid var(--border); color:var(--white); padding:1rem 0; font-family:'Barlow',sans-serif; font-size:1rem; font-weight:300; outline:none; margin-bottom:1.2rem; transition:border-color 0.2s; }
+.nl-input:focus { border-bottom-color:var(--white); }
+.nl-input::placeholder { color:var(--muted); }
+.nl-submit { width:100%; padding:1.1rem; background:var(--white); color:var(--black); border:none; font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1rem; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; transition:all 0.2s; margin-top:0.5rem; }
+.nl-submit:hover { background:#ddd; }
+.nl-privacy { font-family:'Space Mono',monospace; font-size:0.58rem; color:var(--muted); margin-top:1rem; letter-spacing:0.06em; }
+
+/* SHOP */
+.shop-section { padding:4rem 2rem; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+.shop-bg-text { position:absolute; right:-1%; top:50%; transform:translateY(-50%); font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:15rem; color:transparent; -webkit-text-stroke:1px var(--border); letter-spacing:-0.04em; text-transform:uppercase; pointer-events:none; white-space:nowrap; }
+.shop-inner { position:relative; max-width:600px; }
+.shop-eyebrow { font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:1rem; display:flex; align-items:center; gap:0.7rem; }
+.shop-eyebrow::before { content:''; width:2rem; height:1px; background:var(--muted); }
+.shop-title { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(2.5rem,5vw,4rem); text-transform:uppercase; letter-spacing:-0.02em; line-height:0.95; margin-bottom:1.2rem; }
+.shop-desc { color:var(--muted); font-size:0.9rem; line-height:1.7; max-width:42ch; margin-bottom:2rem; }
+.shop-tags { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:2rem; }
+.shop-tag { border:1px solid var(--border); padding:0.35rem 0.8rem; font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+@media (max-width:900px) {
+  .peaks-list { grid-template-columns:1fr 1fr; }
+  .pk:nth-child(3n) { border-right:1px solid var(--border); }
+  .pk:nth-child(2n) { border-right:none; }
+  .nl-section { grid-template-columns:1fr; }
+  .nl-left { border-right:none; border-bottom:1px solid var(--border); }
+  .hero-bottom { grid-template-columns:1fr; }
+  .hbc { border-right:none; border-bottom:1px solid var(--border); }
+  .hbc:last-child { border-bottom:none; }
+  .shop-bg-text { display:none; }
+}
+@media (max-width:600px) {
+  .peaks-list { grid-template-columns:1fr; }
+  .pk:nth-child(2n) { border-right:none; }
+}
+</style>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-main">
+    <div class="hero-bg-text">KGP</div>
+    <div class="hero-kicker">Korona Gór Polski · Baza wiedzy</div>
+    <h1 class="hero-title">
+      <span>GDZIE</span>
+      <span class="line-inv">KOŃCZY SIĘ</span>
+      <span class="line-outline">DROGA</span>
+    </h1>
+  </div>
+  <div class="hero-bottom">
+    <div class="hbc"><div class="hbc-label">Szczytów KGP</div><div class="hbc-val">28</div></div>
+    <div class="hbc"><div class="hbc-label">Zdobytych</div><div class="hbc-val">{zdobyte.length} / 28</div></div>
+    <div class="hbc"><div class="hbc-label">Relacji online</div><div class="hbc-val">{zdobyte.length}</div></div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    {szczyty.concat(szczyty).map(s => (
+      <><span>{s.data.nazwa} {s.data.wysokosc}M</span><span class="ticker-sep">·</span></>
+    ))}
+  </div>
+</div>
+
+<!-- SZCZYTY GRID -->
+<div id="szczyty">
+  <div class="section-head">
+    <h2 class="sh-title">Wszystkie szczyty</h2>
+    <span class="sh-sub">{zdobyte.length} / 28 zdobytych</span>
+  </div>
+  <div class="peaks-list">
+    {szczyty.map((s, i) => {
+      const d = s.data;
+      const diffClass = { łatwa:'diff-e', średnia:'diff-m', trudna:'diff-h' }[d.trudnosc];
+      const diffLabel = { łatwa:'Łatwa', średnia:'Średnia', trudna:'Trudna' }[d.trudnosc];
+      return (
+        <div class:list={['pk', d.done && 'pk-done']}>
+          <div class="pk-img">
+            {d.photo
+              ? <img src={d.photo} alt={d.nazwa} loading="lazy" />
+              : <Fragment set:html={mountainSVG(i)} />
+            }
+            <div class="pk-num">{String(d.kolejnosc).padStart(2,'0')}</div>
+            <div class:list={['pk-diff', diffClass]}>{diffLabel}</div>
+            {d.done && <div class="pk-done-badge">✓ ZDOBYTY</div>}
+          </div>
+          <div class="pk-body">
+            <div class="pk-region">{d.region}</div>
+            <div class="pk-name">{d.nazwa}</div>
+            <div class="pk-stats">
+              <div><div class="pk-stat-v">{d.wysokosc}m</div><div class="pk-stat-k">npm</div></div>
+              <div><div class="pk-stat-v">{d.czas}</div><div class="pk-stat-k">czas</div></div>
+              <div><div class="pk-stat-v">{d.przewyzszenie}</div><div class="pk-stat-k">przewyż.</div></div>
+            </div>
+            {d.done && (
+              <div class="pk-read-row">
+                <a href={`${base}szczyty/${s.slug}`} class="pk-read">Czytaj relację →</a>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<!-- KGP PROGRESS -->
+<div class="kgp-section" id="kgp">
+  <div class="kgp-top">
+    <div>
+      <div class="kgp-counter">Postęp · Korona Gór Polski</div>
+      <div class="kgp-frac">{zdobyte.length} <span style="color:var(--muted);font-size:1.5rem;">/ 28</span></div>
+    </div>
+    <div style="text-align:right;">
+      <div class="kgp-counter">Procent</div>
+      <div class="kgp-frac">{Math.round(zdobyte.length / 28 * 100)}%</div>
+    </div>
+  </div>
+  <div class="prog-track">
+    <div class="prog-fill" style={`width:${Math.round(zdobyte.length / 28 * 100)}%`}></div>
+  </div>
+  <div class="kgp-grid">
+    {szczyty.map(s => (
+      <div class:list={['kgp-cell', s.data.done && 'done']} title={`${String(s.data.kolejnosc).padStart(2,'0')}. ${s.data.nazwa} (${s.data.wysokosc}m)`}>
+        {s.data.done
+          ? <a href={`${base}szczyty/${s.slug}`}>✓</a>
+          : String(s.data.kolejnosc).padStart(2,'0')
+        }
+      </div>
+    ))}
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="nl-section" id="newsletter">
+  <div class="nl-left">
+    <div class="nl-eyebrow">Dla subskrybentów</div>
+    <h2 class="nl-title">Checklista<br>KGP<br><span class="inv">W PDF</span></h2>
+    <p class="nl-body">Wszystkie 28 szczytów Korony Gór Polski w jednym pliku. Wypełnij datę, czas i warunki — Twój osobisty dziennik zdobywcy.</p>
+    <ul class="nl-items">
+      <li>28 szczytów z kolumną na datę i notatkę</li>
+      <li>Format A4, gotowy do druku</li>
+      <li>Nowe trasy jako pierwsze</li>
+      <li>Zero spamu, wypis jednym klikiem</li>
+    </ul>
+  </div>
+  <div class="nl-right">
+    <div class="nl-form-title">→ Dołącz do listy</div>
+    <!-- Tu wklejasz skrypt MailerLite -->
+    <input class="nl-input" type="text" placeholder="Imię">
+    <input class="nl-input" type="email" placeholder="E-mail">
+    <button class="nl-submit">Pobierz checklistę PDF</button>
+    <div class="nl-privacy">ZERO SPAMU · WYPIS W KAŻDEJ CHWILI</div>
+  </div>
+</div>
+
+<!-- SHOP -->
+<div class="shop-section" id="sklep">
+  <div class="shop-bg-text">SHOP</div>
+  <div class="shop-inner">
+    <div class="shop-eyebrow">Wkrótce dostępne</div>
+    <h2 class="shop-title">Yamandia<br>Shop</h2>
+    <p class="shop-desc">Merch dla górołazów i materiały PDF. Architektura e-commerce gotowa — Stripe + Snipcart bez przepisywania strony.</p>
+    <div class="shop-tags">
+      <span class="shop-tag">Checklista KGP (PDF)</span>
+      <span class="shop-tag">Bluzy Yamandia EP</span>
+      <span class="shop-tag">Ebook: Jak zacząć KGP</span>
+      <span class="shop-tag">Mapy drukowane</span>
+    </div>
+    <a href="#newsletter" class="btn-blk">Zapisz się na listę →</a>
+  </div>
+</div>
+
+</Layout>

@@ -1,0 +1,202 @@
+---
+import Layout from './Layout.astro';
+const { szczyt, slug } = Astro.props;
+const { nazwa, region, wysokosc, czas, przewyzszenie, trudnosc,
+        done, data, photo, photos, instagram, tiktok, gpx, parking } = szczyt;
+
+const trudnoscLabel = { 'łatwa': 'Łatwa', 'średnia': 'Średnia', 'trudna': 'Trudna' };
+const base = import.meta.env.BASE_URL;
+---
+<Layout title={`${nazwa} — Yamandia EP`}>
+<style>
+.szczyt-hero {
+  min-height: 55vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 8rem 2rem 3rem;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+.szczyt-photo {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  filter: brightness(0.35);
+}
+.szczyt-photo-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #111, #1a1a1a);
+}
+.szczyt-hero-content { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; width: 100%; }
+.back-link {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--white); }
+.szczyt-region {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.szczyt-region::before { content: ''; width: 2rem; height: 1px; background: var(--muted); display: block; }
+.szczyt-nazwa {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.88;
+  margin-bottom: 1rem;
+}
+.szczyt-data {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+.szczyt-body {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.data-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--border);
+  border-top: none;
+  margin-bottom: 3rem;
+}
+.db-cell {
+  padding: 1.2rem 1.5rem;
+  border-right: 1px solid var(--border);
+}
+.db-cell:last-child { border-right: none; }
+.db-key {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.db-val {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--white);
+  line-height: 1;
+}
+.actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.relacja {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.85;
+  font-weight: 300;
+  max-width: 65ch;
+  margin-bottom: 3rem;
+}
+.relacja :global(p) { margin-bottom: 1.4rem; }
+.relacja :global(h2) {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: var(--white);
+  margin: 2rem 0 0.8rem;
+  letter-spacing: 0.02em;
+}
+.relacja :global(strong) { color: var(--white); font-weight: 500; }
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 4rem;
+}
+.gallery img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+@media (max-width: 700px) {
+  .data-bar { grid-template-columns: repeat(2, 1fr); }
+  .db-cell:nth-child(2) { border-right: none; }
+  .db-cell:nth-child(3) { border-right: 1px solid var(--border); }
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+
+<div class="szczyt-hero">
+  {photo
+    ? <img src={photo} alt={nazwa} class="szczyt-photo" />
+    : <div class="szczyt-photo-placeholder"></div>
+  }
+  <div class="szczyt-hero-content">
+    <a href={base} class="back-link">← Wszystkie szczyty</a>
+    <div class="szczyt-region">{region}</div>
+    <h1 class="szczyt-nazwa">{nazwa}</h1>
+    {data && <div class="szczyt-data">Zdobyty: {data}</div>}
+  </div>
+</div>
+
+<div class="szczyt-body">
+
+  <!-- Kafelki z danymi -->
+  <div class="data-bar">
+    <div class="db-cell"><div class="db-key">Wysokość</div><div class="db-val">{wysokosc} m</div></div>
+    <div class="db-cell"><div class="db-key">Czas przejścia</div><div class="db-val">{czas}</div></div>
+    <div class="db-cell"><div class="db-key">Przewyższenie</div><div class="db-val">{przewyzszenie}</div></div>
+    <div class="db-cell"><div class="db-key">Trudność</div><div class="db-val">{trudnoscLabel[trudnosc]}</div></div>
+  </div>
+
+  <!-- Przyciski akcji -->
+  <div class="actions">
+    {instagram && <a href={instagram} target="_blank" rel="noopener" class="btn-blk">▶ Instagram</a>}
+    {tiktok    && <a href={tiktok}    target="_blank" rel="noopener" class="btn-blk">▶ TikTok</a>}
+    {gpx       && <a href={gpx} download class="btn-outline">↓ Pobierz GPX</a>}
+    {parking   && <a href={parking}   target="_blank" rel="noopener" class="btn-outline">⊕ Parking → Maps</a>}
+  </div>
+
+  <!-- Treść relacji z Markdown -->
+  <div class="relacja">
+    <slot />
+  </div>
+
+  <!-- Galeria zdjęć -->
+  {photos && photos.length > 0 && (
+    <div class="gallery">
+      {photos.map((src: string) => (
+        <img src={src} alt={`${nazwa} - zdjęcie`} loading="lazy" />
+      ))}
+    </div>
+  )}
+
+</div>
+</Layout>
