@@ -60,6 +60,7 @@ nav.scrolled { background:var(--black); border-bottom-color:var(--border); }
   font-size:1.4rem; letter-spacing:0.08em; text-transform:uppercase;
   color:var(--white); text-decoration:none;
   display:flex; align-items:center; gap:0.6rem;
+  white-space:nowrap;
 }
 .logo-circle {
   width:2rem; height:2rem; border:2px solid var(--white);
@@ -121,6 +122,23 @@ footer {
 }
 .social-link:last-child { border-right:1px solid var(--border); }
 .social-link:hover { background:var(--white); color:var(--black); border-color:var(--white); }
+.nav-hamburger {
+  display:none; background:none; border:1px solid var(--border);
+  color:var(--white); font-size:1.3rem; cursor:crosshair;
+  padding:0.25rem 0.55rem; line-height:1; letter-spacing:0;
+}
+@media (max-width:768px) {
+  .nav-hamburger { display:block; }
+  .nav-links {
+    display:none; position:absolute; top:100%; left:0; right:0;
+    background:var(--black); border-bottom:1px solid var(--border);
+    flex-direction:column; gap:0; padding:0 2rem 1.5rem;
+  }
+  .nav-links.open { display:flex; }
+  .nav-links li:first-child { border-top:1px solid var(--border); margin-top:0.5rem; }
+  .nav-links li { border-bottom:1px solid var(--border); }
+  .nav-links a { display:block; padding:1rem 0; font-size:0.75rem; color:var(--white); }
+}
 </style>
 </head>
 <body>
@@ -130,6 +148,7 @@ footer {
     <img src={`${base}images/EP_logo.png`} alt="" style="height: 2.2rem; width: auto;" />
     Yamandia EP
   </a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">≡</button>
   <ul class="nav-links">
     <li><a href={`${base}#szczyty`}>Szczyty</a></li>
     <li><a href={`${base}#kgp`}>KGP</a></li>
@@ -157,8 +176,20 @@ footer {
 
 <script>
   const nav = document.getElementById('nav');
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.querySelector('.nav-links');
   window.addEventListener('scroll', () => {
     nav?.classList.toggle('scrolled', window.scrollY > 40);
+  });
+  hamburger?.addEventListener('click', () => {
+    navLinks?.classList.toggle('open');
+    if (hamburger) hamburger.textContent = navLinks?.classList.contains('open') ? '✕' : '≡';
+  });
+  navLinks?.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      if (hamburger) hamburger.textContent = '≡';
+    });
   });
 </script>
 </body>

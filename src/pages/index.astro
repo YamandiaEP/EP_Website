@@ -124,20 +124,21 @@ function mountainSVG(seed: number) {
 
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
-@media (max-width:900px) {
+@media (max-width:768px) {
   .peaks-list { grid-template-columns:1fr 1fr; }
   .pk:nth-child(3n) { border-right:1px solid var(--border); }
   .pk:nth-child(2n) { border-right:none; }
   .nl-section { grid-template-columns:1fr; }
   .nl-left { border-right:none; border-bottom:1px solid var(--border); }
+  .shop-bg-text { display:none; }
+}
+@media (max-width:480px) {
+  .peaks-list { grid-template-columns:1fr; }
+  .pk { border-right:none; }
   .hero-bottom { grid-template-columns:1fr; }
   .hbc { border-right:none; border-bottom:1px solid var(--border); }
   .hbc:last-child { border-bottom:none; }
-  .shop-bg-text { display:none; }
-}
-@media (max-width:600px) {
-  .peaks-list { grid-template-columns:1fr; }
-  .pk:nth-child(2n) { border-right:none; }
+  .hero-title { font-size:2.8rem; line-height:0.92; }
 }
 </style>
 
