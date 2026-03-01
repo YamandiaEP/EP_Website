@@ -14,7 +14,7 @@ photos:
   - "/images/bk-2.jpg"
 instagram: "https://www.instagram.com/p/WKLEJ_KOD_POSTA/"
 tiktok: "https://www.tiktok.com/@yamandiaep/video/WKLEJ_ID_FILMIKU"
-gpx: "/gpx/biskupia-kopa.gpx"
+gpx: "/EP_Website/gpx/biskupia-kopa.gpx"
 parking: "https://maps.google.com/?q=50.2300,17.8500"
 ---
 
