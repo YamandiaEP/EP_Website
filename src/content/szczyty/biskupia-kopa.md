@@ -2,20 +2,20 @@
 nazwa: "Biskupia Kopa"
 region: "Góry Opawskie"
 wysokosc: 890
-czas: "2.5h"
-przewyzszenie: "+350m"
+czas: "4h"
+przewyzszenie: "+750m"
 trudnosc: "łatwa"
 done: true
 data: "2025-03-15"
-kolejnosc: 8
-photo: "/images/biskupia-kopa.jpg"
+kolejnosc: 6
+photo: "/EP_Website/images/biskupia-kopa.jpg"
 photos:
-  - "/images/bk-1.jpg"
-  - "/images/bk-2.jpg"
-instagram: "https://www.instagram.com/p/WKLEJ_KOD_POSTA/"
-tiktok: "https://www.tiktok.com/@yamandiaep/video/WKLEJ_ID_FILMIKU"
+  - "/EP_Website/images/biskupia-kopa-1.jpg"
+  - "/EP_Website/images/biskupia-kopa-2.jpg"
+instagram: "https://www.instagram.com/reel/DVTUD7fDMGL/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+tiktok: "https://www.tiktok.com/@yamandia.ep/video/7611896691997805846?is_from_webapp=1&sender_device=pc&web_id=7597494337576633858U"
 gpx: "/EP_Website/gpx/biskupia-kopa.gpx"
-parking: "https://maps.google.com/?q=50.2300,17.8500"
+parking: "https://maps.app.goo.gl/kn9mQXK1u74Xy8cp8"
 trasa: "https://mapy.com/s/gecuvagobe"
 ---
 

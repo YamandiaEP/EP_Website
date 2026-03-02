@@ -67,7 +67,22 @@ const base = import.meta.env.BASE_URL;
   letter-spacing: -0.03em;
   line-height: 0.88;
   margin-bottom: 1rem;
+  color: #f2f0eb;
+  -webkit-text-stroke: 2px #111;
+  paint-order: stroke fill;
 }
+[data-theme="light"] .szczyt-nazwa {
+  color: #111;
+  -webkit-text-stroke: 4px #f2f0eb;
+  paint-order: stroke fill;
+}
+/* W hero tło zawsze ciemne (zdjęcie brightness 0.35) — małe teksty zawsze jasne */
+[data-theme="light"] .back-link,
+[data-theme="light"] .szczyt-region,
+[data-theme="light"] .szczyt-data {
+  color: rgba(242, 240, 235, 0.65);
+}
+[data-theme="light"] .back-link:hover { color: #f2f0eb; }
 .szczyt-data {
   font-family: 'Space Mono', monospace;
   font-size: 0.65rem;
@@ -129,7 +144,7 @@ const base = import.meta.env.BASE_URL;
   text-decoration: none;
   transition: all 0.2s;
 }
-.btn-social:hover { background: #ddd; }
+.btn-social:hover { background: var(--btn-hover); }
 .btn-outline {
   display: inline-flex;
   align-items: center;
@@ -152,8 +167,9 @@ const base = import.meta.env.BASE_URL;
   font-size: 1.05rem;
   line-height: 1.85;
   font-weight: 300;
-  max-width: 65ch;
   margin-bottom: 3rem;
+  text-align: justify;
+  hyphens: auto;
 }
 .relacja :global(p) { margin-bottom: 1.4rem; }
 .relacja :global(h2) {
@@ -168,7 +184,6 @@ const base = import.meta.env.BASE_URL;
 .relacja :global(strong) { color: var(--white); font-weight: 500; }
 .gallery {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 0.5rem;
   margin-bottom: 4rem;
 }
@@ -202,14 +217,11 @@ const base = import.meta.env.BASE_URL;
   background: var(--grey);
 }
 
-/* Leaflet dark overrides */
-.leaflet-container { background: #080808 !important; }
-.leaflet-control-attribution { background: rgba(8,8,8,0.85) !important; color: var(--muted) !important; font-size: 0.55rem !important; }
-.leaflet-control-attribution a { color: var(--muted) !important; }
+/* Leaflet overrides */
+.leaflet-control-attribution { font-size: 0.55rem !important; }
 .leaflet-control-zoom a {
-  background: var(--grey) !important;
-  color: var(--white) !important;
-  border-color: var(--border) !important;
+  background: #fff !important;
+  color: #333 !important;
 }
 
 @media (max-width: 700px) {
@@ -279,7 +291,7 @@ const base = import.meta.env.BASE_URL;
 
   <!-- Galeria zdjęć -->
   {photos && photos.length > 0 && (
-    <div class="gallery">
+    <div class="gallery" style={`grid-template-columns: repeat(${Math.min(photos.length, 3)}, 1fr);`}>
       {photos.map((src: string) => (
         <img src={src} alt={`${nazwa} - zdjęcie`} loading="lazy" />
       ))}
@@ -297,8 +309,8 @@ const base = import.meta.env.BASE_URL;
       window.addEventListener('load', function() {
         const map = L.map('mapa');
 
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/">CARTO</a>',
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
           maxZoom: 19,
         }).addTo(map);
 
@@ -314,7 +326,7 @@ const base = import.meta.env.BASE_URL;
             ]);
             if (latlngs.length > 0) {
               const line = L.polyline(latlngs, {
-                color: '#f2f0eb',
+                color: '#e63946',
                 weight: 4,
                 opacity: 1,
               }).addTo(map);

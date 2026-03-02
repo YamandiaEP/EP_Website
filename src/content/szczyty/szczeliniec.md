@@ -5,9 +5,9 @@ wysokosc: 919
 czas: "3h"
 przewyzszenie: "+380m"
 trudnosc: "łatwa"
-done: true
+done: false
 data: "—"
-kolejnosc: 6
+kolejnosc: 7
 photo: ""
 photos: []
 instagram: ""

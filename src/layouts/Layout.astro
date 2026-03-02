@@ -11,11 +11,22 @@ const base = import.meta.env.BASE_URL;
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
+<script is:inline>
+  (function(){
+    var saved=localStorage.getItem('theme');
+    if(saved){
+      document.documentElement.setAttribute('data-theme',saved);
+    } else {
+      var h=new Date().getHours();
+      document.documentElement.setAttribute('data-theme',(h>=22||h<6)?'dark':'light');
+    }
+  })();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,700;0,900;1,900&family=Barlow:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; font-size: 17px; }
 :root {
   --black: #080808;
   --white: #f2f0eb;
@@ -23,6 +34,18 @@ html { scroll-behavior: smooth; }
   --mid: #2e2e2e;
   --muted: #666;
   --border: #222;
+  --btn-hover: #ddd;
+  --hero-bg-stroke: 1px rgba(242,240,235,0.1);
+}
+[data-theme="light"] {
+  --black: #f5f3ee;
+  --white: #181818;
+  --grey: #e8e6e1;
+  --mid: #d5d3ce;
+  --muted: #777;
+  --border: #ccc;
+  --btn-hover: #333;
+  --hero-bg-stroke: 1px rgba(0,0,0,0.12);
 }
 body {
   background: var(--black);
@@ -87,7 +110,7 @@ nav.scrolled { background:var(--black); border-bottom-color:var(--border); }
   font-size:0.85rem; letter-spacing:0.08em; text-transform:uppercase;
   text-decoration:none; cursor:pointer; border:none; transition:all 0.2s;
 }
-.btn-blk:hover { background:#ddd; }
+.btn-blk:hover { background:var(--btn-hover); }
 .btn-outline {
   display:inline-flex; align-items:center; gap:0.5rem;
   padding:0.9rem 1.6rem; background:transparent; color:var(--white);
@@ -122,6 +145,15 @@ footer {
 }
 .social-link:last-child { border-right:1px solid var(--border); }
 .social-link:hover { background:var(--white); color:var(--black); border-color:var(--white); }
+.nav-theme {
+  background:none; border:1px solid var(--border);
+  color:var(--white); font-size:1rem; cursor:crosshair;
+  padding:0.25rem 0.6rem; line-height:1; transition:all 0.2s;
+  display:flex; align-items:center;
+}
+.nav-theme:hover { border-color:var(--white); }
+[data-theme="light"] .theme-icon-day { display:none; }
+[data-theme="dark"] .theme-icon-night { display:none; }
 .nav-hamburger {
   display:none; background:none; border:1px solid var(--border);
   color:var(--white); font-size:1.3rem; cursor:crosshair;
@@ -148,6 +180,10 @@ footer {
     <img src={`${base}images/EP_logo.png`} alt="" style="height: 2.2rem; width: auto;" />
     Yamandia EP
   </a>
+  <button class="nav-theme" id="themeToggle" aria-label="Przełącz tryb">
+    <span class="theme-icon-day">☀</span>
+    <span class="theme-icon-night">☾</span>
+  </button>
   <button class="nav-hamburger" id="hamburger" aria-label="Menu">≡</button>
   <ul class="nav-links">
     <li><a href={`${base}#szczyty`}>Szczyty</a></li>
@@ -178,6 +214,14 @@ footer {
   const nav = document.getElementById('nav');
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.querySelector('.nav-links');
+  const themeToggle = document.getElementById('themeToggle');
+
+  themeToggle?.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
   window.addEventListener('scroll', () => {
     nav?.classList.toggle('scrolled', window.scrollY > 40);
   });
