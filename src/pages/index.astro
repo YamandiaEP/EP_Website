@@ -153,14 +153,20 @@ function mountainSVG(seed: number) {
   .nl-section { grid-template-columns:1fr; }
   .nl-left { border-right:none; border-bottom:1px solid var(--border); }
   .shop-bg-text { display:none; }
+  .hero-main { padding:6rem 1.5rem 2rem; }
+  .hero-title { font-size:12vw; line-height:0.9; }
+  .hero-kicker { font-size:0.6rem; letter-spacing:0.1em; gap:0.6rem; }
+  .hbc { padding:0.9rem 1.5rem; }
 }
 @media (max-width:480px) {
   .peaks-list { grid-template-columns:1fr; }
   .pk { border-right:none; }
   .hero-bottom { grid-template-columns:1fr; }
-  .hbc { border-right:none; border-bottom:1px solid var(--border); }
+  .hbc { border-right:none; border-bottom:1px solid var(--border); padding:0.7rem 1.2rem; }
   .hbc:last-child { border-bottom:none; }
-  .hero-title { font-size:2.8rem; line-height:0.92; }
+  .hero-kicker { font-size:0.52rem; letter-spacing:0.07em; }
+  .hero-kicker::before { display:none; }
+  .hero-main { padding:5rem 1.2rem 1.5rem; }
 }
 </style>
 
