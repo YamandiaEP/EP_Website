@@ -126,8 +126,9 @@ function mountainSVG(seed: number) {
 
 @media (max-width:768px) {
   .hero { height:100svh; min-height:unset; overflow:hidden; }
-  .hero-bg-text { transition:top 0.25s ease, transform 0.25s ease; font-size:clamp(7rem,38vw,12rem); }
+  .hero-bg-text { top:auto; bottom:28%; transform:none; transition:none; font-size:clamp(7rem,38vw,12rem); }
   .hero-kicker, .hero-title, .hero-bottom { will-change:transform,opacity; }
+  .ticker-inner { animation-duration:12s; }
 }
 
 /* SOON overlay */
