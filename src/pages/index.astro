@@ -124,6 +124,12 @@ function mountainSVG(seed: number) {
 
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
+@media (max-width:768px) {
+  .hero { min-height:100svh; }
+  .hero-bg-text { top:40%; }
+  .hero-kicker, .hero-title, .hero-bottom { animation:none; opacity:1; transform:none; }
+}
+
 /* SOON overlay */
 .is-soon { position:relative; }
 .is-soon::after {
