@@ -75,7 +75,7 @@ nav {
   display:flex; justify-content:space-between; align-items:center;
   padding:1.2rem 2rem;
   border-bottom:1px solid transparent;
-  transition:all 0.3s;
+  transition:background 0.3s, border-color 0.3s;
 }
 nav.scrolled { background:var(--black); border-bottom-color:var(--border); }
 .nav-logo {
@@ -160,6 +160,7 @@ footer {
   padding:0.25rem 0.55rem; line-height:1; letter-spacing:0;
 }
 @media (max-width:768px) {
+  body::after { display:none; }
   .nav-hamburger { display:block; }
   .nav-links {
     display:none; position:absolute; top:100%; left:0; right:0;
@@ -224,7 +225,7 @@ footer {
   });
   window.addEventListener('scroll', () => {
     nav?.classList.toggle('scrolled', window.scrollY > 40);
-  });
+  }, { passive: true });
   hamburger?.addEventListener('click', () => {
     navLinks?.classList.toggle('open');
     if (hamburger) hamburger.textContent = navLinks?.classList.contains('open') ? '✕' : '≡';

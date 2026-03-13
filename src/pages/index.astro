@@ -86,7 +86,7 @@ function mountainSVG(seed: number) {
 .prog-track { height:2px; background:var(--border); margin-bottom:2rem; }
 .prog-fill { height:100%; background:var(--white); transition:width 1s ease; }
 .kgp-grid { display:flex; gap:3px; flex-wrap:wrap; }
-.kgp-cell { width:2rem; height:2rem; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:0.5rem; color:var(--muted); transition:all 0.15s; }
+.kgp-cell { width:2rem; height:2rem; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:0.5rem; color:var(--muted); transition:border-color 0.15s, background 0.15s; }
 .kgp-cell.done { background:var(--white); color:var(--black); border-color:var(--white); font-weight:700; }
 .kgp-cell.done a { color:var(--black); text-decoration:none; display:flex; align-items:center; justify-content:center; width:100%; height:100%; }
 .kgp-cell:hover { border-color:var(--white); }
