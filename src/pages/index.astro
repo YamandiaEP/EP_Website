@@ -30,7 +30,8 @@ function mountainSVG(seed: number) {
 /* HERO */
 .hero { min-height:100vh; display:grid; grid-template-rows:1fr auto; position:relative; overflow:hidden; border-bottom:1px solid var(--border); }
 .hero-main { display:flex; flex-direction:column; justify-content:flex-end; padding:8rem 2rem 3rem; }
-.hero-bg-text { position:absolute; top:50%; left:-2%; transform:translateY(-50%); z-index:0; font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(12rem,28vw,26rem); line-height:0.85; color:var(--black); -webkit-text-stroke:var(--hero-bg-stroke); letter-spacing:-0.04em; text-transform:uppercase; white-space:nowrap; pointer-events:none; user-select:none; }
+.hero-kicker-wrap { position:relative; }
+.hero-bg-text { position:absolute; top:50%; left:-2.5%; transform:translateY(-23%); z-index:0; font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(12rem,28vw,26rem); line-height:0.85; color:var(--black); -webkit-text-stroke:var(--hero-bg-stroke); letter-spacing:-0.04em; text-transform:uppercase; white-space:nowrap; pointer-events:none; user-select:none; }
 .hero-kicker { font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-bottom:1rem; display:flex; align-items:center; gap:1rem; animation:fadeUp 0.5s ease both; position:relative; z-index:1; }
 .hero-kicker::before { content:''; width:2.5rem; height:1px; background:var(--muted); }
 .hero-title { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(4rem,11vw,9.5rem); line-height:0.88; letter-spacing:-0.02em; text-transform:uppercase; color:var(--white); margin-bottom:2.5rem; animation:fadeUp 0.7s ease 0.1s both; position:relative; z-index:1; }
@@ -124,6 +125,12 @@ function mountainSVG(seed: number) {
 
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
+@media (min-width:769px) and (max-width:1280px) {
+  .hero-bg-text { transform:translateY(-27%); left:-2.5%; }
+}
+@media (min-width:1281px) and (max-width:1440px) {
+  .hero-bg-text { transform:translateY(-25%); left:-2.5%; }
+}
 
 /* SOON overlay */
 .is-soon { position:relative; }
@@ -149,7 +156,8 @@ function mountainSVG(seed: number) {
 
 @media (max-width:768px) {
   .hero { height:100svh; min-height:unset; overflow:hidden; }
-  .hero-bg-text { top:auto; bottom:4rem; transform:none; transition:none; font-size:clamp(8rem,40vw,14rem); left:-1%; }
+  .hero-bg-text { font-size:clamp(8rem,40vw,14rem); left:-2%; }
+  .hero-title .line-outline { -webkit-text-stroke:1px var(--white); }
   .peaks-list { grid-template-columns:1fr 1fr; }
   .pk:nth-child(3n) { border-right:1px solid var(--border); }
   .pk:nth-child(2n) { border-right:none; }
@@ -177,8 +185,10 @@ function mountainSVG(seed: number) {
 <!-- HERO -->
 <div class="hero">
   <div class="hero-main">
-    <div class="hero-bg-text">KGP</div>
-    <div class="hero-kicker">Korona Gór Polski · Baza wiedzy</div>
+    <div class="hero-kicker-wrap">
+      <div class="hero-bg-text">KGP</div>
+      <div class="hero-kicker">Korona Gór Polski · Baza wiedzy</div>
+    </div>
     <h1 class="hero-title">
       <span>YAMANDIA EP</span>
       <span class="line-inv">PRZEDSTAWIA</span>
