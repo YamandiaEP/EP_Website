@@ -192,7 +192,44 @@ const base = import.meta.env.BASE_URL;
   aspect-ratio: 4/3;
   object-fit: cover;
   display: block;
+  cursor: zoom-in;
+  transition: opacity 0.2s;
 }
+.gallery img:hover { opacity: 0.85; }
+
+/* Lightbox */
+.lb-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+.lb-overlay.lb-open { display: flex; }
+.lb-overlay img {
+  max-width: 92vw;
+  max-height: 90vh;
+  object-fit: contain;
+  box-shadow: 0 0 60px rgba(0,0,0,0.8);
+  cursor: default;
+}
+.lb-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.7;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.lb-close:hover { opacity: 1; }
 
 /* MAPA */
 .mapa-section {
@@ -293,10 +330,16 @@ const base = import.meta.env.BASE_URL;
   {photos && photos.length > 0 && (
     <div class="gallery" style={`grid-template-columns: repeat(${Math.min(photos.length, 3)}, 1fr);`}>
       {photos.map((src: string) => (
-        <img src={src} alt={`${nazwa} - zdjęcie`} loading="lazy" />
+        <img src={src} alt={`${nazwa} - zdjęcie`} loading="lazy" class="lb-trigger" />
       ))}
     </div>
   )}
+
+  <!-- Lightbox -->
+  <div class="lb-overlay" id="lb-overlay">
+    <button class="lb-close" id="lb-close" aria-label="Zamknij">×</button>
+    <img id="lb-img" src="" alt="" />
+  </div>
 
 </div>
 
@@ -338,5 +381,24 @@ const base = import.meta.env.BASE_URL;
     </script>
   </Fragment>
 )}
+
+<script>
+  const overlay = document.getElementById('lb-overlay');
+  const lbImg   = document.getElementById('lb-img') as HTMLImageElement;
+  const lbClose = document.getElementById('lb-close');
+
+  document.querySelectorAll('.lb-trigger').forEach(img => {
+    img.addEventListener('click', () => {
+      lbImg.src = (img as HTMLImageElement).src;
+      lbImg.alt = (img as HTMLImageElement).alt;
+      overlay.classList.add('lb-open');
+    });
+  });
+
+  function close() { overlay.classList.remove('lb-open'); lbImg.src = ''; }
+  lbClose.addEventListener('click', close);
+  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+</script>
 
 </Layout>
