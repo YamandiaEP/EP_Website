@@ -3,63 +3,32 @@ nazwa: "Szczeliniec Wielki"
 region: "Góry Stołowe"
 wysokosc: 919
 czas: "4h"
-przewyzszenie: "+500mm"
+przewyzszenie: "+500m"
 trudnosc: "łatwa"
 done: true
 data: ""
-kolejnosc: 7
-photo: "/EP_Website/images/szczeliniec-wielki.jpg"
+kolejnosc: 8
+photo: "/EP_Website/images/szczeliniec-wielki-9.jpg"
 photos:
+  - "/EP_Website/images/szczeliniec-wielki.jpg"
   - "/EP_Website/images/szczeliniec-wielki-1.jpg"
   - "/EP_Website/images/szczeliniec-wielki-2.jpg"
-  - "/EP_Website/images/szczeliniec-wielki-3.jpg"
   - "/EP_Website/images/szczeliniec-wielki-4.jpg"
-  - "/EP_Website/images/szczeliniec-wielki-5.jpg"
   - "/EP_Website/images/szczeliniec-wielki-6.jpg"
   - "/EP_Website/images/szczeliniec-wielki-7.jpg"
   - "/EP_Website/images/szczeliniec-wielki-8.jpg"
-  - "/EP_Website/images/szczeliniec-wielki-9.jpg"
   - "/EP_Website/images/szczeliniec-wielki-10.jpg"
-# instagram: ""
-# tiktok: ""
+instagram: "https://www.instagram.com/reel/DWWfAh_jIHs/"
+tiktok: "https://www.tiktok.com/@yamandia.ep/video/7624930867781078304"
 gpx: "/EP_Website/gpx/szczeliniec-wielki.gpx"
-# parking: ""
-# trasa: ""
+parking: "https://maps.app.goo.gl/PquwZpUaF2vygmpo6?g_st=com.google.maps.preview.copy"
+trasa: "https://mapy.com/s/lagugovenu"
 ---
 
-<!-- TODO: zamień poniższy skrypt na gotowy wpis blogowy -->
-<!-- Możesz wkleić skrypt do Gemini z prośbą: -->
-<!-- "Przepisz poniższy skrypt filmowy na luźny wpis blogowy po polsku, -->
-<!--  bez nagłówków, krótkie akapity, 200-300 słów" -->
+Szczeliniec Wielki to absolutny kosmos i do teraz nie wierzymy, że takie góry mamy w Polsce. Zamiast iść nudnymi schodami od Karłowa jak wszyscy, wybraliśmy trasę od strony Radkowa. Startujemy z darmowego parkingu przy wodospadzie Pośny. Ten wodospad ma aż trzy piętra i widać go zaraz po wyjściu z auta, więc wejście zaczyna się z wysokiego C.
 
-Tutaj wklej gotowy wpis blogowy.
+Ruszamy zielonym szlakiem, a potem wchodzimy na żółty, który jest mega klimatyczny. Idzie się stromo między wielkimi skałami i drzewami, a co najlepsze – prawie nie ma tu ludzi. Po drodze mijaliśmy stare ruiny i mostki, a widoki co chwilę urywały głowę. Potem niebieski szlak doprowadził nas do głównej atrakcji, czyli skalnego labiryntu.
 
+Zanim wejdziecie w same szczeliny, traficie na schronisko w stylu tyrolskim. Wygląda niesamowicie, choć ceny jedzenia też mają tam raczej alpejskie. W środku przybiliśmy pieczątkę do KGP, ale sam szczyt jest kawałek dalej. Warto pamiętać, że trasa przez labirynt w sezonie kosztuje 12 złotych. Jeśli wybierzecie się tam przed kwietniem, wejdziecie za darmo.
 
-<!-- KGP KNOw how -->
-<!-- Jaki szlak wybrać na 6 szczyt Korony Gór Polski   -->
-<!-- Szczeliniec wielki to świetna góra więc nie warto marnować jej potencjału wybierając banalny turystyczny szlak  -->
-<!-- Zaczynamy z darmowego parking przy wodospadzie pośny do którego zmierzamy zielonym szlakiem  -->
-<!-- Tam przechodzimy  na klimatyczny żółty szlak który dosyć stromo prowadzi nas do góry między wysokimi skałami i drzewami  -->
-<!--  aż do skrzyżowania z niebieskim szlakiem, którym jest równie ciekawy i doprowadzi  nas kulminacyjnego momentu tej wędrówki  -->
-<!-- Wtedy  wchodzimy na ścieżkę skalnej rzeźby to istny labirynt prowadzący przez szczeliny skał Piaskowca,  -->
-<!-- po chwili trafiamy na unikalne schronisko w stylu tyrolskim, klimat jest świetny ale -->
-<!-- Ceny niestety też tyrolskie. -->
-<!-- W schronisku przybijamy pieczątkę KGP ale wierzecholek dopiero przed nami. Więc Konnynuuemy ścieżką która w sezonie jest płatna 12 zł za bilet normalny i 6 zł za ulgowy. Warto się pospieszyć bo do kwietnia nie trzeba płacić. -->
-<!-- Po chwili zdobywamy Szczeliniec wielki a późnej przeciskamy się przez skalne szczeliny aż do zejście z ścieżki  -->
-<!-- Wtedy Wchodzimy na czerwony szlak którym spokojnie idziemy w dół późnej nadal prosto ale niebieskim szlakiem dogodzimy  do auta  -->
-<!-- Całą trasą miała 8,5 kilometra i niecałe 500 metrów przewyższenia to świetna opcja żeby zaliczyć lepszą wędrówkę niż krótkie przejście turystycznym szlakiem  -->
-<!-- Kgp vlog  -->
-<!-- Nie mogliśmy uwierzyć że takie góry są w Polsce  -->
-<!-- Dojeżdżając na parking  już wiedzieliśmy że będzie grubo  -->
-<!-- A ledwo  po wyjściu z auta  czekał na nas 3 Piętrowy wodospad  -->
-<!-- Po którego zobaczeniu  nabieraliśmy przewyższenia naprawdę  kozackim szlakiem  -->
-<!-- Co chwilę jakieś niesamowite skały, mosty, polany i ruiny a przy tym wszystkim naprawdę mało turystów  -->
-<!-- Po 3 kilometrach tej niesamowitej wędrówki, zaczęła  się najbardziej ekscytująca część tej wyprawy  -->
-<!-- Weszliśmy  w skalny labirynt, z którego co chwilę roztaczały  się niesamowite widoki, po drodze zrobiliśmy postój  w unikatowym alpejskim  schronisko. A dalsza trasa prowadziła  przez wąskie szczeliny i skalne zakamarki tak ciasne że czasami mieliśmy problem przez nie przejść. -->
-<!-- Po tej istnie dopaminowej części przyszedł czas na powrót. Więc leśnym szlakiem pełnym  skał dotarliśmy spowrotem na parking  -->
-<!-- Ta góra to Szczeliniec wielki a jeśli chcecie zobaczyć jaki szlak wybrać to zaobserwujcie bo w kolejnym filmiku pokażemy trasę która jest naprawdę warta uwagi  -->
-<!-- Linki  -->
-<!-- Trasa z Radków -->
-<!-- Trasa 7,5 km • 3:14 ghttps://mapy.com/s/lagugovenu -->
-<!-- Parking  -->
-<!-- https://maps.app.goo.gl/PquwZpUaF2vygmpo6?g_st=com.google.maps.preview.copy -->
+Przeciskanie się przez te wszystkie zakamarki to czysta dopamina. Niektóre szczeliny są tak ciasne, że z plecakiem ledwo dajecie radę przejść. Po wyjściu z labiryntu wróciliśmy na dół czerwonym i niebieskim szlakiem prosto do auta. Cała pętla to jakieś 8,5 kilometra i 500 metrów podejść. To zdecydowanie lepsza opcja niż szybkie wbiegnięcie po schodach, bo czuć tu prawdziwy przygodowy klimat.

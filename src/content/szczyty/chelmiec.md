@@ -3,50 +3,26 @@ nazwa: "Chełmiec"
 region: "Góry Wałbrzyskie"
 wysokosc: 869
 czas: "2h"
-przewyzszenie: "+350mm"
+przewyzszenie: "+350m"
 trudnosc: "średnia"
 done: true
 data: ""
 kolejnosc: 5
-photo: "/EP_Website/images/chelmiec.jpg"
+photo: "/EP_Website/images/chelmiec-5.jpg"
 photos:
   - "/EP_Website/images/chelmiec-1.jpg"
   - "/EP_Website/images/chelmiec-2.jpg"
-  - "/EP_Website/images/chelmiec-3.jpg"
-  - "/EP_Website/images/chelmiec-4.jpg"
-  - "/EP_Website/images/chelmiec-5.jpg"
-# instagram: ""
-# tiktok: ""
+instagram: "https://www.instagram.com/reel/DU_FB-ljMcf/"
+tiktok: "https://www.tiktok.com/@yamandia.ep/video/7608978769918938390"
 gpx: "/EP_Website/gpx/chelmiec.gpx"
-# parking: ""
-# trasa: ""
+parking: "https://maps.app.goo.gl/JC5hCimcPsP14quF7?g_st=com.google.maps.preview.copy"
+trasa: "https://mapy.com/s/dusofepote"
 ---
 
-<!-- TODO: zamień poniższy skrypt na gotowy wpis blogowy -->
-<!-- Możesz wkleić skrypt do Gemini z prośbą: -->
-<!-- "Przepisz poniższy skrypt filmowy na luźny wpis blogowy po polsku, -->
-<!--  bez nagłówków, krótkie akapity, 200-300 słów" -->
+Chełmiec to nasz piąty szczyt w Koronie Gór Polski. Tym razem postawiliśmy na trasę, która jest trochę przekombinowana, ale za to mega ciekawa. Startujemy z darmowego parkingu w Boguszowie-Gorcach. Od razu wchodzimy na zielony szlak. Jest szeroki i idzie się nim całkiem płasko. Po drodze mijacie Kalwarię Trudu Górniczego, która oddaje hołd górnikom z tych okolic.
 
-Tutaj wklej gotowy wpis blogowy.
+Po niecałych dwóch kilometrach dochodzimy do Przełęczy Rosochatka. Tam odbijamy na żółty szlak, który prowadzi już prosto na samą górę. Na szczycie dzieje się naprawdę dużo i widać go z daleka. Największe wrażenie robi 45-metrowy krzyż milenijny. Stoją tam też wielkie maszty radiowe. Jest też stara wieża widokowa z XIX wieku, ale my mieliśmy pecha. Jest otwarta tylko w ciepłych miesiącach.
 
+Z tym szczytem wiąże się niezłe zamieszanie historyczne. Kiedyś mierzono jego wysokość razem z tą wieżą. Przez to Chełmiec był uznawany za najwyższy punkt Gór Wałbrzyskich. Prawda jest jednak taka, że wyższa jest Borowa. Pieczątkę do KGP znajdziecie przy samym wejściu do wieży, więc warto ją przybić przed zejściem.
 
-<!-- Kgp know how -->
-<!-- Jaki szlak wybrać na piąty szczyt Korony Gór Polski czyli Chełmiec? -->
-<!-- Nasza propozycja jest trochę przekombinowana ale za to  bardzo ciekawa -->
-<!-- Zaczynamy z darmowego parkingu w -->
-<!-- Miejscowości Boguszów Gorce i od razu wchodzimy na zielony szlak który jest szeroki i dosyć Płaski. -->
-<!-- Wzdłuż szlaku biegnie kalwaria trudu górniczego, która oddaje hołd górniką ziemi Wałbrzyskiej. -->
-<!-- Po niecałych 2 kilometrach Dochodzimy do przełęczy rosochatka gdzie odbijamy na żółty szlak który doprowadzi nas na szczyt  -->
-<!-- Na górze dużo się dzieje, -->
-<!--  wrażenie robi 45 metrowy krzyż milenijny, to nie  jedyna wysoka konstrukcja, są też maszty radiowe, i xix wieza widokowa widokowa, która niestety otwarta jest jedynie w ciepłych miesiącach  -->
-<!-- pierwotnie wysokość chłopca została mierzona razem z tą wieżą  co spowodowało że góra ta została uznana za najwyższy szczyt gór wałbrzyskich, a faktycznie najwyższa jest borowa, na którą też weszliśmy  -->
-<!-- Przy wieży znajduje się pieczątka do KGP  -->
-<!-- Przybijamy i schodzimy bardzo stromym zielonym szlakiem  -->
-<!-- Z którego odbijamy w lewo Na czarny szlak  dochodzimy na mały Chełmiec  -->
-<!-- Z którego schodzimy w dół czerwono niebiesko zoltym szlakiem w pewnym momencie musimy jednak skręciliśmy -->
-<!--  na nieoznakowaną ścieżką, która w pewnym momencie trochę się skończyła więc musieliśmy lekko umprozowuzowac późnej idziemy obok koni i trafiamy na parking  -->
-<!-- Zrobiliśmy niecałe 7km 340 metrów przewyższenia a zejlo nam to prawie dwie godziny  -->
-<!-- Jeśli chcecie dostać taka trasę na mapach com napiszcie na dm  -->
-<!-- Trasa z Boguszów -->
-<!-- Trasa 7 km • 2:44 ghttps://mapy.com/s/dusofepote -->
-<!-- Parking https://maps.app.goo.gl/JC5hCimcPsP14quF7?g_st=com.google.maps.preview.copy -->
+W dół ruszyliśmy zielonym szlakiem. Powiem wam, że jest tam konkretnie stromo. Potem odbiliśmy w lewo na czarny szlak, żeby zaliczyć jeszcze Mały Chełmiec. Na samym końcu trochę nas poniosło i skręciliśmy w nieoznakowaną ścieżkę. W pewnym momencie droga po prostu się skończyła. Musieliśmy trochę improwizować w krzakach, żeby wyjść na prostą. Ostatecznie przeszliśmy obok stada koni i trafiliśmy prosto na parking. Cała pętla to około 7 kilometrów i niecałe dwie godziny marszu.

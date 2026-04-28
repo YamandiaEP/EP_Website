@@ -1,50 +1,31 @@
 ---
 nazwa: "Czupel"
 region: "Beskid Mały"
-wysokosc: 930
+wysokosc: 934
 czas: "3h"
-przewyzszenie: "+600mm"
+przewyzszenie: "+600m"
 trudnosc: "łatwa"
 done: true
 data: ""
-kolejnosc: 10
-photo: "/EP_Website/images/czupel.jpg"
+kolejnosc: 9
+photo: "/EP_Website/images/czupel-4.jpg"
 photos:
-  - "/EP_Website/images/czupel-1.jpg"
   - "/EP_Website/images/czupel-2.jpg"
   - "/EP_Website/images/czupel-3.jpg"
-  - "/EP_Website/images/czupel-4.jpg"
-# instagram: ""
-# tiktok: ""
+  - "/EP_Website/images/czupel.jpg"
+instagram: "https://www.instagram.com/reel/DW9DxgDDPWA/"
+tiktok: "https://www.tiktok.com/@yamandia.ep/video/7627137872377810209"
 gpx: "/EP_Website/gpx/czupel.gpx"
-# parking: ""
-# trasa: ""
+parking: "https://maps.app.goo.gl/s4BTryUeviVy1mso8?g_st=com.google.maps.preview.copy"
+trasa: "https://mapy.com/s/holejuhepa"
 ---
 
-<!-- TODO: zamień poniższy skrypt na gotowy wpis blogowy -->
-<!-- Możesz wkleić skrypt do Gemini z prośbą: -->
-<!-- "Przepisz poniższy skrypt filmowy na luźny wpis blogowy po polsku, -->
-<!--  bez nagłówków, krótkie akapity, 200-300 słów" -->
+Czupel to dziewiąty szczyt w naszej koronie i szczerze mówiąc, ta góra jest po prostu średnia. Nawet sama nazwa brzmi tak sobie, ale że robimy projekt KGP po kolei od najniższych szczytów, to nie było zmiłuj. Musieliśmy tam wejść i tyle. 
 
-Tutaj wklej gotowy wpis blogowy.
+Zaczęliśmy w Międzybrodziu Bialskim. Zostawiliśmy auto na darmowym parkingu obok Lewiatana i od razu uderzyliśmy na czerwony szlak. Droga do góry jest dość stroma i, co tu dużo mówić, nudna. Przez większość czasu idzie się w gęstym lesie i niewiele widać. Jedynie co jakiś czas między drzewami mignął nam Zalew Żywiecki, co było w zasadzie jedynym urozmaiceniem tego podejścia.
 
+Po trzech kilometrach zmieniliśmy kolor szlaku na niebieski i po chwili zameldowaliśmy się na szczycie. Sam Czupel to głównie kamienie, sporo drzew i skrzynka z pieczątką. Przybiliśmy co trzeba i postanowiliśmy pobiec grzbietem w stronę Magurki Wilkowickiej. Po drodze minęliśmy jakąś jaskinię, ale nie udało nam się wejść do środka, więc lecieliśmy dalej.
 
-<!-- Link -->
-<!-- Trasa z Międzybrodzie Bialskie -->
-<!-- Trasa 12,3 km • 4:53 ghttps://mapy.com/s/holejuhepa -->
-<!-- Parking  -->
-<!-- https://maps.app.goo.gl/s4BTryUeviVy1mso8?g_st=com.google.maps.preview.copy -->
-<!-- Ta góra jest średnia  -->
-<!-- Ale robimy KGP w kolejności od najniższego do najwyższego szczytu więc musiliśmy wejść na czupel  -->
-<!-- (Nawet ta nazwa jest średnia) -->
-<!-- Zaczęliśmy w Międzybrodziu bialskim na darmowym parkingu obok lewiatana   -->
-<!-- I ruszyliśmy czerwonym szlakiem do góry  -->
-<!-- Cały czas było dosyć stromo i niezbyt widokowo -->
-<!-- Jedynie co jakiś czas zza drzew wyłaniał się Zalew Żywiecki  -->
-<!-- Po 3 kilometrach przeszliśmy na niebieski szlak i po chwili byliśmy na czuplu a tam kamienie drzewa i pieczątka KGP  -->
-<!-- Przybiliśmy i grzebieniem górskim pobiegliśmy w stronę magurki wilkowickiej  -->
-<!-- (Po drodze jest jakaś jaskinia do której nie udało nam się wejść)  -->
-<!-- Na Magorce było schronisko całkiem duże ale nic specjalnego  -->
-<!-- Wracaliśmy równoległą do szlaku  drogą leśną, warto pamiętać że takie trasy nie zawsze wyglądają dobrze a często w ogóle ich nie ma  -->
-<!-- Później trafiliśmy spowrotem na szlak i do auta  -->
-<!-- Czupel nas nie porwał ale przed nami jeszcze wiele interesujących szczytów także obserwujcie żeby nie przegapić  -->
+Na Magorce stoi całkiem duże schronisko, ale nas jakoś specjalnie nie porwało. Zjedliśmy co trzeba i ruszyliśmy w drogę powrotną. Zamiast trzymać się szlaku, wybraliśmy równoległą drogę leśną. To był mały hazard, bo takie ścieżki na mapach często wyglądają super, a w rzeczywistości ledwo istnieją albo kończą się w krzakach. Na szczęście jakoś udało się przebić z powrotem na szlak i wrócić do auta.
+
+Czupel nas nie zachwycił, ale to kolejny ważny punkt odhaczony na liście. Przed nami jeszcze sporo ciekawszych górek, więc bądźcie czujni i obserwujcie nasze kolejne wyprawy. Cała trasa zajęła nam prawie pięć godzin, a na liczniku wybiło ponad 12 kilometrów.

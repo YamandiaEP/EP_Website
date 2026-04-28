@@ -3,51 +3,30 @@ nazwa: "Skopiec"
 region: "Góry Kaczawskie"
 wysokosc: 724
 czas: "1h"
-przewyzszenie: "+170mm"
+przewyzszenie: "+170m"
 trudnosc: "łatwa"
 done: true
 data: ""
 kolejnosc: 3
-photo: "/EP_Website/images/skopiec.jpg"
+photo: "/EP_Website/images/skopiec-1.jpg"
 photos:
-  - "/EP_Website/images/skopiec-1.jpg"
+  - "/EP_Website/images/skopiec.jpg"
   - "/EP_Website/images/skopiec-2.jpg"
   - "/EP_Website/images/skopiec-3.jpg"
-  - "/EP_Website/images/skopiec-4.jpg"
-# instagram: ""
-# tiktok: ""
+
+instagram: "https://www.instagram.com/reel/DUaJcCpDHub/"
+tiktok: "https://www.tiktok.com/@yamandia.ep/video/7603654235229605142"
 gpx: "/EP_Website/gpx/skopiec.gpx"
-# parking: ""
-# trasa: ""
+parking: "https://mapy.com/s/pusomopoba"
+trasa: "https://mapy.com/s/mukasofagu"
 ---
 
-<!-- TODO: zamień poniższy skrypt na gotowy wpis blogowy -->
-<!-- Możesz wkleić skrypt do Gemini z prośbą: -->
-<!-- "Przepisz poniższy skrypt filmowy na luźny wpis blogowy po polsku, -->
-<!--  bez nagłówków, krótkie akapity, 200-300 słów" -->
+Skopiec ma opinię najprostszego i, co tu dużo mówić, najmniej atrakcyjnego szczytu w całej Koronie Gór Polski. Sporo osób wpada tu tylko po to, żeby przybić pieczątkę i uciekać dalej. My jednak uznaliśmy, że nawet taką górkę da się zrobić w lepszym stylu niż tylko banalne odhaczenie najkrótszego podejścia. 
 
-Tutaj wklej gotowy wpis blogowy.
+Zamiast iść prosto do celu, zrobiliśmy krótką, ale bardzo przyjemną pętlę przez Krainę Wygasłych Wulkanów. Startujemy z małego, darmowego parkingu w Komarnie. Idzie się stąd prosto na Przełęcz Komarnicką, gdzie stoi słynne "drzewo sandałowe". To taka rzeźba z butami, której nie da się przegapić i przy której każdy robi sobie fotę.
 
+Zamiast trzymać się tylko szlaku, przy rzeźbie skręciliśmy w prawo. Najpierw ruszyliśmy na Baraniec nieoznakowaną ścieżką. To był nasz pierwszy szczyt tego dnia. Potem tą samą drogą poszliśmy w stronę Skopca. Pod sam koniec trzeba tylko lekko zboczyć z trasy, żeby zameldować się na najwyższym punkcie. Pieczątkę znajdziecie bez problemu w skrzyneczce pod znakiem.
 
-<!-- Skopiec -->
-<!-- Kgp Know HOW  -->
-<!-- To najlepszy szlak na skopiec  -->
-<!-- My jesteśmy Yamandia EP a to jest KGP know how  -->
-<!-- Skopiec jest uważany za najprostszy  i najmniej atrakcyjny  szczyt KGP. I faktycznie może warto zrobić go po drodze w inne góry w tak zwanym między czasie.  -->
-<!-- Ale i tak można zrobić to w lepszym stylu niż banalne odhaczenie szczytu najkrótszym szlakiem  -->
-<!-- My zrobiliśmy 3 i pół kilometrową pętlę, podczas, której zdobyliśmy 3 szczyty, krainy wygasłych wulkanów.  -->
-<!-- Zaczynamy na małym darmowym parkingu w Komarnie.  -->
-<!-- Idziemy prosto aż do przełęczy Komarnickiej gdzie znajduje się charakterystyczna rzeźba drzewo sandałowe  -->
-<!-- obok rzeźby skręcamy w prawo, idziemy kawałek niebiesko czerwonym szlakiem po czym odbijamy na nieoznakowaną drogą prowadzącą na baraniec. Zdobywamy pierwszy szczyt. -->
-<!-- Kboontynujemy tą samą ścieżką którą idziemy prosto na Skopiec. ∆jedynie  pod koniec trzeba trochę zboczyć.  -->
-<!-- Przybijamy pieczątkę, która znajduje się pod znakiem i schodzimy w dół.  -->
-<!-- Trafiajmy na żółty szlak i idziemy nim aż do skrętu w prawo na folwarczną. To już trzeci szczyt tej wyprawy, po którego zdobyciu możemy kierować się w stronę parkingu.  -->
-<!-- Taka trasa nie jest zbytnio wymagająca ale za to bardzo widokowa, całość  ma około 160 metrów przewyższenia -->
-<!-- Całość zajęła nam 45 minut.  -->
-<!-- Link: -->
-<!-- Trasa z Komarno -->
-<!-- Trasa 3,4 km • 1:17 g -->
-<!-- https://mapy.com/s/mukasofagu -->
-<!-- Parking  -->
-<!-- Parking -->
-<!-- Komarno, Polskahttps://mapy.com/s/pusomopoba -->
+Żeby pętla była pełna, zeszliśmy do żółtego szlaku i odbiliśmy jeszcze na Folwarczną. To już trzeci wierzchołek podczas jednej, krótkiej wycieczki. Całość zajęła nam około 45 minut, a przewyższenia było tyle, co nic, bo tylko 160 metrów. 
+
+Mimo że Skopiec nie jest wybitnie wymagający, to w takim wydaniu trasa jest naprawdę widokowa i daje dużo więcej frajdy. To idealna opcja, żeby zdobyć szczyt KGP "w międzyczasie", kiedy jedziecie w inne, wyższe góry.
