@@ -1,19 +1,21 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 import SzczytLayout from '../../layouts/SzczytLayout.astro';
+
+type Props = { szczyt: CollectionEntry<'szczyty'> };
 
 export async function getStaticPaths() {
   const szczyty = await getCollection('szczyty');
   return szczyty.map(szczyt => ({
-    params: { slug: szczyt.slug },
+    params: { slug: szczyt.id },
     props:  { szczyt },
   }));
 }
 
 const { szczyt } = Astro.props;
-const { Content } = await szczyt.render();
+const { Content } = await render(szczyt);
 ---
 
-<SzczytLayout szczyt={szczyt.data} slug={szczyt.slug}>
+<SzczytLayout szczyt={szczyt.data} slug={szczyt.id}>
   <Content />
 </SzczytLayout>

@@ -240,7 +240,7 @@ function mountainSVG(seed: number) {
             </div>
             {d.done && (
               <div class="pk-read-row">
-                <a href={`${base}szczyty/${s.slug}`} class="pk-read">Czytaj relację →</a>
+                <a href={`${base}szczyty/${s.id}`} class="pk-read">Czytaj relację →</a>
               </div>
             )}
           </div>
@@ -269,7 +269,7 @@ function mountainSVG(seed: number) {
     {szczyty.map(s => (
       <div class:list={['kgp-cell', s.data.done && 'done']} title={`${String(s.data.kolejnosc).padStart(2,'0')}. ${s.data.nazwa} (${s.data.wysokosc}m)`}>
         {s.data.done
-          ? <a href={`${base}szczyty/${s.slug}`}>✓</a>
+          ? <a href={`${base}szczyty/${s.id}`}>✓</a>
           : String(s.data.kolejnosc).padStart(2,'0')
         }
       </div>
