@@ -8,9 +8,11 @@ trudnosc: "łatwa"
 done: true
 data: ""
 kolejnosc: 11
-photo: "/EP_Website/images/skalnik.jpg"
+photo: "/EP_Website/images/skalnik-1.jpg"
 photos:
-  - "/EP_Website/images/skalnik.jpg"
+  - "/EP_Website/images/skalnik-2.jpg"
+  - "/EP_Website/images/skalnik-3.jpg"
+  - "/EP_Website/images/skalnik-4.jpg"
 # instagram: ""
 # tiktok: ""
 gpx: "/EP_Website/gpx/skalnik.gpx"
@@ -30,4 +32,4 @@ Wracamy żółto-czerwonym szlakiem. Po drodze miniecie skały o nazwie „Konie
 
 Jeśli szukacie czegoś bardziej spektakularnego, sprawdźcie naszą alternatywną trasę. Znajdziecie tam ruiny zamku i unikalne schronisko, a wszystko to wśród wysokich, abstrakcyjnych skał z widokiem na Karkonosze.
 
-[Kliknij tutaj: Super atrakcyjna trasa przez Rudawy](https://mapy.com/s/fudemafede)
+[Kliknij tutaj: Lepsza trasa przez Rudawy](https://mapy.com/pl/turisticka?planovani-trasy&rc=9kNJ9xa0IQ3DRhq.hMtgo.evhfezgRZdak5VnhGT&rs=osm&rs=&rs=&rs=&rs=&rs=&ri=1056007415&ri=15.893200188875198%2C50.80628715455532&ri=15.900054574012756%2C50.80847516655922&ri=15.894101411104202%2C50.807400941848755&ri=15.895944088697433%2C50.797860994935036&ri=15.909226387739182%2C50.80096632242203&mrp=%7B%22c%22%3A132%2C%22dt%22%3A%22%22%2C%22d%22%3Atrue%7D&xc=%5B%5D&x=15.9014671&y=50.7973386&z=14)
