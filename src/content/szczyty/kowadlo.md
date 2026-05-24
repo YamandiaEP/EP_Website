@@ -18,12 +18,12 @@ parking: "https://maps.app.goo.gl/9n7S18HwT5JvXp2z7"
 trasa: "https://mapy.com/s/gukoperuse"
 ---
 
-Te dwa szczyty Korony Gór Polski leżą naprawdę blisko siebie, ale popularne blogi turystyczne uparcie twierdzą, że nie da się ich sensownie połączyć w jedną trasę. My oczywiście postanowiliśmy to sprawdzić po swojemu. Startujemy z totalnego końca świata, czyli z Bielic, gdzie zasięg w telefonach gubi się na dobre jakieś 10 kilometrów przed parkingiem.
+Kowadło to dwunasty szczyt na naszej liście Korony Gór Polski. Leży rzut beretem od Rudawca, ale jeśli poczytacie popularne blogi turystyczne, to dowiedziecie się, że nie da się ich sensownie połączyć w jedną trasę. My oczywiście nie lubimy prostych rozwiązań, więc postanowiliśmy udowodnić, że jak najbardziej się da i to w świetnym stylu.
 
-Ruszamy w górę zielonym szlakiem. Droga prowadzi przez łąki i lasy, a już po około 30 minutach meldujemy się na naszym pierwszym celu, czyli na Kowadle. Szybkie przybicie pieczątki do książeczki, chwila oddechu i lecimy dalej w stronę drugiego szczytu.
+Naszą przygodę z Górami Złotymi zaczynamy na totalnym końcu świata, czyli w Bielicach. Zasięg w telefonie znika tam jakieś 10 kilometrów przed darmowym parkingiem, więc jesteście zdani tylko na siebie. Wchodzimy na zielony szlak i od razu ruszamy mocno pod górę. Droga prowadzi przez malownicze łąki i gęsty las. Idzie się sprawnie, bo już po jakichś 30 minutach meldujemy się na szczycie Kowadła.
 
-Cały czas idziemy wzdłuż granicy z Czechami. Szczerze mówiąc, nastawiałem się na nudny, monotonny spacer wśród drzew, a rzeczywistość nas bardzo pozytywnie zaskoczyła. Było całkiem widokowo, a momentami robiło się nawet przyjemnie skaliście. W pewnym momencie odbiliśmy na chwilę w głąb Republiki Czeskiej, żeby zrobić dłuższą przerwę w schronisku Paprsek. Niestety, nasz wrodzony nonkonformizm kolejkowy wygrał – nie chciało nam się stać po czeskie specjały. Zamiast tego zjedliśmy kilogram własnych pistacji, wypiliśmy kawkę i wróciliśmy na trasę.
+Sam szczyt ma swój urok, szybko odnajdujemy skrzyneczkę i wjeżdża pierwsza tego dnia pieczątka do książeczki KGP. Po krótkiej przerwie na foty lecimy dalej, bo plan na ten dzień był znacznie ambitniejszy niż szybki powrót do auta.
 
-Idąc dalej wzdłuż granicy, dotarliśmy na kolejny szczyt KGP tego dnia, czyli Rudawiec. Przybiliśmy już drugą pieczątkę do kolekcji, zrobiliśmy szybką zawrotkę i skręciliśmy w lewo. Stamtąd lekko stromym, zielonym szlakiem zeszliśmy prosto do Doliny Białej Lądeckiej – tej samej, w której zimą śmigaliśmy na biegówkach.
+Dalsza trasa prowadzi nas prosto wzdłuż granicy z Czechami. Szczerze mówiąc, nastawiałem się na nudny i monotonny leśny szlak, ale rzeczywistość mocno nas zaskoczyła. Było zaskakująco widokowo, a ścieżka momentami robiła się przyjemnie skalista. W pewnym momencie odbiliśmy lekko w głąb Czech, żeby zrobić przerwę w schronisku Paprsek. Przez nasz wrodzony nonkonformizm kolejkowy odpuściliśmy stanie po czeskie specjały, ale za to na ławce wjechał kilogram własnych pistacji i szybka kawka.
 
-Na koniec czekał nas już tylko spokojny, prosty marsz leśną drogą, która doprowadziła nas z powrotem do auta. Trasa okazała się absolutnym hitem i idealnym dowodem na to, że nie warto bezgranicznie wierzyć we wszystko, co piszą w sieci.
+Stamtąd ruszyliśmy dalej grzbietem, zaliczyliśmy sąsiedni Rudawiec i zeszliśmy zielonym szlakiem prosto do Doliny Białej Lądeckiej. Zimą śmigaliśmy tu na biegówkach, a teraz, idąc spokojnie przed siebie, zamknęliśmy tę genialną pętlę prosto przy aucie.
