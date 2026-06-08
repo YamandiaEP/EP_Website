@@ -7,14 +7,14 @@ przewyzszenie: "+650m"
 trudnosc: "średnia"
 done: true
 data: ""
-kolejnosc: 13
+kolejnosc: 18
 photo: "/EP_Website/images/rudawiec.jpg"
 photos:
   - "/EP_Website/images/rudawiec.jpg"
 instagram: "https://www.instagram.com/reel/DYuhy8HMhGR/"
 tiktok: "https://www.tiktok.com/@yamandia.ep/video/7643487579995655456"
 gpx: "/EP_Website/gpx/kowadlo_rudawiec.gpx"
-parking: "https://maps.app.goo.gl/9n7S18HwT5JvXp2z7"
+
 trasa: "https://mapy.com/s/gukoperuse"
 ---
 
