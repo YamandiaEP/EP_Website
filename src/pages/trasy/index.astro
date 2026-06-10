@@ -1,0 +1,99 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const wszystkie = await getCollection('trasy');
+const trasy = wszystkie.sort((a, b) => a.data.kolejnosc - b.data.kolejnosc);
+const opublikowane = trasy.filter(t => t.data.done);
+const base = import.meta.env.BASE_URL;
+
+const diffLabel: Record<string, string> = { 'łatwa': 'Łatwa', 'średnia': 'Średnia', 'trudna': 'Trudna' };
+---
+<Layout title="Trasy rowerowe — Yamandia EP">
+<style>
+/* HERO */
+.t-hero { min-height: 60vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 9rem 2rem 3rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+.t-hero-kicker { font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-bottom:1rem; display:flex; align-items:center; gap:1rem; }
+.t-hero-kicker::before { content:''; width:2.5rem; height:1px; background:var(--muted); }
+.t-hero-title { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(3rem,10vw,8rem); line-height:0.9; letter-spacing:-0.02em; text-transform:uppercase; color:var(--white); }
+.t-hero-title .inv { background:var(--white); color:var(--black); padding:0 0.12em; }
+
+/* SECTION HEAD */
+.section-head { padding:3rem 2rem 2rem; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:baseline; }
+.sh-title { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(2rem,5vw,3.5rem); text-transform:uppercase; letter-spacing:-0.02em; line-height:1; }
+.sh-sub { font-family:'Space Mono',monospace; font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; }
+
+/* ROUTE BANNERS */
+.routes { display:flex; flex-direction:column; }
+.route { position:relative; border-bottom:1px solid var(--border); padding:2.4rem 2rem; transition:background 0.2s; overflow:hidden; }
+.route:hover { background:var(--grey); }
+.route-link { position:absolute; inset:0; z-index:3; }
+.route-bg-num { position:absolute; top:50%; right:2rem; transform:translateY(-50%); font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:11rem; line-height:1; color:var(--white); opacity:0.05; letter-spacing:-0.04em; pointer-events:none; user-select:none; }
+.route-top { display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:1.2rem; position:relative; z-index:1; flex-wrap:wrap; }
+.route-tag { font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); border:1px solid var(--border); padding:0.3rem 0.7rem; }
+.route-region { font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); }
+.route-name { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(2.2rem,6vw,4.2rem); text-transform:uppercase; letter-spacing:-0.02em; line-height:0.92; margin-bottom:1.4rem; display:flex; align-items:center; gap:0.35em; flex-wrap:wrap; position:relative; z-index:1; }
+.route-name .arrow { color:#e63946; }
+.route-stats { display:flex; gap:2.5rem; flex-wrap:wrap; padding-top:1.2rem; border-top:1px solid var(--border); position:relative; z-index:1; }
+.rs-v { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:1.6rem; color:var(--white); line-height:1; }
+.rs-k { font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-top:0.2rem; }
+.route-cta { margin-left:auto; align-self:flex-end; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:1rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--white); display:inline-flex; align-items:center; gap:0.4rem; transition:gap 0.2s; }
+.route:hover .route-cta { gap:0.9rem; }
+
+/* EMPTY hint */
+.empty { padding:3rem 2rem 5rem; color:var(--muted); font-family:'Space Mono',monospace; font-size:0.8rem; letter-spacing:0.05em; }
+
+@media (max-width:768px) {
+  .t-hero { min-height:48vh; padding:7rem 1.3rem 2.2rem; }
+  .section-head { padding:2.4rem 1.3rem 1.4rem; }
+  .route { padding:1.9rem 1.3rem; }
+  .route-name { margin-bottom:1.2rem; }
+  .route-cta { flex-basis:100%; margin-left:0; margin-top:0.4rem; padding-top:1rem; border-top:1px solid var(--border); justify-content:space-between; }
+}
+@media (max-width:600px) {
+  .route-bg-num { font-size:6rem; right:0.3rem; opacity:0.06; }
+  .route-stats { gap:1.3rem; }
+  .rs-v { font-size:1.4rem; }
+}
+</style>
+
+<!-- HERO -->
+<div class="t-hero">
+  <div class="t-hero-kicker">Yamandia EP · Dwa kółka</div>
+  <h1 class="t-hero-title">Trasy<br><span class="inv">rowerowe</span></h1>
+</div>
+
+<!-- LISTA TRAS -->
+<div class="section-head">
+  <h2 class="sh-title">Wszystkie trasy</h2>
+  <span class="sh-sub">{opublikowane.length} {opublikowane.length === 1 ? 'trasa' : 'tras'}</span>
+</div>
+
+{opublikowane.length === 0 ? (
+  <div class="empty">Wkrótce pierwsze trasy — wracaj niedługo.</div>
+) : (
+  <div class="routes">
+    {opublikowane.map((t) => {
+      const d = t.data;
+      return (
+        <div class="route">
+          <a href={`${base}trasy/${t.id}`} class="route-link" aria-label={`${d.start} → ${d.meta}`}></a>
+          <div class="route-bg-num">{String(d.kolejnosc).padStart(2,'0')}</div>
+          <div class="route-top">
+            <span class="route-tag">{d.nawierzchnia} · {diffLabel[d.trudnosc]}</span>
+            <span class="route-region">{d.region}</span>
+          </div>
+          <div class="route-name"><span>{d.start}</span><span class="arrow">→</span><span>{d.meta}</span></div>
+          <div class="route-stats">
+            <div><div class="rs-v">{d.dystans}</div><div class="rs-k">Dystans</div></div>
+            <div><div class="rs-v">{d.dni}</div><div class="rs-k">Czas</div></div>
+            <div><div class="rs-v">{d.przewyzszenie}</div><div class="rs-k">Przewyższ.</div></div>
+            <span class="route-cta">Zobacz trasę →</span>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+)}
+
+</Layout>

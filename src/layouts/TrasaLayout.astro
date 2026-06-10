@@ -1,0 +1,301 @@
+---
+import Layout from './Layout.astro';
+const { trasa, slug } = Astro.props;
+const { nazwa, start, meta, region, dystans, dni, przewyzszenie, nawierzchnia,
+        trudnosc, data, photo, photos, instagram, tiktok, gpx, mapa } = trasa;
+
+const trudnoscLabel: Record<string, string> = { 'łatwa': 'Łatwa', 'średnia': 'Średnia', 'trudna': 'Trudna' };
+const base = import.meta.env.BASE_URL;
+---
+<Layout title={`${nazwa} — Yamandia EP`}>
+<style>
+.trasa-hero {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 8rem 2rem 3rem;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background: #101010;
+}
+.trasa-photo { position: absolute; inset: 0; object-fit: cover; width: 100%; height: 100%; filter: brightness(0.35); }
+.trasa-cover { position: absolute; inset: 0; width: 100%; height: 100%; }
+.trasa-cover-route-m { display: none; }
+.trasa-hero-content { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; width: 100%; }
+.back-link {
+  font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(242,240,235,0.65); text-decoration: none;
+  display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; transition: color 0.2s;
+}
+.back-link:hover { color: #f2f0eb; }
+.trasa-region {
+  font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: rgba(242,240,235,0.65); margin-bottom: 0.6rem;
+  display: flex; align-items: center; gap: 0.7rem;
+}
+.trasa-region::before { content: ''; width: 2rem; height: 1px; background: rgba(242,240,235,0.5); display: block; }
+.trasa-route {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: clamp(2.6rem, 7vw, 5.5rem); text-transform: uppercase;
+  letter-spacing: -0.02em; line-height: 0.92; margin-bottom: 1rem;
+  color: #f2f0eb; -webkit-text-stroke: 2px #111; paint-order: stroke fill;
+  display: flex; align-items: center; gap: 0.4em; flex-wrap: wrap;
+}
+.trasa-route .arrow { -webkit-text-stroke: 0; font-size: 0.7em; opacity: 0.85; }
+[data-theme="light"] .trasa-route { color: #111; -webkit-text-stroke: 4px #f2f0eb; }
+
+.trasa-body { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+.data-bar {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--border); border-top: none; margin-bottom: 3rem;
+}
+.db-cell { padding: 1.2rem 1.5rem; border-right: 1px solid var(--border); }
+.db-cell:last-child { border-right: none; }
+.db-key {
+  font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem;
+}
+.db-val {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 1.5rem; color: var(--white); line-height: 1;
+}
+.actions {
+  display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 3rem;
+  padding-bottom: 2.5rem; border-bottom: 1px solid var(--border);
+}
+.actions a { width: 100%; justify-content: center; box-sizing: border-box; }
+/* Style są scoped — globalny border-box z Layout.astro tu nie sięga, więc wymuszamy lokalnie */
+.data-bar, .db-cell, #mapa, .btn-social, .btn-outline { box-sizing: border-box; }
+.btn-social {
+  display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.9rem 1.6rem;
+  background: var(--white); color: var(--black); font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: none; border: 1px solid var(--white); transition: all 0.2s;
+}
+.btn-social:hover { background: var(--btn-hover); border-color: var(--btn-hover); }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.9rem 1.6rem;
+  background: transparent; color: var(--white); font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: none; border: 1px solid var(--border); transition: all 0.2s;
+}
+.btn-outline:hover { border-color: var(--white); }
+
+.relacja { color: var(--muted); font-size: 1.05rem; line-height: 1.85; font-weight: 300; margin-bottom: 3rem; }
+.relacja :global(p) { margin-bottom: 1.4rem; }
+.relacja :global(h2) {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.5rem;
+  text-transform: uppercase; color: var(--white); margin: 2rem 0 0.8rem; letter-spacing: 0.02em;
+}
+.relacja :global(ul) { margin: 0 0 1.4rem 1.1rem; }
+.relacja :global(li) { margin-bottom: 0.5rem; }
+.relacja :global(strong) { color: var(--white); font-weight: 500; }
+.relacja :global(a) { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.relacja :global(a:hover) { color: var(--white); }
+
+.gallery { display: grid; gap: 0.5rem; margin-bottom: 4rem; }
+.gallery img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; cursor: zoom-in; transition: opacity 0.2s; }
+.gallery img:hover { opacity: 0.85; }
+
+/* Lightbox */
+.lb-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out; }
+.lb-overlay.lb-open { display: flex; }
+.lb-overlay img { max-width: 92vw; max-height: 90vh; object-fit: contain; box-shadow: 0 0 60px rgba(0,0,0,0.8); cursor: default; }
+.lb-close { position: absolute; top: 1.2rem; right: 1.5rem; font-size: 2rem; color: #fff; cursor: pointer; line-height: 1; opacity: 0.7; background: none; border: none; padding: 0; }
+.lb-close:hover { opacity: 1; }
+.lb-prev, .lb-next { position: absolute; top: 50%; transform: translateY(-50%); font-size: 3rem; color: #fff; background: none; border: none; cursor: pointer; opacity: 0.6; padding: 0 1rem; line-height: 1; user-select: none; z-index: 2; }
+.lb-prev { left: 0.5rem; } .lb-next { right: 0.5rem; }
+.lb-prev:hover, .lb-next:hover { opacity: 1; }
+.lb-prev.lb-hidden, .lb-next.lb-hidden { display: none; }
+
+/* MAPA */
+.mapa-section { margin-bottom: 3rem; }
+.mapa-label {
+  font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem;
+  display: flex; align-items: center; gap: 0.7rem;
+}
+.mapa-label::before { content: ''; width: 2rem; height: 1px; background: var(--muted); display: block; }
+#mapa { width: 100%; height: 460px; border: 1px solid var(--border); background: var(--grey); position: relative; z-index: 0; isolation: isolate; }
+.leaflet-control-attribution { font-size: 0.55rem !important; }
+.leaflet-control-zoom a { background: #fff !important; color: #333 !important; }
+
+@media (max-width: 768px) {
+  .trasa-hero { padding: 6.5rem 1.3rem 2.2rem; min-height: 56vh; }
+  .trasa-body { padding: 0 1.3rem; }
+  .trasa-route { font-size: clamp(2rem, 10vw, 3.4rem); gap: 0.25em; }
+  .back-link { margin-bottom: 1rem; }
+  .trasa-cover-route-d { display: none; }
+  .trasa-cover-route-m { display: block; }
+  /* Tabela danych: 2×2, ta sama szerokość i pozycja co przyciski i mapa */
+  .data-bar { grid-template-columns: repeat(2, 1fr); }
+  .db-cell { padding: 1rem 1.2rem; }
+  .db-cell:nth-child(2n) { border-right: none; }
+  .db-cell:nth-child(1), .db-cell:nth-child(2) { border-bottom: 1px solid var(--border); }
+  .db-val { font-size: 1.35rem; }
+  .actions { gap: 0.5rem; }
+}
+@media (max-width: 700px) {
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+  #mapa { height: 300px; }
+}
+</style>
+
+<div class="trasa-hero">
+  {photo
+    ? <img src={photo} alt={nazwa} class="trasa-photo" />
+    : (
+      <Fragment>
+        <!-- Tło: góry — zawsze pełny kadr, także za napisami -->
+        <svg class="trasa-cover trasa-cover-bg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="600" fill="#101010"/>
+          <path d="M0 600 L0 470 L180 430 L360 460 L520 400 L700 450 L880 410 L1060 440 L1200 415 L1200 600 Z" fill="#161616"/>
+          <path d="M0 600 L0 520 L240 500 L520 512 L820 498 L1200 510 L1200 600 Z" fill="#1c1c1c"/>
+        </svg>
+        <!-- Szlak + kropki: desktop (pełna szerokość) -->
+        <svg class="trasa-cover trasa-cover-route trasa-cover-route-d" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <path d="M120 330 Q400 250 600 320 T1080 290" fill="none" stroke="#e63946" stroke-width="5" stroke-dasharray="2 14" stroke-linecap="round"/>
+          <circle cx="120" cy="330" r="11" fill="#e63946"/>
+          <circle cx="1080" cy="290" r="11" fill="#f2f0eb"/>
+        </svg>
+        <!-- Szlak + kropki: mobile (w całości widoczne, u góry — nie nachodzą na tekst) -->
+        <svg class="trasa-cover trasa-cover-route trasa-cover-route-m" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMin meet" xmlns="http://www.w3.org/2000/svg">
+          <path d="M120 330 Q400 250 600 320 T1080 290" fill="none" stroke="#e63946" stroke-width="5" stroke-dasharray="2 14" stroke-linecap="round"/>
+          <circle cx="120" cy="330" r="11" fill="#e63946"/>
+          <circle cx="1080" cy="290" r="11" fill="#f2f0eb"/>
+        </svg>
+      </Fragment>
+    )
+  }
+  <div class="trasa-hero-content">
+    <a href={`${base}trasy`} class="back-link">← Trasy rowerowe</a>
+    <div class="trasa-region">{region}</div>
+    <h1 class="trasa-route"><span>{start}</span><span class="arrow">→</span><span>{meta}</span></h1>
+  </div>
+</div>
+
+<div class="trasa-body">
+
+  <div class="data-bar">
+    <div class="db-cell"><div class="db-key">Dystans</div><div class="db-val">{dystans}</div></div>
+    <div class="db-cell"><div class="db-key">Czas</div><div class="db-val">{dni}</div></div>
+    <div class="db-cell"><div class="db-key">Przewyższenie</div><div class="db-val">{przewyzszenie}</div></div>
+    <div class="db-cell"><div class="db-key">Nawierzchnia</div><div class="db-val">{nawierzchnia}</div></div>
+  </div>
+
+  <div class="actions">
+    {instagram && (
+      <a href={instagram} target="_blank" rel="noopener" class="btn-social">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+    )}
+    {tiktok && (
+      <a href={tiktok} target="_blank" rel="noopener" class="btn-social">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
+        TikTok
+      </a>
+    )}
+    {gpx && <a href={gpx} download class="btn-outline">↓ Pobierz GPX</a>}
+    {mapa && <a href={mapa} target="_blank" rel="noopener" class="btn-outline">⊕ Trasa → Mapy.com</a>}
+  </div>
+
+  {gpx && (
+    <div class="mapa-section">
+      <div class="mapa-label">Mapa trasy</div>
+      <div id="mapa"></div>
+    </div>
+  )}
+
+  <div class="relacja">
+    <slot />
+  </div>
+
+  {photos && photos.length > 0 && (
+    <div class="gallery" style={`grid-template-columns: repeat(${Math.min(photos.length, 3)}, 1fr);`}>
+      {photos.map((src: string) => (
+        <img src={src} alt={`${nazwa} - zdjęcie`} loading="lazy" class="lb-trigger" />
+      ))}
+    </div>
+  )}
+
+  <div class="lb-overlay" id="lb-overlay">
+    <button class="lb-close" id="lb-close" aria-label="Zamknij">×</button>
+    <button class="lb-prev" id="lb-prev" aria-label="Poprzednie">&#8249;</button>
+    <img id="lb-img" src="" alt="" />
+    <button class="lb-next" id="lb-next" aria-label="Następne">&#8250;</button>
+  </div>
+
+</div>
+
+{gpx && (
+  <Fragment>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script define:vars={{ gpx }}>
+      window.addEventListener('load', function() {
+        const map = L.map('mapa');
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          maxZoom: 19,
+        }).addTo(map);
+        fetch(window.location.origin + gpx)
+          .then(r => r.text())
+          .then(gpxText => {
+            const xml = new DOMParser().parseFromString(gpxText, 'application/xml');
+            const points = xml.querySelectorAll('trkpt');
+            const latlngs = Array.from(points).map(p => [
+              parseFloat(p.getAttribute('lat')), parseFloat(p.getAttribute('lon'))
+            ]);
+            if (latlngs.length > 0) {
+              const line = L.polyline(latlngs, { color: '#e63946', weight: 4, opacity: 1 }).addTo(map);
+              L.circleMarker(latlngs[0], { radius: 7, color: '#fff', fillColor: '#e63946', fillOpacity: 1, weight: 2 }).addTo(map);
+              L.circleMarker(latlngs[latlngs.length - 1], { radius: 7, color: '#e63946', fillColor: '#fff', fillOpacity: 1, weight: 2 }).addTo(map);
+              // Upewnij się, że mapa zna prawdziwą szerokość kontenera (po pasku przewijania / czcionkach)
+              map.invalidateSize();
+              map.fitBounds(line.getBounds(), { padding: [40, 40] });
+            }
+          })
+          .catch(err => console.error('GPX error:', err));
+        // Korekta rozmiaru po pełnym ułożeniu strony i przy każdej zmianie okna
+        requestAnimationFrame(() => map.invalidateSize());
+        window.addEventListener('resize', () => map.invalidateSize());
+      });
+    </script>
+  </Fragment>
+)}
+
+<script>
+  const overlay = document.getElementById('lb-overlay');
+  if (overlay) {
+    const lbImg   = document.getElementById('lb-img') as HTMLImageElement;
+    const lbClose = document.getElementById('lb-close')!;
+    const lbPrev  = document.getElementById('lb-prev')!;
+    const lbNext  = document.getElementById('lb-next')!;
+    const imgs = Array.from(document.querySelectorAll<HTMLImageElement>('.lb-trigger'));
+    let current = 0;
+    function show(index: number) {
+      current = index;
+      lbImg.src = imgs[current].src; lbImg.alt = imgs[current].alt;
+      lbPrev.classList.toggle('lb-hidden', current === 0);
+      lbNext.classList.toggle('lb-hidden', current === imgs.length - 1);
+      overlay!.classList.add('lb-open');
+    }
+    function close() { overlay!.classList.remove('lb-open'); lbImg.src = ''; }
+    imgs.forEach((img, i) => img.addEventListener('click', () => show(i)));
+    lbClose.addEventListener('click', close);
+    lbPrev.addEventListener('click', () => show(current - 1));
+    lbNext.addEventListener('click', () => show(current + 1));
+    overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', e => {
+      if (!overlay!.classList.contains('lb-open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft' && current > 0) show(current - 1);
+      if (e.key === 'ArrowRight' && current < imgs.length - 1) show(current + 1);
+    });
+  }
+</script>
+
+</Layout>

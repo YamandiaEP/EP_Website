@@ -1,0 +1,21 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import TrasaLayout from '../../layouts/TrasaLayout.astro';
+
+type Props = { trasa: CollectionEntry<'trasy'> };
+
+export async function getStaticPaths() {
+  const trasy = await getCollection('trasy');
+  return trasy.map(trasa => ({
+    params: { slug: trasa.id },
+    props:  { trasa },
+  }));
+}
+
+const { trasa } = Astro.props;
+const { Content } = await render(trasa);
+---
+
+<TrasaLayout trasa={trasa.data} slug={trasa.id}>
+  <Content />
+</TrasaLayout>
