@@ -8,15 +8,15 @@ trudnosc: "łatwa"
 done: true
 data: ""
 kolejnosc: 3
-photo: "/EP_Website/images/skopiec-1.jpg"
+photo: "/images/skopiec-1.jpg"
 photos:
-  - "/EP_Website/images/skopiec.jpg"
-  - "/EP_Website/images/skopiec-2.jpg"
-  - "/EP_Website/images/skopiec-3.jpg"
+  - "/images/skopiec.jpg"
+  - "/images/skopiec-2.jpg"
+  - "/images/skopiec-3.jpg"
 
 instagram: "https://www.instagram.com/reel/DUaJcCpDHub/"
 tiktok: "https://www.tiktok.com/@yamandia.ep/video/7603654235229605142"
-gpx: "/EP_Website/gpx/skopiec.gpx"
+gpx: "/gpx/skopiec.gpx"
 parking: "https://mapy.com/s/pusomopoba"
 trasa: "https://mapy.com/s/mukasofagu"
 ---

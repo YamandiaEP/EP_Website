@@ -8,14 +8,14 @@ trudnosc: "łatwa"
 done: true
 data: ""
 kolejnosc: 9
-photo: "/EP_Website/images/czupel-4.jpg"
+photo: "/images/czupel-4.jpg"
 photos:
-  - "/EP_Website/images/czupel-2.jpg"
-  - "/EP_Website/images/czupel-3.jpg"
-  - "/EP_Website/images/czupel.jpg"
+  - "/images/czupel-2.jpg"
+  - "/images/czupel-3.jpg"
+  - "/images/czupel.jpg"
 instagram: "https://www.instagram.com/reel/DW9DxgDDPWA/"
 tiktok: "https://www.tiktok.com/@yamandia.ep/video/7627137872377810209"
-gpx: "/EP_Website/gpx/czupel.gpx"
+gpx: "/gpx/czupel.gpx"
 parking: "https://maps.app.goo.gl/s4BTryUeviVy1mso8?g_st=com.google.maps.preview.copy"
 trasa: "https://mapy.com/s/holejuhepa"
 ---

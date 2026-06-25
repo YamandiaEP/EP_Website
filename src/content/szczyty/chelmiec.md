@@ -8,13 +8,13 @@ trudnosc: "średnia"
 done: true
 data: ""
 kolejnosc: 5
-photo: "/EP_Website/images/chelmiec-5.jpg"
+photo: "/images/chelmiec-5.jpg"
 photos:
-  - "/EP_Website/images/chelmiec-1.jpg"
-  - "/EP_Website/images/chelmiec-2.jpg"
+  - "/images/chelmiec-1.jpg"
+  - "/images/chelmiec-2.jpg"
 instagram: "https://www.instagram.com/reel/DU_FB-ljMcf/"
 tiktok: "https://www.tiktok.com/@yamandia.ep/video/7608978769918938390"
-gpx: "/EP_Website/gpx/chelmiec.gpx"
+gpx: "/gpx/chelmiec.gpx"
 parking: "https://maps.app.goo.gl/JC5hCimcPsP14quF7?g_st=com.google.maps.preview.copy"
 trasa: "https://mapy.com/s/dusofepote"
 ---

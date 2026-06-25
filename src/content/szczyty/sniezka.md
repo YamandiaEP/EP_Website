@@ -8,12 +8,12 @@ trudnosc: "średnia"
 done: true
 data: ""
 kolejnosc: 26
-photo: "/EP_Website/images/sniezka.jpg"
+photo: "/images/sniezka.jpg"
 photos:
-  - "/EP_Website/images/sniezka.jpg"
+  - "/images/sniezka.jpg"
 instagram: "https://www.instagram.com/p/DZNsqfJjOYP"
 tiktok: "https://www.tiktok.com/@yamandia.ep/video/7646800557667126560"
-gpx: "/EP_Website/gpx/sniezka.gpx"
+gpx: "/gpx/sniezka.gpx"
 
 trasa: "https://mapy.com/s/hakabadozu"
 ---

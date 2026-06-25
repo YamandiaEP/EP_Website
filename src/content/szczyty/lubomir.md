@@ -8,13 +8,13 @@ trudnosc: "łatwa"
 done: true
 data: ""
 kolejnosc: 7
-photo: "/EP_Website/images/lubomir-2.jpg"
+photo: "/images/lubomir-2.jpg"
 photos:
-  - "/EP_Website/images/lubomir-1.jpg"
-  - "/EP_Website/images/lubomir-3.jpg"
+  - "/images/lubomir-1.jpg"
+  - "/images/lubomir-3.jpg"
 instagram: "https://www.instagram.com/reel/DV1IeUuDOjx/"
 tiktok: "https://www.tiktok.com/@yamandia.ep/video/7616773891297381665"
-gpx: "/EP_Website/gpx/lubomir.gpx"
+gpx: "/gpx/lubomir.gpx"
 parking: "https://maps.app.goo.gl/LzjsTPsaycWVSGF29?g_st=com.google.maps.preview.copy"
 trasa: "https://mapy.com/s/jegebuhefa"
 ---

@@ -8,15 +8,15 @@ trudnosc: "średnia"
 done: true
 data: ""
 kolejnosc: 10
-photo: "/EP_Website/images/waligora-5.jpg"
+photo: "/images/waligora-5.jpg"
 photos:
-  - "/EP_Website/images/waligora-1.jpg"
-  - "/EP_Website/images/waligora-2.jpg"
-  - "/EP_Website/images/waligora-3.jpg"
-  - "/EP_Website/images/waligora-4.jpg"
+  - "/images/waligora-1.jpg"
+  - "/images/waligora-2.jpg"
+  - "/images/waligora-3.jpg"
+  - "/images/waligora-4.jpg"
 instagram: "https://www.instagram.com/reel/DXb4tMgjAqA/"
 tiktok: "https://www.tiktok.com/@yamandia.ep/video/7631625685118749984"
-gpx: "/EP_Website/gpx/waligora.gpx"
+gpx: "/gpx/waligora.gpx"
 parking: "https://maps.app.goo.gl/2RnL92ckHyrWMyfN9?g_st=com.google.maps.preview.copy"
 trasa: "https://mapy.com/s/batecomeno"
 ---

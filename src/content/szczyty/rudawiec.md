@@ -8,12 +8,12 @@ trudnosc: "średnia"
 done: true
 data: ""
 kolejnosc: 18
-photo: "/EP_Website/images/rudawiec.jpg"
+photo: "/images/rudawiec.jpg"
 photos:
-  - "/EP_Website/images/rudawiec.jpg"
+  - "/images/rudawiec.jpg"
 instagram: "https://www.instagram.com/reel/DYuhy8HMhGR/"
 tiktok: "https://www.tiktok.com/@yamandia.ep/video/7643487579995655456"
-gpx: "/EP_Website/gpx/kowadlo_rudawiec.gpx"
+gpx: "/gpx/kowadlo_rudawiec.gpx"
 
 trasa: "https://mapy.com/s/gukoperuse"
 ---

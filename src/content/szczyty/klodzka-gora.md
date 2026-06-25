@@ -8,17 +8,17 @@ trudnosc: "łatwa"
 done: true
 data: ""
 kolejnosc: 4
-photo: "/EP_Website/images/klodzka-gora-7.jpg"
+photo: "/images/klodzka-gora-7.jpg"
 photos:
-  - "/EP_Website/images/klodzka-gora-1.jpg"
-  - "/EP_Website/images/klodzka-gora-2.jpg"
-  - "/EP_Website/images/klodzka-gora-3.jpg"
-  - "/EP_Website/images/klodzka-gora-5.jpg"
-  - "/EP_Website/images/klodzka-gora-6.jpg"
+  - "/images/klodzka-gora-1.jpg"
+  - "/images/klodzka-gora-2.jpg"
+  - "/images/klodzka-gora-3.jpg"
+  - "/images/klodzka-gora-5.jpg"
+  - "/images/klodzka-gora-6.jpg"
 
 instagram: "https://www.instagram.com/reel/DUs-BBTjO8m/"
 tiktok: "https://www.tiktok.com/@yamandia.ep/video/7606368732192984323"
-gpx: "/EP_Website/gpx/klodzka-gora.gpx"
+gpx: "/gpx/klodzka-gora.gpx"
 parking: "https://maps.app.goo.gl/qmZENYTpWCwCzp4L7?g_st=com.google.maps.preview.copy"
 trasa: "https://mapy.com/s/gebemuvoro"
 ---

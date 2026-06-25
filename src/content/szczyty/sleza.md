@@ -8,14 +8,14 @@ trudnosc: "średnia"
 done: true
 data: ""
 kolejnosc: 2
-photo: "/EP_Website/images/sleza-3.jpg"
+photo: "/images/sleza-3.jpg"
 photos:
-  - "/EP_Website/images/sleza-1.jpg"
-  - "/EP_Website/images/sleza-2.jpg"
-  - "/EP_Website/images/sleza.jpg"
+  - "/images/sleza-1.jpg"
+  - "/images/sleza-2.jpg"
+  - "/images/sleza.jpg"
 instagram: "https://www.instagram.com/reel/DUGZDTRDLk_/"
 tiktok: "https://www.tiktok.com/@yamandia.ep/video/7600809494553120022"
-gpx: "/EP_Website/gpx/sleza.gpx"
+gpx: "/gpx/sleza.gpx"
 parking: "https://maps.app.goo.gl/xPtEDDgtfSgPvFzx6?g_st=com.google.maps.preview.copy"
 trasa: "https://mapy.com/s/hepepagucu"
 ---

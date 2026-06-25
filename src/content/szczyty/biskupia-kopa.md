@@ -8,13 +8,13 @@ trudnosc: "średnia"
 done: true
 data: "2025-03-15"
 kolejnosc: 6
-photo: "/EP_Website/images/biskupia-kopa-3.jpg"
+photo: "/images/biskupia-kopa-3.jpg"
 photos:
-  - "/EP_Website/images/biskupia-kopa-1.jpg"
-  - "/EP_Website/images/biskupia-kopa-2.jpg"
+  - "/images/biskupia-kopa-1.jpg"
+  - "/images/biskupia-kopa-2.jpg"
 instagram: "https://www.instagram.com/reel/DVTUD7fDMGL/"
 tiktok: "https://www.tiktok.com/@yamandia.ep/video/7611896691997805846"
-gpx: "/EP_Website/gpx/biskupia-kopa.gpx"
+gpx: "/gpx/biskupia-kopa.gpx"
 parking: "https://maps.app.goo.gl/uh3oh32WH4snZZR7A"
 trasa: "https://mapy.com/s/gecuvagobe"
 ---

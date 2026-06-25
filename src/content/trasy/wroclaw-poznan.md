@@ -11,7 +11,7 @@ trudnosc: "średnia"
 done: true
 data: ""
 kolejnosc: 1
-gpx: "/EP_Website/gpx/wroclaw-poznan.gpx"
+gpx: "/gpx/wroclaw-poznan.gpx"
 mapa: "https://mapy.com/s/potofarohu"
 instagram: "https://www.instagram.com/reel/DZVFlMusTuh/"
 tiktok: "https://www.tiktok.com/@yamandia.ep/video/7649045522694638880"

@@ -8,17 +8,17 @@ trudnosc: "łatwa"
 done: true
 data: ""
 kolejnosc: 1
-photo: "/EP_Website/images/lysica-7.jpg"
+photo: "/images/lysica-7.jpg"
 photos:
-  - "/EP_Website/images/lysica-1.jpg"
-  - "/EP_Website/images/lysica-2.jpg"
-  - "/EP_Website/images/lysica-3.jpg"
-  - "/EP_Website/images/lysica-5.jpg"
+  - "/images/lysica-1.jpg"
+  - "/images/lysica-2.jpg"
+  - "/images/lysica-3.jpg"
+  - "/images/lysica-5.jpg"
  
   
 instagram: "https://www.instagram.com/reel/DT0Q7DLjG65/"
 tiktok: "https://www.tiktok.com/@yamandia.ep/video/7598197648700574998"
-gpx: "/EP_Website/gpx/lysica.gpx"
+gpx: "/gpx/lysica.gpx"
 parking: "https://maps.app.goo.gl/XiLnPEwMJnTGxMzt9?g_st=com.google.maps.preview.copy"
 trasa: "https://mapy.com/s/fudemafede"
 ---
