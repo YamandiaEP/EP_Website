@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://ep-website-three.vercel.app',
+  site: 'https://yamandia.com',
   base: '/',
 });
