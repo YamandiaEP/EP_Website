@@ -10,8 +10,8 @@ data: ""
 kolejnosc: 26
 parkingDarmowy: "nie"
 parkingInfo: "Płatna strefa w Karpaczu (np. ul. Olimpijska), 8 zł/h lub 40 zł/dzień. Brak darmowych opcji."
-psyDozwolone: "smycz"
-psyInfo: "KPN dopuszcza psy na smyczy na wskazanych szlakach (m.in. koło Samotni)."
+psyDozwolone: "nie"
+psyInfo: "Nasza trasa nie nadaje się na psa: zejście zielonym szlakiem od Pielgrzymów jest oficjalnie objęte zakazem KPN (ochrona przyrody). Psy na smyczy są dozwolone na części innych szlaków KPN (np. koło Samotni), ale nie na tej pętli."
 gastronomiaDostepna: "tak"
 gastronomiaInfo: "Schroniska Strzecha Akademicka, Samotnia i Dom Śląski — pełna gastronomia."
 photo: "/images/sniezka.jpg"
@@ -33,3 +33,5 @@ Odbiliśmy na moment na niebieski szlak, żeby zejść kawałek niżej i zrobić
 Po przerwie ruszyły dalsze kilometry. Najpierw żółtym, a później czarnym szlakiem dotarliśmy w okolice Kopy, skąd otworzyła się już w pełni surowa, górskia przestrzeń. Minęliśmy górną stację kolejki, doszliśmy pod Dom Śląski i stamtąd nie było już odwrotu – przyszedł czas na atak szczytowy. Zakosami wdrapaliśmy się na samą Śnieżkę. Na górze standardowo wiało, więc uciekliśmy do czeskiego bistro w okrągłym budynku obok kolejki. Tam napiliśmy się czegoś ciepłego i przybiliśmy pieczątkę do książeczki KGP.
 
 Zejście zaplanowaliśmy dłuższą, ale niesamowicie widokową trasą. Ruszyliśmy czerwonym szlakiem, który biegnie krawędzią kotłów i oferuje genialną panoramę na Wielki i Mały Staw z góry. Tym grzbietem doszliśmy aż do charakterystycznej formacji skalnej Słoneczniki. Tam odbiliśmy w dół żółtym szlakiem, który po chwili doprowadził nas do kolejnych potężnych skał, czyli Pielgrzymów. Na sam koniec przeszliśmy przez charakterystyczne drewniane kładki, przeskoczyliśmy na spokojny zielony szlak i zamknęliśmy pętlę w punkcie wyjścia. To był idealny dzień na szlaku!
+
+**Ważne, jeśli idziecie z psem:** zielony szlak schodzący od Pielgrzymów jest oficjalnie objęty zakazem wchodzenia z psami (ochrona najcenniejszych siedlisk Karkonoskiego Parku Narodowego), więc tej konkretnej pętli z czworonogiem nie przejdziecie legalnie. Pełną listę zamkniętych dla psów odcinków znajdziecie na [stronie KPN](https://kpn.gov.pl/z-psem-na-szlak).
