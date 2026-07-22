@@ -8,6 +8,12 @@ trudnosc: "średnia"
 done: true
 data: ""
 kolejnosc: 10
+parkingDarmowy: "tak"
+parkingInfo: "Utwardzony plac w centrum Sokołowska (ul. Główna/Unisławska), ok. 20 miejsc."
+psyDozwolone: "smycz"
+psyInfo: "Teren lasu, obowiązkowa smycz."
+gastronomiaDostepna: "czesciowo"
+gastronomiaInfo: "Kawiarnie w Sokołowsku, ale nie na samym stromym podejściu."
 photo: "/images/waligora-5.jpg"
 photos:
   - "/images/waligora-1.jpg"

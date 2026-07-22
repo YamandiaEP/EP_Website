@@ -8,6 +8,12 @@ trudnosc: "łatwa"
 done: true
 data: ""
 kolejnosc: 7
+parkingDarmowy: "tak"
+parkingInfo: "Zatoka z wiatą ok. 1 km powyżej Przełęczy Jaworzyce."
+psyDozwolone: "smycz"
+psyInfo: "Teren lasu, obowiązkowa smycz."
+gastronomiaDostepna: "nie"
+gastronomiaInfo: "Obserwatorium astronomiczne na szczycie nie serwuje jedzenia."
 photo: "/images/lubomir-2.jpg"
 photos:
   - "/images/lubomir-1.jpg"

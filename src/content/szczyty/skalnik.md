@@ -8,6 +8,11 @@ trudnosc: "łatwa"
 done: true
 data: ""
 kolejnosc: 11
+parkingDarmowy: "tak"
+parkingInfo: "Mikroskopijny parking (3-8 aut) przy „Czartaku” w Czarnowie. Gdy brak miejsc — płatne podwórka ok. 25 zł."
+psyDozwolone: "smycz"
+psyInfo: "Teren lasu, obowiązkowa smycz."
+gastronomiaDostepna: "nie"
 photo: "/images/skalnik-1.jpg"
 photos:
   - "/images/skalnik-2.jpg"

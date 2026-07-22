@@ -8,6 +8,12 @@ trudnosc: "średnia"
 done: true
 data: ""
 kolejnosc: 2
+parkingDarmowy: "czesciowo"
+parkingInfo: "Płatny w weekendy przy ul. Armii Krajowej. Darmowo w Rynku Sobótki lub przy stadionie."
+psyDozwolone: "nie"
+psyInfo: "Od 2024 r. obowiązuje zakaz wstępu z psami na teren rezerwatu Góra Ślęża."
+gastronomiaDostepna: "tak"
+gastronomiaInfo: "Dom Turysty PTTK Pod Wieżycą i Dom Turysty PTTK na Ślęży."
 photo: "/images/sleza-3.jpg"
 photos:
   - "/images/sleza-1.jpg"

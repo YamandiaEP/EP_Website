@@ -8,6 +8,11 @@ trudnosc: "łatwa"
 done: true
 data: ""
 kolejnosc: 4
+parkingDarmowy: "tak"
+parkingInfo: "Mała zatoczka przy DK46 na Przełęczy Kłodzkiej, ok. 10 miejsc."
+psyDozwolone: "smycz"
+psyInfo: "Teren lasu, obowiązkowa smycz."
+gastronomiaDostepna: "nie"
 photo: "/images/klodzka-gora-7.jpg"
 photos:
   - "/images/klodzka-gora-1.jpg"

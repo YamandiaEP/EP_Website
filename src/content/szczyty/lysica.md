@@ -8,6 +8,12 @@ trudnosc: "łatwa"
 done: true
 data: ""
 kolejnosc: 1
+parkingDarmowy: "nie"
+parkingInfo: "Płatny (15-20 zł/dzień) przy Świętym Krzyżu. Darmowa alternatywa w Nowej Słupi."
+psyDozwolone: "nie"
+psyInfo: "ŚPN zakazuje psów na szlaku na Łysicę (dozwolone tylko na asfaltowej drodze Huta Szklana – Święty Krzyż)."
+gastronomiaDostepna: "tak"
+gastronomiaInfo: "Osada Średniowieczna przy starcie, kawiarnia klasztorna na szczycie."
 photo: "/images/lysica-7.jpg"
 photos:
   - "/images/lysica-1.jpg"

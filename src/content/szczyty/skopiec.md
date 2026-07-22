@@ -8,6 +8,11 @@ trudnosc: "łatwa"
 done: true
 data: ""
 kolejnosc: 3
+parkingDarmowy: "tak"
+parkingInfo: "Leśno-szutrowy plac na końcu wsi Komarno (Przełęcz Komarnicka), kilkanaście miejsc."
+psyDozwolone: "smycz"
+psyInfo: "Teren lasu, obowiązkowa smycz."
+gastronomiaDostepna: "nie"
 photo: "/images/skopiec-1.jpg"
 photos:
   - "/images/skopiec.jpg"

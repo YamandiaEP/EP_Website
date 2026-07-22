@@ -8,6 +8,11 @@ trudnosc: "średnia"
 done: true
 data: ""
 kolejnosc: 13
+parkingDarmowy: "tak"
+parkingInfo: "Plac leśny przy leśniczówce w Bielicach."
+psyDozwolone: "smycz"
+psyInfo: "Teren lasu, obowiązkowa smycz."
+gastronomiaDostepna: "nie"
 photo: "/images/kowadlo.jpg"
 photos:
   - "/images/kowadlo.jpg"

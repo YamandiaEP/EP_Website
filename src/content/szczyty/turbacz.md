@@ -16,6 +16,14 @@ photos:
   - "/images/turbacz-4.jpg"
 gpx: "/gpx/turbacz.gpx"
 trasa: "https://mapy.com/s/makudajeve"
+instagram: "https://www.instagram.com/reel/DbGj2aNsqIG/"
+tiktok: "https://www.tiktok.com/@yamandia.ep/video/7665397976558243105"
+parkingDarmowy: "tak"
+parkingInfo: "Obszerny plac nad rzeką przy osiedlu Zarębek Niżni w Łopusznej."
+psyDozwolone: "nie"
+psyInfo: "GPN zakazuje wstępu z psami w strefie Jaworzyny Kamienickiej (kontrolowane i karane)."
+gastronomiaDostepna: "tak"
+gastronomiaInfo: "Duże schronisko PTTK na Turbaczu z pełną kuchnią."
 ---
 
 To prawdopodobnie najciekawszy szlak na Turbacz – 19-kilometrowa pętla prowadząca przez wiele gorczańskich polan, które w teorii oferują niesamowite widoki. Piszemy „w teorii", bo my niestety ich nie zobaczyliśmy. Trafiliśmy na hardcorową pogodę, więc mówimy wam, jaki to szlak, a wy sami musicie się przekonać, czy faktycznie jest tak dobry. Trasę znaleźliśmy na [plannawypad.pl](https://plannawypad.pl/turbacz-szlaki-gorce/) i stamtąd czerpaliśmy pomysł na przebieg pętli.

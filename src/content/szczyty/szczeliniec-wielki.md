@@ -8,6 +8,12 @@ trudnosc: "łatwa"
 done: true
 data: ""
 kolejnosc: 8
+parkingDarmowy: "tak"
+parkingInfo: "Leśny parking przy Drodze Stu Zakrętów, ok. 20 miejsc (płatna alternatywa w Radkowie)."
+psyDozwolone: "nie"
+psyInfo: "Trasa przez Pośnę to ujęcie wody i ochrona ścisła — zakaz. Zakaz obowiązuje też w labiryncie skalnym na szczycie."
+gastronomiaDostepna: "tak"
+gastronomiaInfo: "Schronisko „Na Szczelińcu” przy wejściu na płatną trasę."
 photo: "/images/szczeliniec-wielki-9.jpg"
 photos:
   - "/images/szczeliniec-wielki.jpg"

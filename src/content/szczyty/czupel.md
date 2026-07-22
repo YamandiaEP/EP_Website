@@ -8,6 +8,11 @@ trudnosc: "łatwa"
 done: true
 data: ""
 kolejnosc: 9
+parkingDarmowy: "tak"
+parkingInfo: "Obszerny plac na Przełęczy Przegibek, kilkadziesiąt miejsc."
+psyDozwolone: "smycz"
+psyInfo: "Teren lasu, obowiązkowa smycz."
+gastronomiaDostepna: "nie"
 photo: "/images/czupel-4.jpg"
 photos:
   - "/images/czupel-2.jpg"

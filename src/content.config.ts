@@ -20,6 +20,13 @@ const szczyty = defineCollection({
     parking:       z.string().optional(),
     trasa:         z.string().optional(),
     kolejnosc:     z.number(),
+    // Praktyczne info do filtrów na stronie głównej (patrz CLAUDE.md)
+    parkingDarmowy:     z.enum(['tak', 'nie', 'czesciowo']).optional(),
+    parkingInfo:        z.string().optional(),
+    psyDozwolone:       z.enum(['tak', 'nie', 'smycz']).optional(),
+    psyInfo:            z.string().optional(),
+    gastronomiaDostepna: z.enum(['tak', 'nie', 'czesciowo']).optional(),
+    gastronomiaInfo:    z.string().optional(),
   }),
 });
 

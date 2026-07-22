@@ -8,6 +8,12 @@ trudnosc: "średnia"
 done: true
 data: ""
 kolejnosc: 5
+parkingDarmowy: "tak"
+parkingInfo: "Duży plac przy stadionie (ul. Słodowa) w Boguszowie-Gorcach, ponad 30 miejsc."
+psyDozwolone: "smycz"
+psyInfo: "Teren lasu, obowiązkowa smycz."
+gastronomiaDostepna: "czesciowo"
+gastronomiaInfo: "Brak stałego punktu — w sezonie letnim automaty z jedzeniem w wieży na szczycie."
 photo: "/images/chelmiec-5.jpg"
 photos:
   - "/images/chelmiec-1.jpg"

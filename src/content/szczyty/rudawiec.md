@@ -8,6 +8,11 @@ trudnosc: "średnia"
 done: true
 data: ""
 kolejnosc: 18
+parkingDarmowy: "tak"
+parkingInfo: "Plac leśny przy leśniczówce w Bielicach (ten sam co dla Kowadła)."
+psyDozwolone: "smycz"
+psyInfo: "Teren lasu, obowiązkowa smycz."
+gastronomiaDostepna: "nie"
 photo: "/images/rudawiec.jpg"
 photos:
   - "/images/rudawiec.jpg"

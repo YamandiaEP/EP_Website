@@ -8,6 +8,12 @@ trudnosc: "średnia"
 done: true
 data: "2025-03-15"
 kolejnosc: 6
+parkingDarmowy: "tak"
+parkingInfo: "Parking przed parkiem rozrywki i łowiskiem w Pokrzywnej."
+psyDozwolone: "smycz"
+psyInfo: "Na polskim szlaku dozwolone na smyczy. Czeska wieża widokowa na szczycie nie wpuszcza psów."
+gastronomiaDostepna: "tak"
+gastronomiaInfo: "Smażalnia przy starcie, Górski Dom Turysty PTTK Pod Biskupią Kopą przed szczytem."
 photo: "/images/biskupia-kopa-3.jpg"
 photos:
   - "/images/biskupia-kopa-1.jpg"

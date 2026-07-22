@@ -8,6 +8,12 @@ trudnosc: "średnia"
 done: true
 data: ""
 kolejnosc: 26
+parkingDarmowy: "nie"
+parkingInfo: "Płatna strefa w Karpaczu (np. ul. Olimpijska), 8 zł/h lub 40 zł/dzień. Brak darmowych opcji."
+psyDozwolone: "smycz"
+psyInfo: "KPN dopuszcza psy na smyczy na wskazanych szlakach (m.in. koło Samotni)."
+gastronomiaDostepna: "tak"
+gastronomiaInfo: "Schroniska Strzecha Akademicka, Samotnia i Dom Śląski — pełna gastronomia."
 photo: "/images/sniezka.jpg"
 photos:
   - "/images/sniezka.jpg"

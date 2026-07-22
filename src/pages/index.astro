@@ -55,9 +55,47 @@ function mountainSVG(seed: number) {
 .sh-title { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(2rem,5vw,3.5rem); text-transform:uppercase; letter-spacing:-0.02em; line-height:1; }
 .sh-sub { font-family:'Space Mono',monospace; font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; }
 
+/* FILTRY */
+.filters { display:flex; flex-direction:column; align-items:center; gap:0.8rem; padding:1.5rem 2rem 2.2rem; }
+.filters-eyebrow {
+  font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--muted); display:flex; align-items:center; gap:0.7rem;
+}
+.filters-eyebrow::before, .filters-eyebrow::after { content:''; width:2rem; height:1px; background:var(--muted); display:block; }
+.filters-row { display:flex; gap:0.6rem; flex-wrap:wrap; justify-content:center; align-items:center; }
+.filter-chip {
+  display:inline-flex; align-items:center; gap:0.55rem;
+  font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:0.08em; text-transform:uppercase;
+  padding:0.6rem 1.1rem; border:1px solid var(--border); background:transparent; color:var(--muted);
+  cursor:crosshair; transition:all 0.2s;
+}
+.filter-chip svg { flex-shrink:0; transition:transform 0.2s; }
+.filter-chip:hover { border-color:var(--white); color:var(--white); }
+.filter-chip.active { background:var(--white); color:var(--black); border-color:var(--white); }
+
+.pk.pk-enter {
+  opacity: 0;
+  transform: translateY(18px) scale(0.96);
+  transition: none;
+}
+.pk.pk-leaving {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.pk.pk-flip { transition: none; }
+.pk.pk-gone { display:none; }
+/* Gdy filtr aktywny, wymuś jednolitą prawą krawędź (nth-child(3n) liczy DOM, nie widoczność) */
+.peaks-list.is-filtering .pk { border-right:1px solid var(--border); }
+
 /* PEAK CARDS */
-.peaks-list { display:grid; grid-template-columns:repeat(3,1fr); }
-.pk { border-right:1px solid var(--border); border-bottom:1px solid var(--border); overflow:hidden; transition:background 0.2s; position:relative; }
+.peaks-list { display:grid; grid-template-columns:repeat(3,1fr); border-top:2px solid var(--white); }
+.pk {
+  border-right:1px solid var(--border); border-bottom:1px solid var(--border); overflow:hidden; position:relative;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: background 0.2s, opacity 0.45s cubic-bezier(.22,1,.36,1), transform 0.45s cubic-bezier(.22,1,.36,1);
+}
 .pk:nth-child(3n) { border-right:none; }
 .pk-done { border-bottom:2px solid var(--white); }
 .pk-img { height:250px; background:var(--grey); position:relative; overflow:hidden; }
@@ -165,6 +203,9 @@ function mountainSVG(seed: number) {
   .hero-kicker { font-size:0.6rem; letter-spacing:0.1em; gap:0.6rem; }
   .hbc { padding:0.9rem 1.5rem; }
   .ticker-inner { animation-duration:12s; }
+  .filters { padding:1.3rem 1.5rem 1.8rem; }
+  .filters-row { flex-direction:column; align-items:stretch; width:100%; max-width:22rem; gap:0.5rem; }
+  .filter-chip { justify-content:center; }
 }
 @media (max-width:480px) {
   .peaks-list { grid-template-columns:1fr; }
@@ -213,13 +254,37 @@ function mountainSVG(seed: number) {
     <h2 class="sh-title">Wszystkie szczyty</h2>
     <span class="sh-sub">{zdobyte.length} / 28 zdobytych</span>
   </div>
-  <div class="peaks-list">
+  <div class="filters">
+    <div class="filters-eyebrow">Filtrowanie</div>
+    <div class="filters-row">
+      <button class="filter-chip" data-filter="parking">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 16V8h4a3 3 0 010 6H9"/></svg>
+        Darmowy parking
+      </button>
+      <button class="filter-chip" data-filter="psy">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><ellipse cx="12" cy="16.5" rx="5" ry="4"/><circle cx="5" cy="9" r="2.2"/><circle cx="10.2" cy="5" r="2.2"/><circle cx="14.8" cy="5" r="2.2"/><circle cx="19.5" cy="9" r="2.2"/></svg>
+        Można z psem
+      </button>
+      <button class="filter-chip" data-filter="gastro">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v5a5 5 0 01-5 5H9a5 5 0 01-5-5V8z"/><path d="M17 10h1.5a2 2 0 010 4H17"/><path d="M8 2.5v2M12 2.5v2"/></svg>
+        Jest gastronomia
+      </button>
+    </div>
+  </div>
+  <div class="peaks-list" id="peaksList">
     {szczyty.map((s, i) => {
       const d = s.data;
       const diffClass = { łatwa:'diff-e', średnia:'diff-m', trudna:'diff-h' }[d.trudnosc];
       const diffLabel = { łatwa:'Łatwa', średnia:'Średnia', trudna:'Trudna' }[d.trudnosc];
+      const passParking = d.parkingDarmowy === 'tak' || d.parkingDarmowy === 'czesciowo';
+      const passPsy = d.psyDozwolone === 'tak' || d.psyDozwolone === 'smycz';
+      const passGastro = d.gastronomiaDostepna === 'tak' || d.gastronomiaDostepna === 'czesciowo';
       return (
-        <div class:list={['pk', d.done && 'pk-done']}>
+        <div class:list={['pk', d.done && 'pk-done']}
+          data-f-parking={passParking ? '1' : '0'}
+          data-f-psy={passPsy ? '1' : '0'}
+          data-f-gastro={passGastro ? '1' : '0'}
+        >
           {d.done && <a href={`${base}szczyty/${s.id}`} class="pk-link" aria-label={d.nazwa}></a>}
           <div class="pk-img">
             {d.photo
@@ -316,5 +381,107 @@ function mountainSVG(seed: number) {
     <a href="#newsletter" class="btn-blk">Zapisz się na listę →</a>
   </div>
 </div>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>('.filter-chip');
+  const list = document.getElementById('peaksList');
+  const cards = document.querySelectorAll<HTMLElement>('#peaksList .pk');
+  const filterMap: Record<string, string> = { parking: 'fParking', psy: 'fPsy', gastro: 'fGastro' };
+
+  const LEAVE_DUR = 300, LEAVE_STAGGER = 35, ENTER_STAGGER = 35;
+  let runToken = 0; // unieważnia opóźnione kroki, gdy user kliknie kolejny filtr w trakcie animacji
+
+  function applyFilters() {
+    const token = ++runToken;
+    const active = Array.from(chips).filter(c => c.classList.contains('active')).map(c => c.dataset.filter!);
+    list?.classList.toggle('is-filtering', active.length > 0);
+
+    const willShow = new Set<HTMLElement>();
+    cards.forEach(card => {
+      const show = active.every(f => card.dataset[filterMap[f]] === '1');
+      if (show) willShow.add(card);
+    });
+
+    // Wyczyść resztki po ewentualnej przerwanej animacji z poprzedniego kliknięcia
+    cards.forEach(c => {
+      c.classList.remove('pk-leaving', 'pk-flip', 'pk-enter');
+      c.style.transitionDelay = '';
+      c.style.transform = '';
+    });
+
+    const currentlyVisible = Array.from(cards).filter(c => !c.classList.contains('pk-gone'));
+    const leaving = currentlyVisible.filter(c => !willShow.has(c));
+    const staying = currentlyVisible.filter(c => willShow.has(c));
+    const entering = Array.from(cards).filter(c => willShow.has(c) && c.classList.contains('pk-gone'));
+
+    if (leaving.length === 0) {
+      reflowAndEnter(staying, entering, token);
+      return;
+    }
+
+    // FAZA 1 — karty odrzucane przez filtr znikają w miejscu, jedna po drugiej
+    leaving.forEach((card, i) => {
+      card.style.transitionDelay = `${Math.min(i, 10) * LEAVE_STAGGER}ms`;
+      card.classList.add('pk-leaving');
+    });
+    const leavePhaseMs = Math.min(leaving.length - 1, 10) * LEAVE_STAGGER + LEAVE_DUR;
+
+    window.setTimeout(() => {
+      if (token !== runToken) return; // kliknięto coś nowego w międzyczasie
+      leaving.forEach(card => {
+        card.classList.add('pk-gone');
+        card.classList.remove('pk-leaving');
+        card.style.transitionDelay = '';
+      });
+      reflowAndEnter(staying, entering, token);
+    }, leavePhaseMs);
+  }
+
+  // FAZA 2 — FLIP: karty, które zostają, płynnie ślizgają się na nową pozycję w gridzie;
+  // karty, które się pojawiają, wchodzą z fadem, falą.
+  function reflowAndEnter(staying: HTMLElement[], entering: HTMLElement[], token: number) {
+    const oldRects = new Map(staying.map(c => [c, c.getBoundingClientRect()] as const));
+
+    entering.forEach(card => {
+      card.classList.remove('pk-gone');
+      card.classList.add('pk-enter');
+    });
+    void list?.offsetHeight; // wymuś przeliczenie layoutu z uwzględnieniem entering/usuniętych leaving
+
+    staying.forEach(card => {
+      const oldRect = oldRects.get(card)!;
+      const newRect = card.getBoundingClientRect();
+      const dx = oldRect.left - newRect.left;
+      const dy = oldRect.top - newRect.top;
+      if (dx || dy) {
+        card.classList.add('pk-flip');
+        card.style.transform = `translate(${dx}px, ${dy}px)`;
+      }
+    });
+    entering.forEach((card, i) => {
+      card.style.transitionDelay = `${Math.min(i, 10) * ENTER_STAGGER}ms`;
+    });
+
+    // Podwójny rAF: pojedynczy odpala się PRZED namalowaniem klatki, więc bez tego
+    // przeglądarka nigdy realnie nie renderuje stanu startowego i transition się nie uruchamia.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (token !== runToken) return;
+        staying.forEach(card => {
+          card.classList.remove('pk-flip');
+          card.style.transform = '';
+        });
+        entering.forEach(card => card.classList.remove('pk-enter'));
+      });
+    });
+  }
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('active');
+      applyFilters();
+    });
+  });
+</script>
 
 </Layout>
