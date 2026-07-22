@@ -6,12 +6,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "convert-heic": "node scripts/convert-heic.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "astro": "^6.1.10",
     "heic-convert": "^2.1.0"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
   }
 }

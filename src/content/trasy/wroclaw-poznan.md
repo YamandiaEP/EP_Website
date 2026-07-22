@@ -4,7 +4,7 @@ start: "Wrocław"
 meta: "Poznań"
 region: "Dolny Śląsk → Wielkopolska"
 dystans: "172 km"
-dni: "2 dni"
+dni: "~10h"
 przewyzszenie: "+265 m"
 nawierzchnia: "Asfalt / ścieżki"
 trudnosc: "średnia"
@@ -27,5 +27,5 @@ Czy to najlepsza trasa rowerowa z Wrocławia do Poznania? Raczej nie — ale na 
 
 ## Dobrze wiedzieć
 
-- 172 km i +265 m — płasko, komfortowo rozłożyć na 2 dni.
+- 172 km i +265 m — płasko, ~10h jazdy w tempie 18 km/h (bez postojów).
 - Trasę w całości podejrzysz na Mapy.com (przycisk wyżej) lub pobierzesz jako GPX.

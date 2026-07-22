@@ -29,5 +29,3 @@ Doszliśmy do Trzech Kopców i odbiliśmy na zielony szlak, którym po chwili do
 Zawróciliśmy i ruszyliśmy prosto w stronę Turbacza – najpierw zielonym, później czerwonym szlakiem. Po drodze minęliśmy liczne owce i dotarliśmy do schroniska. Tam ogromny wybór dosyć drogich dań, które mimo cen oceniamy pozytywnie. Przybiliśmy pieczątkę i po kilku minutach, wciąż czerwonym szlakiem, zdobyliśmy Turbacz.
 
 Krótka zawrotka i zeszliśmy w dół, cały czas trzymając się niebieskiego szlaku. Pogoda na zejście to był istny armagedon, ale w końcu dotarliśmy z powrotem do auta.
-
-Jeśli chcecie przejść tę trasę, znajdziecie ją w bio na naszej stronie internetowej.
