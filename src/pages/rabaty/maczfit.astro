@@ -1,0 +1,178 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const KOD = 'YAMANDIAEP31';
+const RABAT = 31;
+const MACZFIT_URL = 'https://maczfit.pl'; // TODO: podmień na własny link partnerski/afiliacyjny, jeśli taki masz
+
+const miesiace = [
+  'Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec',
+  'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień',
+];
+const teraz = new Date();
+const miesiacRok = `${miesiace[teraz.getMonth()]} ${teraz.getFullYear()}`;
+const dataIso = teraz.toISOString().slice(0, 10);
+
+const title = `Kod rabatowy MaczFit [${miesiacRok}] – ${RABAT}% zniżki | Yamandia EP`;
+const description = `Aktualny kod rabatowy MaczFit: ${KOD} — ${RABAT}% zniżki na dietę pudełkową. Sprawdzony kod, aktualizowany co miesiąc (${miesiacRok}).`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Offer',
+  name: 'Kod rabatowy MaczFit',
+  description: `${RABAT}% zniżki na dietę pudełkową MaczFit z kodem rabatowym ${KOD}`,
+  discountCode: KOD,
+  discount: String(RABAT),
+  url: 'https://yamandia.com/rabaty/maczfit',
+  category: 'Dieta pudełkowa / catering dietetyczny',
+  seller: { '@type': 'Organization', name: 'MaczFit', url: MACZFIT_URL },
+  validFrom: dataIso,
+  priceCurrency: 'PLN',
+  availability: 'https://schema.org/InStock',
+};
+---
+<Layout title={title} description={description} darkHero>
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+<style>
+.mf-hero {
+  min-height: 30vh; display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 8rem 2rem 2.5rem; border-bottom: 1px solid var(--border); background: #101010;
+}
+.mf-hero-inner { max-width: 820px; margin: 0 auto; width: 100%; }
+.mf-eyebrow {
+  font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: rgba(242,240,235,0.65); margin-bottom: 0.8rem;
+  display: flex; align-items: center; gap: 0.7rem;
+}
+.mf-eyebrow::before { content: ''; width: 2rem; height: 1px; background: rgba(242,240,235,0.5); }
+.mf-title {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: clamp(2.2rem, 6.5vw, 4rem); text-transform: uppercase;
+  letter-spacing: -0.02em; line-height: 0.98; color: #f2f0eb;
+}
+.mf-title .accent { color: #e63946; -webkit-text-stroke: 0; }
+
+.mf-body { max-width: 820px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+.mf-updated {
+  font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 2rem;
+}
+
+/* KOD — widoczny bez scrollowania, duży, łatwy do skopiowania */
+.mf-code-box {
+  border: 1px solid var(--border); padding: 2rem; margin-bottom: 2.5rem;
+  display: flex; flex-direction: column; align-items: center; gap: 1.2rem; text-align: center;
+  background: var(--grey);
+}
+.mf-code-label {
+  font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted);
+}
+.mf-code-value {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: clamp(2.4rem, 8vw, 3.6rem); letter-spacing: 0.06em;
+  color: var(--white); line-height: 1; user-select: all;
+}
+.mf-code-discount {
+  font-family: 'Space Mono', monospace; font-size: 0.85rem; color: var(--muted);
+}
+.mf-code-discount strong { color: var(--white); }
+.mf-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center; width: 100%; }
+.btn-copy, .btn-go {
+  display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.9rem 1.6rem;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem;
+  letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+  border: 1px solid var(--border); cursor: pointer; transition: all 0.2s; box-sizing: border-box;
+}
+.btn-copy { background: var(--white); color: var(--black); border-color: var(--white); }
+.btn-copy:hover { background: var(--btn-hover); }
+.btn-go { background: transparent; color: var(--white); }
+.btn-go:hover { border-color: var(--white); }
+
+.mf-body h2 {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.4rem;
+  text-transform: uppercase; color: var(--white); letter-spacing: 0.02em;
+  margin: 2.3rem 0 0.9rem;
+}
+.mf-body p, .mf-body li { color: var(--muted); font-size: 1rem; line-height: 1.75; font-weight: 300; }
+.mf-body p { margin-bottom: 1.1rem; }
+.mf-body ol, .mf-body ul { margin: 0 0 1.1rem 1.2rem; }
+.mf-body li { margin-bottom: 0.5rem; }
+.mf-body strong { color: var(--white); font-weight: 500; }
+.mf-body a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.mf-body a:hover { color: var(--white); }
+
+.mf-note {
+  border: 1px solid var(--border); border-left: 3px solid var(--muted);
+  padding: 0.9rem 1.1rem; font-size: 0.85rem; margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .mf-hero { padding: 6.5rem 1.3rem 2rem; }
+  .mf-body { padding: 2.5rem 1.3rem 4rem; }
+  .mf-code-box { padding: 1.5rem 1.2rem; }
+  .mf-actions { flex-direction: column; }
+  .btn-copy, .btn-go { justify-content: center; width: 100%; }
+}
+</style>
+
+<div class="mf-hero">
+  <div class="mf-hero-inner">
+    <div class="mf-eyebrow">Kod rabatowy · Yamandia EP</div>
+    <h1 class="mf-title">Kod rabatowy MaczFit — <span class="accent">{RABAT}% zniżki</span></h1>
+  </div>
+</div>
+
+<div class="mf-body">
+  <div class="mf-updated">Aktualizacja: {miesiacRok}</div>
+
+  <div class="mf-code-box">
+    <div class="mf-code-label">Twój kod rabatowy</div>
+    <div class="mf-code-value" id="mfCode">{KOD}</div>
+    <div class="mf-code-discount"><strong>{RABAT}% zniżki</strong> na dietę pudełkową MaczFit</div>
+    <div class="mf-actions">
+      <button class="btn-copy" id="mfCopyBtn" type="button" data-code={KOD}>⧉ Kopiuj kod</button>
+      <a class="btn-go" href={MACZFIT_URL} target="_blank" rel="sponsored noopener">Przejdź do MaczFit →</a>
+    </div>
+  </div>
+
+  <h2>Jak skorzystać z kodu</h2>
+  <ol>
+    <li>Skopiuj kod <strong>{KOD}</strong> przyciskiem powyżej.</li>
+    <li>Przejdź na stronę <a href={MACZFIT_URL} target="_blank" rel="sponsored noopener">maczfit.pl</a> i skonfiguruj swoją dietę.</li>
+    <li>Wklej kod w polu kodu rabatowego przy składaniu zamówienia — zniżka {RABAT}% naliczy się automatycznie.</li>
+  </ol>
+
+  <h2>O ofercie</h2>
+  <p>
+    Kod <strong>{KOD}</strong> to nasz stały kod rabatowy do cateringu dietetycznego MaczFit — dajemy go
+    czytelnikom Yamandia EP, którzy szukają wygodnej opcji odżywiania w trakcie treningów i wypadów w góry.
+    Kod dotyczy zamówienia diety pudełkowej i nalicza się przy finalizacji zamówienia na stronie MaczFit.
+  </p>
+  <p>
+    Sprawdzamy działanie kodu regularnie i aktualizujemy tę stronę co miesiąc — jeśli kod z jakiegoś powodu
+    nie zadziała, daj nam znać (link w stopce strony).
+  </p>
+
+  <div class="mf-note">
+    Szczegółowe warunki promocji (m.in. minimalna wartość zamówienia, okres obowiązywania) ustala MaczFit —
+    ostateczne zasady znajdziesz na stronie sklepu przy finalizacji zamówienia.
+  </div>
+</div>
+
+<script>
+  const btn = document.getElementById('mfCopyBtn') as HTMLButtonElement | null;
+  btn?.addEventListener('click', async () => {
+    const code = btn.dataset.code ?? '';
+    try {
+      await navigator.clipboard.writeText(code);
+      const original = btn.textContent;
+      btn.textContent = '✓ Skopiowano';
+      window.setTimeout(() => { btn.textContent = original; }, 1800);
+    } catch {
+      // clipboard API niedostępne (np. brak HTTPS/uprawnień) — kod jest zaznaczalny ręcznie (user-select:all)
+    }
+  });
+</script>
+
+</Layout>
