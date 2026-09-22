@@ -21,6 +21,8 @@ photos:
   - "/images/jagodna-9.jpg"
   - "/images/jagodna-10.jpg"
 trasa: "https://mapy.com/s/pudoleguku"
+gpx: "/gpx/jagodna.gpx"
+parking: "https://maps.app.goo.gl/iw8TawqfnkDWyCu19"
 parkingDarmowy: "czesciowo"
 parkingInfo: "Wzdłuż ulicy na Przełęczy Spalonej — bezpłatnie. Przy schronisku — płatnie (6 zł/godz., 20 zł/5 godz., 40 zł/dzień; ceny z 09.2026)."
 psyDozwolone: "tak"
