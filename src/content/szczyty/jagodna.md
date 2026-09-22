@@ -58,9 +58,7 @@ To punkt obowiązkowy. Mimo niedzielnego tłumu i dłuższego czasu oczekiwania 
 - **Ruskie opiekane** – chrupiące, smażone pierogi z dodatkami (nasz faworyt!),
 - **Oscyp smażony** – panierowany górski ser w świetnej kompozycji dodatków,
 - **Kotlet Chatarki** – konkretna porcja obiadowa,
-- **Racuchy z jagodami** – słynny klasyk.
-
-Są pyszne, ale to dania wytrawne robią tu największe wrażenie.
+- **Racuchy z jagodami** – słynny klasyk. Są pyszne, ale to dania wytrawne robią tu największe wrażenie.
 
 ## Szybkie info
 
