@@ -62,7 +62,7 @@ dokładnie ten numer — **nie zgaduj i nie przeliczaj na nowo przez web search*
 | 9 | Czupel | 933 m | Beskid Mały |
 | 10 | Waligóra | 936 m | Góry Kamienne |
 | 11 | Skalnik | 945 m | Rudawy Janowickie |
-| 12 | Jagodna | 985 m | Góry Bystrzyckie |
+| 12 | Jagodna | 977 m | Góry Bystrzyckie |
 | 13 | Kowadło | 989 m | Góry Złote |
 | 14 | Lackowa | 997 m | Beskid Niski |
 | 15 | Wielka Sowa | 1015 m | Góry Sowie |
