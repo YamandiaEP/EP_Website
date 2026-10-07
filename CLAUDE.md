@@ -99,12 +99,21 @@ Wzorce: `src/content/szczyty/skalnik.md` (krótsza, klasyczna), `sniezka.md`
   eseju przed 170 km) — krótki wstęp + `## Nawierzchnia i uwagi` +
   `## Dobrze wiedzieć` jako listy.
 - Zdjęcia wplecione w tekst (nie tylko w galerii na dole) są wspierane —
-  patrz `lackowa.md`. Zwykły markdown `![alt](/images/plik.jpg)` jako osobny
-  akapit renderuje się pełną szerokością; kilka obrazków pod rząd bez pustej
-  linii między nimi (jeden akapit) automatycznie robi się mini-galerią
-  (`.relacja :global(p:has(> img + img))` w `SzczytLayout.astro`). Gdy zdjęcia
-  są wplecione w treść, zwykle pomiń frontmatterowe pole `photos` (galeria na
-  dole), żeby nie dublować tych samych zdjęć.
+  patrz `lackowa.md`. Użyj surowego `<img>` (nie markdown `![]()`!) z
+  `class="lb-trigger"`, żeby zdjęcie było klikalne w tym samym lightboksie co
+  galeria na dole (selektor JS `.lb-trigger` jest ogólnostronicowy):
+  `<img src="/images/plik.jpg" alt="..." loading="lazy" class="lb-trigger" />`.
+  Pojedyncze zdjęcie jako osobna linia renderuje się pełną szerokością
+  (jednolite proporcje 4:3 jak w galerii, żeby nie było "pojebanych" rozmiarów
+  z surowych zdjęć telefonu). Żeby zgrupować kilka zdjęć w jeden rząd/mini-
+  -galerię, opakuj je jawnie w `<div class="relacja-photo-group">...</div>` —
+  **nie** polegaj na "kilka obrazków pod rząd bez pustej linii = jeden akapit",
+  bo markdown traktuje linie zaczynające się od `<img>` jako blok HTML i nie
+  zawsze owija je w `<p>` tak jak zwykły tekst (niezawodne tylko z jawnym
+  `<div>`). Style w `SzczytLayout.astro`: `.relacja :global(img.lb-trigger)` +
+  `.relacja :global(.relacja-photo-group)`. Gdy zdjęcia są wplecione w treść,
+  zwykle pomiń frontmatterowe pole `photos` (galeria na dole), żeby nie
+  dublować tych samych zdjęć.
 
 ## GPX → dystans i przewyższenie
 

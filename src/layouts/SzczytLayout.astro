@@ -191,13 +191,24 @@ const base = import.meta.env.BASE_URL;
 .relacja :global(a:hover) { color: var(--white); }
 .relacja :global(ul), .relacja :global(ol) { margin: 0 0 1.4rem 1.1rem; }
 .relacja :global(li) { margin-bottom: 0.5rem; }
-.relacja :global(p > img) { display: block; width: 100%; height: auto; border: 1px solid var(--border); }
-.relacja :global(p:has(> img)) { margin: 2rem 0; }
-.relacja :global(p:has(> img + img)) {
+.relacja :global(img.lb-trigger) {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  cursor: zoom-in;
+  transition: opacity 0.2s;
+  margin: 2rem 0;
+}
+.relacja :global(img.lb-trigger:hover) { opacity: 0.85; }
+.relacja :global(.relacja-photo-group) {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 0.6rem;
+  margin: 2rem 0;
 }
+.relacja :global(.relacja-photo-group img.lb-trigger) { margin: 0; }
 .gallery {
   display: grid;
   gap: 0.5rem;
