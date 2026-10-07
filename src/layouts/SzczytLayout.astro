@@ -191,6 +191,13 @@ const base = import.meta.env.BASE_URL;
 .relacja :global(a:hover) { color: var(--white); }
 .relacja :global(ul), .relacja :global(ol) { margin: 0 0 1.4rem 1.1rem; }
 .relacja :global(li) { margin-bottom: 0.5rem; }
+.relacja :global(p > img) { display: block; width: 100%; height: auto; border: 1px solid var(--border); }
+.relacja :global(p:has(> img)) { margin: 2rem 0; }
+.relacja :global(p:has(> img + img)) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.6rem;
+}
 .gallery {
   display: grid;
   gap: 0.5rem;

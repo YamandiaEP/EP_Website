@@ -98,6 +98,13 @@ Wzorce: `src/content/szczyty/skalnik.md` (krótsza, klasyczna), `sniezka.md`
 - Dla tras rowerowych: treść zwięźlejsza niż dla szczytów (nikt nie czyta
   eseju przed 170 km) — krótki wstęp + `## Nawierzchnia i uwagi` +
   `## Dobrze wiedzieć` jako listy.
+- Zdjęcia wplecione w tekst (nie tylko w galerii na dole) są wspierane —
+  patrz `lackowa.md`. Zwykły markdown `![alt](/images/plik.jpg)` jako osobny
+  akapit renderuje się pełną szerokością; kilka obrazków pod rząd bez pustej
+  linii między nimi (jeden akapit) automatycznie robi się mini-galerią
+  (`.relacja :global(p:has(> img + img))` w `SzczytLayout.astro`). Gdy zdjęcia
+  są wplecione w treść, zwykle pomiń frontmatterowe pole `photos` (galeria na
+  dole), żeby nie dublować tych samych zdjęć.
 
 ## GPX → dystans i przewyższenie
 
