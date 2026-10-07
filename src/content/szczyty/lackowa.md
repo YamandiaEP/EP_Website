@@ -28,28 +28,28 @@ Lackowa to najwyższy szczyt Beskidu Niskiego i ostatnia góra Korony Gór Polsk
 
 Startujemy z [darmowego parkingu](https://maps.app.goo.gl/wWqhah5cNgs2Ld218) udostępnianego przez hotel i restaurację Końska Dolina w niewielkiej miejscowości Izby.
 
-<img src="/images/lackowa-1.jpg" alt="Lackowa – zdjęcie 1" loading="lazy" class="lb-trigger" />
+<img src="/images/lackowa-1.jpg" alt="Lackowa – zdjęcie 1" class="lb-trigger" />
 
 Ruszamy żółtym szlakiem prowadzącym szutrową drogą (uwaga: odcinek ten może nie być widoczny na mapy.com). Dochodzimy do Przełęczy Beskid i skręcamy w lewo na czerwony szlak biegnący wzdłuż granicy ze Słowacją.
 
-<img src="/images/lackowa-2.jpg" alt="Lackowa – zdjęcie 2" loading="lazy" class="lb-trigger" />
+<img src="/images/lackowa-2.jpg" alt="Lackowa – zdjęcie 2" class="lb-trigger" />
 
 Ścieżka staje się coraz bardziej stroma, aż wreszcie dochodzimy do kulminacji – słynnej „ściany płaczu". To najbardziej strome znakowane podejście w Beskidach, którego nachylenie miejscami sięga nawet 60%. Przypomina podejście pod Waligórę, jest jednak jeszcze bardziej strome i nieco dłuższe. Z powodu braku ekspozycji szlak nie powinien wywoływać lęku przestrzeni, jednak zimą trzeba tu zachować szczególną ostrożność.
 
 Od niedawna najbardziej stromy fragment można obejść żółtym szlakiem łącznikowym, my jednak z tej opcji nie skorzystaliśmy.
 
-<img src="/images/lackowa-3.jpg" alt="Lackowa – zdjęcie 3" loading="lazy" class="lb-trigger" />
+<img src="/images/lackowa-3.jpg" alt="Lackowa – zdjęcie 3" class="lb-trigger" />
 
 „Ściana płaczu" w końcu łagodnieje i po chwili stajemy na szczycie. Na wierzchołku, poza oznaczeniami, tabliczkami i ławką, nie ma żadnej infrastruktury, a gęsty las całkowicie zasłania widoki.
 
-<img src="/images/lackowa-4.jpg" alt="Lackowa – zdjęcie 4" loading="lazy" class="lb-trigger" />
+<img src="/images/lackowa-4.jpg" alt="Lackowa – zdjęcie 4" class="lb-trigger" />
 
 Ze szczytu kontynuujemy wędrówkę czerwonym szlakiem w stronę Przełęczy Pułaskiego. Następnie wchodzimy na Ostry Wierch i idziemy grzbietem aż do Przełęczy Prehyba – tam czerwony szlak skręca w prawo, a my odbijamy w lewo na leśną ścieżkę w dół. Po chwili wychodzimy na malowniczą polanę z piękną panoramą Lackowej. U jej podnóża stoi zabytkowa cerkiew św. Michała Archanioła.
 
 <div class="relacja-photo-group">
-<img src="/images/lackowa-5.jpg" alt="Lackowa – zdjęcie 5" loading="lazy" class="lb-trigger" />
-<img src="/images/lackowa-6.jpg" alt="Lackowa – zdjęcie 6" loading="lazy" class="lb-trigger" />
-<img src="/images/lackowa-7.jpg" alt="Lackowa – zdjęcie 7" loading="lazy" class="lb-trigger" />
+<img src="/images/lackowa-5.jpg" alt="Lackowa – zdjęcie 5" class="lb-trigger" />
+<img src="/images/lackowa-6.jpg" alt="Lackowa – zdjęcie 6" class="lb-trigger" />
+<img src="/images/lackowa-7.jpg" alt="Lackowa – zdjęcie 7" class="lb-trigger" />
 </div>
 
 Dalej idziemy drogą wzdłuż potoku Biała, mijając pasące się co rusz krowy i konie. Ścieżka doprowadza nas z powrotem na parking w Izbach, domykając około 13-kilometrową pętlę.
@@ -66,3 +66,8 @@ Dalej idziemy drogą wzdłuż potoku Biała, mijając pasące się co rusz krowy
 - **Ocena szlaku:** przyjemny
 - **Czas przejścia:** około 4 godzin
 - **Pieczątka:** na szczycie
+
+<div class="relacja-photo-group">
+<img src="/images/lackowa-8.jpg" alt="Lackowa – zdjęcie 8" class="lb-trigger" />
+<img src="/images/lackowa-9.jpg" alt="Lackowa – zdjęcie 9" class="lb-trigger" />
+</div>

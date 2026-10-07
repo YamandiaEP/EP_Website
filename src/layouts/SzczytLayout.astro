@@ -432,7 +432,7 @@ const base = import.meta.env.BASE_URL;
   {photos && photos.length > 0 && (
     <div class="gallery" style={`grid-template-columns: repeat(${Math.min(photos.length, 3)}, 1fr);`}>
       {photos.map((src: string) => (
-        <img src={src} alt={`${nazwa} - zdjęcie`} loading="lazy" class="lb-trigger" />
+        <img src={src} alt={`${nazwa} - zdjęcie`} class="lb-trigger" />
       ))}
     </div>
   )}
