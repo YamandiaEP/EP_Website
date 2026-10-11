@@ -15,6 +15,8 @@ photos:
   - "/images/wysoka-3.jpg"
   - "/images/wysoka-4.jpg"
   - "/images/wysoka-5.jpg"
+  - "/images/radziejowa-1.jpg"
+  - "/images/radziejowa-2.jpg"
 trasa: "https://mapy.com/s/lahubekuho"
 gpx: "/gpx/szczawnica.gpx"
 parkingDarmowy: "tak"

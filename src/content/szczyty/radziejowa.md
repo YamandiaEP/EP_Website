@@ -12,12 +12,17 @@ photo: "/images/radziejowa.jpg"
 photos:
   - "/images/radziejowa-1.jpg"
   - "/images/radziejowa-2.jpg"
+  - "/images/wysoka-1.jpg"
+  - "/images/wysoka-2.jpg"
+  - "/images/wysoka-3.jpg"
+  - "/images/wysoka-4.jpg"
+  - "/images/wysoka-5.jpg"
 trasa: "https://mapy.com/s/lahubekuho"
 gpx: "/gpx/szczawnica.gpx"
 parkingDarmowy: "tak"
 parkingInfo: "Darmowy plac Dietla w Szczawnicy, kilka miejsc (w okolicy też parkingi płatne)."
-psyDozwolone: "nie"
-psyInfo: "Na tę trasę nie wchodzimy z psem."
+psyDozwolone: "tak"
+psyInfo: "Na samą Radziejową (i z powrotem tą samą trasą) można iść z psem. Jeśli jednak kontynuujecie całą pętlę w stronę Pienin i Wysokiej, z psem już tam nie wejdziecie."
 gastronomiaDostepna: "tak"
 gastronomiaInfo: "Schronisko PTTK Przehyba (ok. 9 km od startu) — śniadania ok. 20 zł, kawa z kawiarki 12 zł."
 ---
@@ -32,14 +37,14 @@ Po około 9 kilometrach docieramy do schroniska PTTK Przehyba. Ceny są bardzo p
 
 Ruszamy dalej czerwonym szlakiem i grzbietem górskim, po kolejnych 5 kilometrach docieramy na Radziejową. Wierzchołek jest zalesiony, ale stoi na nim 22-metrowa drewniana wieża widokowa, z której widać góry po horyzont – naprawdę sporo wierzchołków naraz. Pieczątkę KGP znajdziecie pod znakiem turystycznym na szczycie.
 
-Stąd ruszamy dalej tym samym czerwonym szlakiem, który przez chwilę prowadzi stromo w dół – i to właśnie tu zaczyna się druga część pętli, prowadząca do Pienin i na Wysoką (opisaliśmy ją w osobnej relacji).
+Stąd ruszamy dalej tym samym czerwonym szlakiem, który przez chwilę prowadzi stromo w dół – i to właśnie tu zaczyna się druga część pętli, prowadząca do Pienin i na Wysoką (opisaliśmy ją w osobnej relacji). Warto pamiętać, że o ile na samą Radziejową można spokojnie wejść z psem, o tyle dalszej części pętli w stronę Wysokiej już z czworonogiem nie zrobicie.
 
 ## Informacje praktyczne
 
 - **Dystans:** około 38 km (cała pętla)
 - **Przewyższenie:** około 1750 m (cała pętla)
 - **Poziom trudności:** wymagający pod względem wytrzymałości, technicznie średni/trudny
-- **Czy można wejść z psem:** nie
+- **Czy można wejść z psem:** tak na samą Radziejową, ale nie na dalszą część pętli w stronę Wysokiej
 - **Czy szlak jest płatny:** nie
 - **Schronisko / bufet:** tak (Schronisko PTTK Przehyba)
 - **Parking:** darmowy, plac Dietla w Szczawnicy
