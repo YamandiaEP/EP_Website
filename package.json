@@ -7,7 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "convert-heic": "node scripts/convert-heic.mjs"
+    "convert-heic": "node scripts/convert-heic.mjs",
+    "generate-og": "node scripts/generate-og.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

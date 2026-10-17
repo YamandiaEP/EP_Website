@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# lockfile bun — projekt trzyma package-lock.json (z niego instaluje Vercel),
+# bun.lock powstaje lokalnie przy `bun install` i nie powinien trafić do repo
+bun.lock

@@ -1,0 +1,38 @@
+User-agent: *
+Allow: /
+
+# Crawlery AI / answer engines — dopuszczone świadomie.
+# Uwaga: AI Overviews w Google chodzi zwykłym Googlebotem, nie Google-Extended
+# (ten drugi dotyczy groundingu/treningu Gemini). Poniższe nic nie "włącza",
+# tylko jawnie nie blokuje.
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://www.yamandia.com/sitemap.xml

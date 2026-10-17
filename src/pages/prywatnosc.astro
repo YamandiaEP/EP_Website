@@ -3,7 +3,11 @@ import Layout from '../layouts/Layout.astro';
 const aktualizacja = '25 czerwca 2026';
 const email = 'yamandiaep@gmail.com';
 ---
-<Layout title="Polityka prywatności — Yamandia EP" darkHero>
+<Layout
+  title="Polityka prywatności — Yamandia EP"
+  description={`Polityka prywatności serwisu yamandia.com: jakie dane zbieramy, w jakim celu i jakie masz prawa. Aktualizacja: ${aktualizacja}.`}
+  darkHero
+>
 <style>
 .pp-hero {
   min-height: 32vh; display: flex; flex-direction: column; justify-content: flex-end;

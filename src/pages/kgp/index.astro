@@ -1,0 +1,226 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { KGP_LISTA, KGP_TOTAL, KGP_WIDOKI, TRUDNOSC_LABEL } from '../../data/kgp';
+
+const base = import.meta.env.BASE_URL;
+const strona = new URL('/kgp', Astro.site).toString();
+
+const szczyty = await getCollection('szczyty');
+const relacjaPoKolejnosci = new Map(szczyty.map(s => [s.data.kolejnosc, s]));
+const zdobyte = szczyty.filter(s => s.data.done);
+
+const wiersze = KGP_LISTA.map(kanon => {
+  const wpis = relacjaPoKolejnosci.get(kanon.kolejnosc);
+  return {
+    kanon,
+    d: wpis?.data,
+    slug: wpis?.id,
+    // Frontmatter nadrzędny tam, gdzie mamy relację (patrz kgp/[widok].astro).
+    wysokosc: wpis?.data.wysokosc ?? kanon.wysokosc,
+    nazwa: wpis?.data.nazwa ?? kanon.nazwa,
+  };
+});
+
+const metaTitle = 'Korona Gór Polski — wszystkie 28 szczytów | Yamandia EP';
+const metaDescription =
+  `Przewodnik po Koronie Gór Polski: ${zdobyte.length} własnych relacji z ${KGP_TOTAL} szczytów, ` +
+  'czasy przejścia, parkingi, zasady dla psów, pliki GPX i zestawienia tematyczne.';
+
+const organizacja = {
+  '@type': 'Organization',
+  name: 'Yamandia EP',
+  url: Astro.site?.toString(),
+  sameAs: ['https://instagram.com/yamandiaep', 'https://tiktok.com/@yamandia.ep'],
+};
+
+const jsonLd: unknown[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Korona Gór Polski — przewodnik',
+    description: metaDescription,
+    url: strona,
+    inLanguage: 'pl-PL',
+    publisher: organizacja,
+    mainEntity: {
+      '@type': 'ItemList',
+      name: 'Korona Gór Polski',
+      numberOfItems: KGP_TOTAL,
+      itemListOrder: 'https://schema.org/ItemListOrderAscending',
+      itemListElement: wiersze.map(w => ({
+        '@type': 'ListItem',
+        position: w.kanon.kolejnosc,
+        item: {
+          '@type': 'Mountain',
+          name: w.nazwa,
+          elevation: { '@type': 'QuantitativeValue', value: w.wysokosc, unitCode: 'MTR' },
+          containedInPlace: { '@type': 'Place', name: w.kanon.pasmo },
+          ...(w.slug ? { url: new URL(`/szczyty/${w.slug}`, Astro.site).toString() } : {}),
+        },
+      })),
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Strona główna', item: Astro.site?.toString() },
+      { '@type': 'ListItem', position: 2, name: 'Korona Gór Polski', item: strona },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Ile szczytów ma Korona Gór Polski?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text:
+            `Korona Gór Polski to ${KGP_TOTAL} szczytów — najwyższe wierzchołki ${KGP_TOTAL} pasm ` +
+            'górskich w Polsce. Najniższy to Łysica (612 m) w Górach Świętokrzyskich, ' +
+            'najwyższy Rysy (2499 m) w Tatrach.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Od którego szczytu najlepiej zacząć Koronę Gór Polski?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text:
+            'Najłatwiej zacząć od szczytów niskich i dobrze skomunikowanych: Ślęża, Łysica ' +
+            'albo Chełmiec. Wszystkie trzy to krótkie wyjścia bez trudności technicznych, ' +
+            'z dobrym dojazdem i parkingami pod szlakiem.',
+        },
+      },
+    ],
+  },
+];
+---
+<Layout title={metaTitle} description={metaDescription} jsonLd={jsonLd}>
+<style>
+.hub-hero { padding: 9rem 2rem 2.5rem; border-bottom: 1px solid var(--border); box-sizing: border-box; }
+.hub-inner { max-width: 1000px; margin: 0 auto; }
+.hub-kicker {
+  font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.hub-kicker::before { content: ''; width: 2.5rem; height: 1px; background: var(--muted); }
+.hub-h1 {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: clamp(2.4rem, 7vw, 5rem); text-transform: uppercase;
+  letter-spacing: -0.02em; line-height: 0.98; color: var(--white); margin-bottom: 1.4rem;
+}
+.hub-intro { color: var(--muted); font-size: 1.02rem; line-height: 1.78; max-width: 64ch; font-weight: 300; }
+.hub-intro + .hub-intro { margin-top: 1.1rem; }
+
+.hub-body { max-width: 1000px; margin: 0 auto; padding: 2.5rem 2rem 4rem; box-sizing: border-box; }
+.hub-h2 {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: clamp(1.5rem, 4vw, 2.2rem); text-transform: uppercase;
+  letter-spacing: -0.01em; color: var(--white); margin-bottom: 1.3rem;
+  padding-bottom: 0.9rem; border-bottom: 1px solid var(--border);
+}
+.hub-sekcja { margin-bottom: 3.5rem; }
+
+/* Kafelki zestawień */
+.zest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.6rem; }
+.zest-card {
+  border: 1px solid var(--border); padding: 1.3rem; text-decoration: none;
+  display: block; transition: border-color 0.2s; box-sizing: border-box;
+}
+.zest-card:hover { border-color: var(--white); }
+.zest-nazwa {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.1rem;
+  text-transform: uppercase; letter-spacing: 0.03em; color: var(--white); margin-bottom: 0.5rem;
+}
+.zest-pytanie { color: var(--muted); font-size: 0.85rem; line-height: 1.55; }
+
+/* Lista szczytów */
+.lista { border: 1px solid var(--border); }
+.lista-row {
+  display: flex; align-items: baseline; gap: 1rem; padding: 0.8rem 1.2rem;
+  border-bottom: 1px solid var(--border); text-decoration: none; box-sizing: border-box;
+}
+.lista-row:last-child { border-bottom: none; }
+a.lista-row:hover { background: var(--grey); }
+.l-nr { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--muted); width: 2rem; flex-shrink: 0; }
+.l-nazwa {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.05rem;
+  text-transform: uppercase; color: var(--white); flex: 1; min-width: 0;
+}
+.l-meta {
+  font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--muted);
+  text-align: right; flex-shrink: 0;
+}
+.lista-row.brak .l-nazwa { color: var(--muted); }
+
+@media (max-width: 700px) {
+  .hub-hero { padding: 7rem 1.2rem 2rem; }
+  .hub-body { padding: 2rem 1.2rem 3rem; }
+  .l-meta { display: none; }
+}
+</style>
+
+<div class="hub-hero">
+  <div class="hub-inner">
+    <div class="hub-kicker">Yamandia EP · Przewodnik</div>
+    <h1 class="hub-h1">Korona Gór<br>Polski</h1>
+    <p class="hub-intro">
+      Korona Gór Polski to {KGP_TOTAL} szczytów — najwyższe wierzchołki {KGP_TOTAL} pasm górskich
+      w Polsce, od Łysicy (612 m) po Rysy (2499 m). Zdobywamy je po kolei i z każdego
+      wyjścia zostawiamy tu pełną relację: przebieg trasy, czas, przewyższenie, parking,
+      zasady dla psów i plik GPX do pobrania.
+    </p>
+    <p class="hub-intro">
+      Mamy za sobą {zdobyte.length} z {KGP_TOTAL} szczytów. Wszystkie dane poniżej są z naszych
+      własnych wyjść — nie przepisujemy ich z map ani z innych stron.
+    </p>
+  </div>
+</div>
+
+<div class="hub-body">
+
+  <section class="hub-sekcja">
+    <h2 class="hub-h2">Zestawienia — szukasz czegoś konkretnego?</h2>
+    <div class="zest-grid">
+      {KGP_WIDOKI.map(w => (
+        <a href={`${base}kgp/${w.slug}`} class="zest-card">
+          <div class="zest-nazwa">{w.nazwaKrotka}</div>
+          <div class="zest-pytanie">{w.h1}</div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="hub-sekcja">
+    <h2 class="hub-h2">Wszystkie {KGP_TOTAL} szczytów</h2>
+    <div class="lista">
+      {wiersze.map(w => {
+        const nr = String(w.kanon.kolejnosc).padStart(2, '0');
+        return w.slug ? (
+          <a href={`${base}szczyty/${w.slug}`} class="lista-row">
+            <span class="l-nr">{nr}</span>
+            <span class="l-nazwa">{w.nazwa}</span>
+            <span class="l-meta">
+              {w.wysokosc} m · {w.kanon.pasmo}
+              {w.d?.czas ? ` · ${w.d.czas}` : ''}
+              {w.d?.trudnosc ? ` · ${TRUDNOSC_LABEL[w.d.trudnosc]}` : ''}
+            </span>
+          </a>
+        ) : (
+          <div class="lista-row brak">
+            <span class="l-nr">{nr}</span>
+            <span class="l-nazwa">{w.nazwa}</span>
+            <span class="l-meta">{w.wysokosc} m · {w.kanon.pasmo} · jeszcze nie byliśmy</span>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+
+</div>
+</Layout>

@@ -1,0 +1,205 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import { KGP_TOTAL } from '../data/kgp';
+
+const base = import.meta.env.BASE_URL;
+const strona = new URL('/o-nas', Astro.site).toString();
+
+const szczyty = await getCollection('szczyty');
+const zdobyte = szczyty.filter(s => s.data.done);
+
+const metaTitle = 'O nas — kto stoi za Yamandia EP | Korona Gór Polski';
+const metaDescription =
+  `Kim jesteśmy i jak wybieramy trasy: ekipa, która zdobywa Koronę Gór Polski ` +
+  `(${zdobyte.length} z ${KGP_TOTAL}) i opisuje każde wyjście z pierwszej ręki.`;
+
+const organizacja = {
+  '@type': 'Organization',
+  '@id': new URL('/#organizacja', Astro.site).toString(),
+  name: 'Yamandia EP',
+  url: Astro.site?.toString(),
+  logo: new URL('/images/EP_logo.png', Astro.site).toString(),
+  description:
+    'Ekipa zdobywająca Koronę Gór Polski i opisująca każde wyjście na podstawie ' +
+    'własnego doświadczenia na szlaku.',
+  sameAs: ['https://instagram.com/yamandiaep', 'https://tiktok.com/@yamandia.ep'],
+};
+
+const jsonLd: unknown[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: metaTitle,
+    description: metaDescription,
+    url: strona,
+    inLanguage: 'pl-PL',
+    mainEntity: organizacja,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Strona główna', item: Astro.site?.toString() },
+      { '@type': 'ListItem', position: 2, name: 'O nas', item: strona },
+    ],
+  },
+];
+---
+<Layout title={metaTitle} description={metaDescription} jsonLd={jsonLd}>
+<style>
+.on-hero { padding: 9rem 2rem 2.5rem; border-bottom: 1px solid var(--border); box-sizing: border-box; }
+.on-inner { max-width: 760px; margin: 0 auto; }
+.on-kicker {
+  font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.on-kicker::before { content: ''; width: 2.5rem; height: 1px; background: var(--muted); }
+.on-h1 {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: clamp(2.6rem, 8vw, 5.5rem); text-transform: uppercase;
+  letter-spacing: -0.02em; line-height: 0.95; color: var(--white);
+}
+
+.on-body { max-width: 760px; margin: 0 auto; padding: 2.5rem 2rem 4rem; box-sizing: border-box; }
+.on-body h2 {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: clamp(1.5rem, 4vw, 2.1rem); text-transform: uppercase;
+  letter-spacing: -0.01em; color: var(--white); margin: 2.8rem 0 1rem;
+  padding-bottom: 0.8rem; border-bottom: 1px solid var(--border);
+}
+.on-body h2:first-child { margin-top: 0; }
+.on-body p {
+  color: var(--muted); font-size: 1.02rem; line-height: 1.8; font-weight: 300;
+  margin-bottom: 1.2rem;
+}
+.on-body strong { color: var(--white); font-weight: 500; }
+.on-body ul { margin: 0 0 1.4rem 1.1rem; color: var(--muted); line-height: 1.8; font-weight: 300; }
+.on-body li { margin-bottom: 0.55rem; }
+.on-body a { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+
+.on-liczby {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--border); margin: 2rem 0 0.5rem;
+}
+.on-liczba { padding: 1.2rem 1.3rem; border-right: 1px solid var(--border); box-sizing: border-box; }
+.on-liczba:last-child { border-right: none; }
+.on-liczba-k {
+  font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 0.35rem;
+}
+.on-liczba-v {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 1.7rem; color: var(--white); line-height: 1;
+}
+
+.on-cta { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+.on-cta a {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.85rem;
+  letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+  padding: 0.9rem 1.6rem; border: 1px solid var(--border); color: var(--white);
+  transition: border-color 0.2s; box-sizing: border-box;
+}
+.on-cta a:hover { border-color: var(--white); }
+.on-cta a.primary { background: var(--white); color: var(--black); border-color: var(--white); }
+.on-cta a.primary:hover { background: var(--btn-hover); }
+
+@media (max-width: 700px) {
+  .on-hero { padding: 7rem 1.2rem 2rem; }
+  .on-body { padding: 2rem 1.2rem 3rem; }
+  .on-liczby { grid-template-columns: 1fr; }
+  .on-liczba { border-right: none; border-bottom: 1px solid var(--border); }
+  .on-liczba:last-child { border-bottom: none; }
+}
+</style>
+
+<div class="on-hero">
+  <div class="on-inner">
+    <div class="on-kicker">Yamandia EP</div>
+    <h1 class="on-h1">O nas</h1>
+  </div>
+</div>
+
+<div class="on-body">
+
+  <h2>Kim jesteśmy</h2>
+  <p>
+    Jesteśmy ekipą, która zdobywa <a href={`${base}kgp`}>Koronę Gór Polski</a> — {KGP_TOTAL} najwyższych
+    szczytów {KGP_TOTAL} polskich pasm górskich. Chodzimy razem, kręcimy z tego materiały na
+    Instagramie i TikToku, a tutaj zostawiamy pełną wersję: całą trasę po kolei, konkretne
+    szlaki, czasy, parkingi i rzeczy, które warto wiedzieć, zanim się wyjedzie.
+  </p>
+  <p>
+    Wszystko, co tu czytasz, pochodzi z wyjścia, które faktycznie zrobiliśmy. Nie
+    przepisujemy opisów z map ani z innych stron — jeśli piszemy, że parking kosztuje
+    8 zł za godzinę albo że na tym odcinku jest zakaz wchodzenia z psem, to dlatego,
+    że sami tam byliśmy i to sprawdziliśmy.
+  </p>
+
+  <div class="on-liczby">
+    <div class="on-liczba">
+      <div class="on-liczba-k">Szczytów KGP</div>
+      <div class="on-liczba-v">{zdobyte.length} / {KGP_TOTAL}</div>
+    </div>
+    <div class="on-liczba">
+      <div class="on-liczba-k">Relacji online</div>
+      <div class="on-liczba-v">{zdobyte.length}</div>
+    </div>
+    <div class="on-liczba">
+      <div class="on-liczba-k">Plików GPX</div>
+      <div class="on-liczba-v">{szczyty.filter(s => s.data.gpx).length}</div>
+    </div>
+  </div>
+
+  <h2>Jak wybieramy trasy</h2>
+  <p>
+    To jest rzecz, która najbardziej odróżnia nasze opisy od typowych przewodników:
+    <strong>prawie nigdy nie idziemy najkrótszą drogą na szczyt</strong>.
+  </p>
+  <p>
+    Spora część szczytów Korony to — powiedzmy sobie szczerze — niespecjalnie
+    porywające góry. Zalesiony pagórek z masztem na wierzchołku i bez widoków. Jeśli
+    podjedziesz pod sam szlak i wejdziesz najkrótszym podejściem, zaliczysz pieczątkę
+    w czterdzieści minut i zjedziesz z poczuciem, że szkoda było paliwa.
+  </p>
+  <p>
+    Dlatego planujemy inaczej. Szukamy pętli, która po drodze zahacza o to, co w okolicy
+    faktycznie warto zobaczyć: formacje skalne, punkty widokowe, schroniska, grzbiety
+    z panoramą. Czasem to oznacza nadłożenie kilku kilometrów i dwóch godzin — ale
+    zamiast odhaczenia punktu z listy wychodzi z tego pełnowartościowa wycieczka na cały dzień.
+  </p>
+  <p>
+    Ma to jedną praktyczną konsekwencję, o której warto wiedzieć:
+    <strong>nasze czasy przejścia i przewyższenia są zwykle wyższe niż te, które znajdziesz
+    gdzie indziej</strong>. To nie błąd w pomiarze. Po prostu opisujemy dłuższą i ciekawszą
+    trasę, a nie najkrótsze możliwe wejście. Przy każdym szczycie znajdziesz
+    <a href={`${base}kgp/czas-przejscia`}>dokładny czas i przewyższenie</a> naszej wersji
+    oraz plik GPX, więc zawsze możesz ocenić, czy chcesz iść tak samo, czy skrócić.
+  </p>
+
+  <h2>Co znajdziesz przy każdym szczycie</h2>
+  <ul>
+    <li><strong>Przebieg trasy</strong> — po kolei, z kolorami szlaków i punktami orientacyjnymi.</li>
+    <li><strong>Czas i przewyższenie</strong> — z realnego wyjścia, w spokojnym tempie, z przerwami.</li>
+    <li><strong>Parking</strong> — czy darmowy, ile kosztuje, gdzie dokładnie stanąć.</li>
+    <li><strong>Psy</strong> — czy wolno, czy na smyczy, czy na tym konkretnym szlaku jest zakaz.</li>
+    <li><strong>Gastronomia</strong> — gdzie po drodze zjesz coś ciepłego.</li>
+    <li><strong>Plik GPX</strong> — do pobrania i wrzucenia w zegarek albo telefon.</li>
+  </ul>
+
+  <h2>Wspólne wyjścia</h2>
+  <p>
+    Część tras robimy jako otwarte wyjścia, na które może dołączyć każdy — zapowiadamy
+    je na Instagramie i TikToku. Jeśli chcesz wejść na któryś ze szczytów Korony, ale
+    nie masz z kim, to najprostszy sposób, żeby się do nas podłączyć.
+  </p>
+
+  <div class="on-cta">
+    <a href="https://instagram.com/yamandiaep" target="_blank" rel="noopener" class="primary">Instagram</a>
+    <a href="https://tiktok.com/@yamandia.ep" target="_blank" rel="noopener">TikTok</a>
+    <a href={`${base}kgp`}>Zobacz wszystkie szczyty</a>
+  </div>
+
+</div>
+</Layout>

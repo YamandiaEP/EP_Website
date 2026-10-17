@@ -1,11 +1,71 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import {
+  KGP_LISTA, KGP_TOTAL, KGP_WIDOKI,
+  maDarmowyParking, mozliwyZPsem, maGastronomie,
+} from '../data/kgp';
 
 const wszystkieSzczyty = await getCollection('szczyty');
 const szczyty = wszystkieSzczyty.sort((a, b) => a.data.kolejnosc - b.data.kolejnosc);
 const zdobyte = szczyty.filter(s => s.data.done);
 const base = import.meta.env.BASE_URL;
+
+/* ------------------------------------------------------------------ meta */
+
+const metaTitle = 'Korona Gór Polski — przewodnik, szlaki i relacje | Yamandia EP';
+const metaDescription =
+  `Korona Gór Polski od środka: relacje z ${zdobyte.length} z ${KGP_TOTAL} szczytów, ` +
+  'czasy przejścia, przewyższenia, parkingi, zasady dla psów i pliki GPX.';
+
+/* --------------------------------------------------------------- JSON-LD */
+
+const organizacja = {
+  '@type': 'Organization',
+  '@id': new URL('/#organizacja', Astro.site).toString(),
+  name: 'Yamandia EP',
+  url: Astro.site?.toString(),
+  logo: new URL('/images/EP_logo.png', Astro.site).toString(),
+  sameAs: ['https://instagram.com/yamandiaep', 'https://tiktok.com/@yamandia.ep'],
+};
+
+// Mapa slugów po `kolejnosc` — pozwala w ItemList pokazać pełną Koronę (28),
+// a linkować tylko te szczyty, z których mamy już relację.
+const slugPoKolejnosci = new Map(szczyty.map(s => [s.data.kolejnosc, s.id]));
+
+const jsonLd: unknown[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Yamandia EP',
+    url: Astro.site?.toString(),
+    inLanguage: 'pl-PL',
+    publisher: organizacja,
+  },
+  { '@context': 'https://schema.org', ...organizacja },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Korona Gór Polski — 28 szczytów',
+    description: 'Pełna lista szczytów Korony Gór Polski, rosnąco według wysokości.',
+    numberOfItems: KGP_TOTAL,
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    itemListElement: KGP_LISTA.map(s => {
+      const slug = slugPoKolejnosci.get(s.kolejnosc);
+      return {
+        '@type': 'ListItem',
+        position: s.kolejnosc,
+        item: {
+          '@type': 'Mountain',
+          name: s.nazwa,
+          elevation: { '@type': 'QuantitativeValue', value: s.wysokosc, unitCode: 'MTR' },
+          containedInPlace: { '@type': 'Place', name: s.pasmo },
+          ...(slug ? { url: new URL(`/szczyty/${slug}`, Astro.site).toString() } : {}),
+        },
+      };
+    }),
+  },
+];
 
 function mountainSVG(seed: number) {
   const shapes = [
@@ -25,7 +85,7 @@ function mountainSVG(seed: number) {
 }
 ---
 
-<Layout>
+<Layout title={metaTitle} description={metaDescription} jsonLd={jsonLd}>
 <style>
 /* HERO */
 .hero { min-height:100vh; display:grid; grid-template-rows:1fr auto; position:relative; overflow:hidden; border-bottom:1px solid var(--border); }
@@ -200,6 +260,11 @@ function mountainSVG(seed: number) {
   .shop-bg-text { display:none; }
   .hero-main { padding:6rem 1.5rem 2rem; }
   .hero-title { font-size:12vw; line-height:0.9; }
+  /* Na wąskich ekranach pierwszy człon musi mieć własną linię — inaczej
+     „KORONA GÓR" i „POLSKI" lecą w jednym wierszu i wychodzą poza ekran
+     (body ma overflow-x:hidden, więc słowo jest po prostu ucinane).
+     .line-inv zostaje inline-block, żeby tło obejmowało tylko tekst. */
+  .hero-title > span:first-child { display:block; }
   .hero-kicker { font-size:0.6rem; letter-spacing:0.1em; gap:0.6rem; }
   .hbc { padding:0.9rem 1.5rem; }
   .ticker-inner { animation-duration:12s; }
@@ -224,12 +289,12 @@ function mountainSVG(seed: number) {
   <div class="hero-main">
     <div class="hero-kicker-wrap">
       <div class="hero-bg-text">KGP</div>
-      <div class="hero-kicker">Korona Gór Polski · Baza wiedzy</div>
+      <div class="hero-kicker">Yamandia EP · {zdobyte.length} z {KGP_TOTAL} szczytów zdobytych</div>
     </div>
     <h1 class="hero-title">
-      <span>YAMANDIA EP</span>
-      <span class="line-inv">PRZEDSTAWIA</span>
-      <span class="line-outline">KGP KNOW HOW</span>
+      <span>KORONA GÓR</span>
+      <span class="line-inv">POLSKI</span>
+      <span class="line-outline">PRZEWODNIK</span>
     </h1>
   </div>
   <div class="hero-bottom">
@@ -276,9 +341,10 @@ function mountainSVG(seed: number) {
       const d = s.data;
       const diffClass = { łatwa:'diff-e', średnia:'diff-m', trudna:'diff-h' }[d.trudnosc];
       const diffLabel = { łatwa:'Łatwa', średnia:'Średnia', trudna:'Trudna' }[d.trudnosc];
-      const passParking = d.parkingDarmowy === 'tak' || d.parkingDarmowy === 'czesciowo';
-      const passPsy = d.psyDozwolone === 'tak' || d.psyDozwolone === 'smycz';
-      const passGastro = d.gastronomiaDostepna === 'tak' || d.gastronomiaDostepna === 'czesciowo';
+      // Wspólne predykaty z src/data/kgp.ts — te same, których używają /kgp/*
+      const passParking = maDarmowyParking(d);
+      const passPsy = mozliwyZPsem(d);
+      const passGastro = maGastronomie(d);
       return (
         <div class:list={['pk', d.done && 'pk-done']}
           data-f-parking={passParking ? '1' : '0'}

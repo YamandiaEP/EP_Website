@@ -151,3 +151,63 @@ Używa `heic-convert` (dekoduje HEIC) + `sharp` (skalowanie/kompresja) —
   robi się niewidoczna, jeśli nie ma wymuszenia koloru. Layout ma prop
   `darkHero` na `<Layout>` właśnie po to — ustawiaj go na stronach z
   ciemnym/przyciemnionym hero.
+
+## SEO / AEO — struktura dodana w październiku 2026
+
+### Jedno źródło prawdy: `src/data/kgp.ts`
+
+Zawiera kanoniczną listę 28 szczytów (`KGP_LISTA`), predykaty filtrów
+(`maDarmowyParking`, `mozliwyZPsem`, `maGastronomie`), etykiety wartości
+(`PARKING_LABEL` itd.) i konfigurację stron zbiorczych (`KGP_WIDOKI`).
+Korzystają z tego: strona główna, `/kgp`, `/kgp/[widok]`, `sitemap.xml.ts`
+oraz oba layouty. **Nie duplikuj tych map w komponentach** — tabela w sekcji
+wyżej w tym pliku jest dokumentacją, a `KGP_LISTA` kodem.
+
+**Pierwszeństwo danych:** tam, gdzie szczyt ma relację, nadrzędny jest
+frontmatter (`wpis?.data.wysokosc ?? kanon.wysokosc`). `KGP_LISTA` to fallback
+dla 8 szczytów bez relacji. Dzięki temu wysokość nie może się rozjechać między
+stroną szczytu a zestawieniem. Gdy dodajesz relację do szczytu, nie musisz
+ruszać `KGP_LISTA`.
+
+### Strony zbiorcze `/kgp/*`
+
+Nowy widok = **jeden wpis w `KGP_WIDOKI`**, nic więcej. Trasa
+`src/pages/kgp/[widok].astro` generuje stronę, hub `/kgp` ją linkuje, a
+`sitemap.xml.ts` dopisuje do sitemapy — wszystko automatycznie z tej tablicy.
+
+### Sitemapa — ręczna, celowo
+
+`src/pages/sitemap.xml.ts`, bez `@astrojs/sitemap`. Powód: maszyna dev ma
+tylko **bun** (brak node/npm), a Vercel instaluje z tracked `package-lock.json`
+— dodanie zależności bez regeneracji lockfile'a grozi rozjazdem na deployu.
+Buduj przez `bun run build`.
+
+### Obrazki Open Graph
+
+`bun run generate-og` → `public/og/<slug>.jpg` (1200x630, ~150 kB).
+**Uruchom po dodaniu nowego szczytu/trasy ze zdjęciem i zacommituj wynik.**
+Bez tego `og:image` wskaże na 404 i share card się nie wyrenderuje.
+Zdjęcia w `public/images/` są surowe z telefonu (do 5712x4284, ~8 MB) —
+za duże na og:image (limit Twittera 5 MB), stąd osobne kopie.
+
+### Meta i structured data
+
+Layouty same składają `title`/`description` z frontmattera — **nie przekazuj
+ich ręcznie** przy dodawaniu treści. `Layout.astro` przyjmuje propsy
+`image`, `ogType` i `jsonLd` (tablica obiektów schema.org).
+
+Na stronie szczytu tablica `faq` w `SzczytLayout.astro` zasila **jednocześnie**
+widoczną sekcję FAQ i schemę `FAQPage`. Jeśli zmieniasz jedno, zmienia się
+drugie — i tak ma zostać (schema musi odpowiadać widocznej treści).
+
+`src/data/gpx.ts` wyciąga współrzędne szczytu z GPX do `schema.org/Mountain`.
+Zwraca `null`, gdy najwyższy punkt śladu odbiega od deklarowanej wysokości
+o >30 m — tak jest dla `kowadlo` i `wysoka`, bo dzielą plik GPX z wyższym
+szczytem. To celowe: lepiej brak `geo` niż błędne współrzędne.
+
+### Kanoniczna domena
+
+`www.yamandia.com`, bez trailing slasha (`astro.config.mjs` →
+`trailingSlash: 'never'` + `vercel.json` → `"trailingSlash": false`).
+Canonical i og:url budują się z `Astro.site`, więc zmiana domeny to jedna
+linijka w `astro.config.mjs`.

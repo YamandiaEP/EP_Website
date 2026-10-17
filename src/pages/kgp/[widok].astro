@@ -1,0 +1,308 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import {
+  KGP_LISTA, KGP_TOTAL, KGP_WIDOKI,
+  PARKING_LABEL, PSY_LABEL, GASTRO_LABEL, TRUDNOSC_LABEL,
+  type KgpWidok,
+} from '../../data/kgp';
+
+export async function getStaticPaths() {
+  return KGP_WIDOKI.map(widok => ({
+    params: { widok: widok.slug },
+    props: { widok },
+  }));
+}
+
+type Props = { widok: KgpWidok };
+const { widok } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const strona = new URL(`/kgp/${widok.slug}`, Astro.site).toString();
+
+const szczyty = await getCollection('szczyty');
+
+/**
+ * Scalamy kanoniczną listę 28 szczytów z kolekcją relacji. Dopasowanie po
+ * `kolejnosc` (nie po nazwie — repo ma „Wysoka", a oficjalna nazwa to
+ * „Wysokie Skałki").
+ */
+const relacjaPoKolejnosci = new Map(szczyty.map(s => [s.data.kolejnosc, s]));
+
+const wiersze = KGP_LISTA.map(kanon => {
+  const wpis = relacjaPoKolejnosci.get(kanon.kolejnosc);
+  return {
+    kanon,
+    d: wpis?.data,
+    slug: wpis?.id,
+    // Frontmatter jest nadrzędny tam, gdzie mamy relację — strona szczytu to
+    // źródło prawdy dla jego danych. KGP_LISTA to fallback dla szczytów, na
+    // których jeszcze nie byliśmy. Dzięki temu ta sama liczba nie może się
+    // rozjechać między stroną szczytu a zestawieniem.
+    wysokosc: wpis?.data.wysokosc ?? kanon.wysokosc,
+    nazwa: wpis?.data.nazwa ?? kanon.nazwa,
+  };
+});
+
+// Filtrowanie zgodne z konfiguracją widoku
+let widoczne = wiersze;
+if (widok.filtr) {
+  widoczne = widoczne.filter(w => w.d && widok.filtr!(w.d));
+} else if (!widok.pelnaLista) {
+  widoczne = widoczne.filter(w => w.d);
+}
+
+// Sortowanie
+const RANGA_TRUDNOSCI: Record<string, number> = { 'łatwa': 0, 'średnia': 1, 'trudna': 2 };
+if (widok.sort === 'trudnosc') {
+  widoczne = [...widoczne].sort((a, b) => {
+    const ra = RANGA_TRUDNOSCI[a.d?.trudnosc ?? ''] ?? 99;
+    const rb = RANGA_TRUDNOSCI[b.d?.trudnosc ?? ''] ?? 99;
+    return ra - rb || a.wysokosc - b.wysokosc;
+  });
+} else {
+  widoczne = [...widoczne].sort((a, b) => a.wysokosc - b.wysokosc);
+}
+
+const liczba = widoczne.length;
+
+/* ---------------------------------------------------------------- JSON-LD */
+
+const organizacja = {
+  '@type': 'Organization',
+  name: 'Yamandia EP',
+  url: Astro.site?.toString(),
+  sameAs: ['https://instagram.com/yamandiaep', 'https://tiktok.com/@yamandia.ep'],
+};
+
+const jsonLd: unknown[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: widok.h1,
+    description: widok.description,
+    url: strona,
+    inLanguage: 'pl-PL',
+    publisher: organizacja,
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: liczba,
+      itemListElement: widoczne.map((w, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'Mountain',
+          name: w.nazwa,
+          elevation: { '@type': 'QuantitativeValue', value: w.wysokosc, unitCode: 'MTR' },
+          containedInPlace: { '@type': 'Place', name: w.kanon.pasmo },
+          ...(w.slug ? { url: new URL(`/szczyty/${w.slug}`, Astro.site).toString() } : {}),
+        },
+      })),
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Strona główna', item: Astro.site?.toString() },
+      { '@type': 'ListItem', position: 2, name: 'Korona Gór Polski', item: new URL('/kgp', Astro.site).toString() },
+      { '@type': 'ListItem', position: 3, name: widok.nazwaKrotka, item: strona },
+    ],
+  },
+];
+
+const metaTitle = `${widok.title} | Yamandia EP`;
+
+/** Wartość komórki dla danej kolumny — "—" gdy nie mamy jeszcze danych. */
+function komorka(kolumna: string, d: Record<string, any> | undefined): string {
+  if (!d) return '—';
+  switch (kolumna) {
+    case 'parking':  return d.parkingDarmowy ? PARKING_LABEL[d.parkingDarmowy] : '—';
+    case 'psy':      return d.psyDozwolone ? PSY_LABEL[d.psyDozwolone] : '—';
+    case 'gastro':   return d.gastronomiaDostepna ? GASTRO_LABEL[d.gastronomiaDostepna] : '—';
+    case 'trudnosc': return d.trudnosc ? TRUDNOSC_LABEL[d.trudnosc] : '—';
+    case 'czas':     return d.czas ? `${d.czas} / ${d.przewyzszenie}` : '—';
+    default:         return '—';
+  }
+}
+
+const NAGLOWEK_KOLUMNY: Record<string, string> = {
+  parking: 'Parking',
+  psy: 'Psy',
+  gastro: 'Gastronomia',
+  trudnosc: 'Trudność',
+  czas: 'Czas / przewyższenie',
+};
+
+/** Szczegółowy komentarz pod wierszem — tylko w widokach tematycznych. */
+function szczegol(d: Record<string, any> | undefined): string | null {
+  if (!d) return null;
+  if (widok.slug === 'darmowy-parking') return d.parkingInfo ?? null;
+  if (widok.slug === 'z-psem') return d.psyInfo ?? null;
+  if (widok.slug === 'gastronomia') return d.gastronomiaInfo ?? null;
+  return null;
+}
+---
+<Layout
+  title={metaTitle}
+  description={widok.description}
+  jsonLd={jsonLd}
+>
+<style>
+.kgp-hero {
+  padding: 9rem 2rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  box-sizing: border-box;
+}
+.kgp-hero-inner { max-width: 1000px; margin: 0 auto; }
+.kgp-kicker {
+  font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;
+}
+.kgp-kicker::before { content: ''; width: 2.5rem; height: 1px; background: var(--muted); flex-shrink: 0; }
+.kgp-h1 {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: clamp(2.1rem, 5.5vw, 4rem); text-transform: uppercase;
+  letter-spacing: -0.02em; line-height: 1.02; color: var(--white);
+  margin-bottom: 1.4rem; max-width: 20ch;
+}
+.kgp-intro {
+  color: var(--muted); font-size: 1rem; line-height: 1.75;
+  max-width: 62ch; font-weight: 300;
+}
+.kgp-count {
+  font-family: 'Space Mono', monospace; font-size: 0.65rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+  margin-top: 1.4rem;
+}
+
+.kgp-body { max-width: 1000px; margin: 0 auto; padding: 2.5rem 2rem 4rem; box-sizing: border-box; }
+
+/* Tabela — zawinięta we własny scroll, żeby body nigdy nie scrollowało w poziomie */
+.tabela-wrap { overflow-x: auto; border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+thead th {
+  font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted); text-align: left;
+  padding: 0.9rem 1rem; border-bottom: 1px solid var(--border); white-space: nowrap;
+  font-weight: 400;
+}
+tbody td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+tbody tr:last-child td { border-bottom: none; }
+.t-nr {
+  font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted);
+  width: 2.5rem;
+}
+.t-nazwa {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.01em;
+  color: var(--white); white-space: nowrap;
+  /* Tabela i tak scrolluje się poziomo (.tabela-wrap), więc lepiej dać
+     kolumnie z nazwą sensowną szerokość niż pozwolić jej się zgnieść
+     przez sąsiednie kolumny z nowrap. */
+  min-width: 11rem;
+}
+.t-nazwa a { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+.t-nazwa a:hover { color: var(--muted); }
+.t-brak { color: var(--muted); font-weight: 400; text-transform: none; font-size: 0.8rem; }
+.t-wys { font-family: 'Space Mono', monospace; font-size: 0.8rem; white-space: nowrap; }
+.t-pasmo { color: var(--muted); font-size: 0.82rem; }
+.t-val { color: var(--white); font-size: 0.85rem; white-space: nowrap; }
+.t-detal {
+  color: var(--muted); font-size: 0.78rem; line-height: 1.55;
+  margin-top: 0.35rem; max-width: 46ch;
+  /* .t-nazwa ustawia uppercase + bold dla nazwy szczytu — opis pod nią
+     musi to zdjąć, inaczej dziedziczy wersaliki i pogrubienie */
+  text-transform: none; font-weight: 300; letter-spacing: 0;
+  font-family: 'Barlow', sans-serif; white-space: normal;
+}
+
+/* Nawigacja między zestawieniami */
+.inne-zestawienia { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+.iz-label {
+  font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+}
+.iz-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.iz-list a {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.8rem;
+  letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none;
+  color: var(--white); border: 1px solid var(--border); padding: 0.6rem 1rem;
+  transition: border-color 0.2s;
+}
+.iz-list a:hover { border-color: var(--white); }
+.iz-list a[aria-current="page"] { background: var(--white); color: var(--black); border-color: var(--white); }
+
+@media (max-width: 700px) {
+  .kgp-hero { padding: 7rem 1.2rem 2rem; }
+  .kgp-body { padding: 2rem 1.2rem 3rem; }
+  .t-pasmo-col { display: none; }
+}
+</style>
+
+<div class="kgp-hero">
+  <div class="kgp-hero-inner">
+    <div class="kgp-kicker">
+      <a href={`${base}kgp`} style="color:inherit;text-decoration:none;">Korona Gór Polski</a>
+      <span>·</span>
+      <span>{widok.nazwaKrotka}</span>
+    </div>
+    <h1 class="kgp-h1">{widok.h1}</h1>
+    <p class="kgp-intro">{widok.intro}</p>
+    <div class="kgp-count">
+      {widok.pelnaLista
+        ? `Wszystkie ${KGP_TOTAL} szczytów Korony`
+        : `${liczba} ${liczba === 1 ? 'szczyt' : 'szczytów'} spełnia ten warunek`}
+    </div>
+  </div>
+</div>
+
+<div class="kgp-body">
+  <div class="tabela-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="t-nr">#</th>
+          <th>Szczyt</th>
+          <th>Wysokość</th>
+          <th class="t-pasmo-col">Pasmo</th>
+          {widok.kolumny.map(k => <th>{NAGLOWEK_KOLUMNY[k]}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {widoczne.map(w => {
+          const detal = szczegol(w.d);
+          return (
+            <tr>
+              <td class="t-nr">{String(w.kanon.kolejnosc).padStart(2, '0')}</td>
+              <td class="t-nazwa">
+                {w.slug
+                  ? <a href={`${base}szczyty/${w.slug}`}>{w.nazwa}</a>
+                  : <Fragment>{w.nazwa} <span class="t-brak">(jeszcze nie byliśmy)</span></Fragment>
+                }
+                {detal && <div class="t-detal">{detal}</div>}
+              </td>
+              <td class="t-wys">{w.wysokosc} m</td>
+              <td class="t-pasmo t-pasmo-col">{w.kanon.pasmo}</td>
+              {widok.kolumny.map(k => <td class="t-val">{komorka(k, w.d)}</td>)}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="inne-zestawienia">
+    <div class="iz-label">Inne zestawienia KGP</div>
+    <div class="iz-list">
+      {KGP_WIDOKI.map(w => (
+        <a
+          href={`${base}kgp/${w.slug}`}
+          aria-current={w.slug === widok.slug ? 'page' : undefined}
+        >{w.nazwaKrotka}</a>
+      ))}
+      <a href={`${base}kgp`}>Wszystkie relacje</a>
+    </div>
+  </div>
+</div>
+</Layout>

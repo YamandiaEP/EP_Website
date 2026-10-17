@@ -1,7 +1,7 @@
 ---
 nazwa: "Czupel"
 region: "Beskid Mały"
-wysokosc: 934
+wysokosc: 930
 czas: "3h"
 przewyzszenie: "+600m"
 trudnosc: "łatwa"
