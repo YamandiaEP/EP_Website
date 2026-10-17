@@ -13,7 +13,7 @@ parkingInfo: "Utwardzony plac w centrum Sokołowska (ul. Główna/Unisławska), 
 psyDozwolone: "smycz"
 psyInfo: "Teren lasu, obowiązkowa smycz."
 gastronomiaDostepna: "czesciowo"
-gastronomiaInfo: "Kawiarnie w Sokołowsku, ale nie na samym stromym podejściu."
+gastronomiaInfo: "Schronisko PTTK Andrzejówka stoi przy szlaku pod szczytem — ciepłe posiłki po drodze. Na samym wierzchołku nic nie ma. Na starcie dodatkowo kawiarnie w Sokołowsku."
 photo: "/images/waligora-5.jpg"
 photos:
   - "/images/waligora-1.jpg"
