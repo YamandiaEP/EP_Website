@@ -1,6 +1,6 @@
 ---
 nazwa: "Waligóra"
-region: "Góry Suche"
+region: "Góry Kamienne"
 wysokosc: 936
 czas: "3h"
 przewyzszenie: "+700m"
