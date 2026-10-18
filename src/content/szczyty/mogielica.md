@@ -11,6 +11,7 @@ kolejnosc: 20
 parkingDarmowy: "tak"
 parkingInfo: "Leśny parking Wyrębiska w Zalesiu, już dość wysoko położony — skraca podejście."
 psyDozwolone: "nie"
+psyInfo: "Kopuła szczytowa leży w rezerwacie przyrody (chroni m.in. głuszca), gdzie wstęp z psem jest zakazany. Szlakiem dojdziecie z psem jeszcze ok. 200–300 m przed wierzchołek — dalej trzeba zawrócić."
 gastronomiaDostepna: "czesciowo"
 gastronomiaInfo: "Przy parkingu Wyrębiska działa punkt „Beskidzko-Gorczańskie Smaki\", ale tylko w weekendy. Na samym szczycie nic nie ma."
 photo: "/images/mogielica.jpg"
