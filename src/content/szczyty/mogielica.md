@@ -15,6 +15,11 @@ psyInfo: "Kopuła szczytowa leży w rezerwacie przyrody (chroni m.in. głuszca),
 gastronomiaDostepna: "czesciowo"
 gastronomiaInfo: "Przy parkingu Wyrębiska działa punkt „Beskidzko-Gorczańskie Smaki\", ale tylko w weekendy. Na samym szczycie nic nie ma."
 photo: "/images/mogielica.jpg"
+photos:
+  - "/images/mogielica-1.jpg"
+  - "/images/mogielica-2.jpg"
+  - "/images/mogielica-3.jpg"
+  - "/images/mogielica-4.jpg"
 gpx: "/gpx/mogielica.gpx"
 parking: "https://maps.app.goo.gl/7SrrQ9K2BVXL7VWc6"
 trasa: "https://mapy.com/s/bevurovuto"
