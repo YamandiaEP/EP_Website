@@ -8,22 +8,21 @@ import { KGP_WIDOKI } from '../data/kgp';
  * Powód: na maszynie deweloperskiej nie ma node/npm (tylko bun), a w repo
  * jest tracked `package-lock.json`, z którego instaluje Vercel — dodanie
  * zależności bez regeneracji tego lockfile'a grozi rozjazdem na deployu.
- * Przy ~30 stronach ręczny endpoint jest i tak prostszy, a daje kontrolę nad
- * `priority` i `lastmod`.
+ * Przy ~30 stronach ręczny endpoint jest i tak prostszy.
+ *
+ * Celowo tylko `<loc>`, bez `<priority>`/`<changefreq>`/`<lastmod>`:
+ * Google jawnie ignoruje priority i changefreq (nadużywane do zera przez
+ * cały internet — prawie każdy ustawiał 1.0 wszędzie). `<lastmod>` jest
+ * owszem brane pod uwagę, ale tylko gdy "consistently and verifiably
+ * accurate" względem realnej zmiany treści strony — pole `data` we
+ * frontmatterze to data wyprawy, nie data edycji strony, więc podpięcie
+ * go pod lastmod byłoby wprowadzającym w błąd sygnałem, dokładnie tym,
+ * czego Google każe unikać. Sitemapa ma tu jedną robotę: zgłosić, że URL
+ * istnieje.
  *
  * Trasy muszą się zgadzać z `trailingSlash: 'never'` z astro.config.mjs —
  * czyli bez końcowego slasha (poza stroną główną).
  */
-
-type Wpis = { sciezka: string; priority: string; lastmod?: string };
-
-/** Zwraca YYYY-MM-DD tylko dla faktycznie poprawnej daty — nie zmyślamy lastmod. */
-function lastmodZDaty(data: string | undefined): string | undefined {
-  if (!data) return undefined;
-  const d = new Date(data);
-  if (Number.isNaN(d.getTime())) return undefined;
-  return d.toISOString().slice(0, 10);
-}
 
 export const GET: APIRoute = async ({ site }) => {
   if (!site) throw new Error('astro.config.mjs musi mieć ustawione `site`');
@@ -31,47 +30,31 @@ export const GET: APIRoute = async ({ site }) => {
   const szczyty = await getCollection('szczyty');
   const trasy = await getCollection('trasy');
 
-  const wpisy: Wpis[] = [
-    { sciezka: '/', priority: '1.0' },
-    { sciezka: '/kgp', priority: '0.9' },
-    { sciezka: '/trasy', priority: '0.8' },
-    { sciezka: '/o-nas', priority: '0.6' },
+  const sciezki: string[] = [
+    '/',
+    '/kgp',
+    '/trasy',
+    '/o-nas',
 
     // Strony zbiorcze KGP
-    ...KGP_WIDOKI.map(w => ({ sciezka: `/kgp/${w.slug}`, priority: '0.8' })),
+    ...KGP_WIDOKI.map(w => `/kgp/${w.slug}`),
 
     // Relacje ze szczytów — rdzeń treści
-    ...szczyty.map(s => ({
-      sciezka: `/szczyty/${s.id}`,
-      priority: '0.9',
-      lastmod: lastmodZDaty(s.data.data),
-    })),
+    ...szczyty.map(s => `/szczyty/${s.id}`),
 
     // Trasy rowerowe
-    ...trasy.map(t => ({
-      sciezka: `/trasy/${t.id}`,
-      priority: '0.7',
-      lastmod: lastmodZDaty(t.data.data),
-    })),
+    ...trasy.map(t => `/trasy/${t.id}`),
 
-    // Strony pomocnicze — indeksowalne, ale bez priorytetu
-    { sciezka: '/rabaty/maczfit', priority: '0.3' },
-    { sciezka: '/prywatnosc', priority: '0.1' },
+    // Strony pomocnicze
+    '/rabaty/maczfit',
+    '/prywatnosc',
   ];
 
   const url = (sciezka: string) => new URL(sciezka, site).toString();
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${wpisy
-  .map(w => {
-    const lastmod = w.lastmod ? `\n    <lastmod>${w.lastmod}</lastmod>` : '';
-    return `  <url>
-    <loc>${url(w.sciezka)}</loc>${lastmod}
-    <priority>${w.priority}</priority>
-  </url>`;
-  })
-  .join('\n')}
+${sciezki.map(s => `  <url>\n    <loc>${url(s)}</loc>\n  </url>`).join('\n')}
 </urlset>
 `;
 
