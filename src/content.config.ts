@@ -13,6 +13,7 @@ const szczyty = defineCollection({
     done:          z.boolean().default(false),
     data:          z.string().optional(),
     photo:         z.string().optional(),
+    photoCredit:   z.string().optional(), // gdy photo nie jest nasze (np. Wikimedia) — podpis pod tytułem w hero
     photos:        z.array(z.string()).optional(),
     instagram:     z.string().optional(),
     tiktok:        z.string().optional(),

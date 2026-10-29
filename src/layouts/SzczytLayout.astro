@@ -11,7 +11,7 @@ import {
 
 const { szczyt, slug } = Astro.props;
 const { nazwa, region, wysokosc, czas, przewyzszenie, trudnosc,
-        done, data, photo, photos, instagram, tiktok, gpx, parking, trasa,
+        done, data, photo, photoCredit, photos, instagram, tiktok, gpx, parking, trasa,
         parkingDarmowy, parkingInfo, psyDozwolone, psyInfo,
         gastronomiaDostepna, gastronomiaInfo } = szczyt;
 
@@ -505,6 +505,7 @@ const jsonLd: unknown[] = [
     <div class="szczyt-region">{region}</div>
     <h1 class="szczyt-nazwa">{nazwa}</h1>
     {data && <div class="szczyt-data">Zdobyty: {data}</div>}
+    {photoCredit && <div class="szczyt-data">{photoCredit}</div>}
   </div>
 </div>
 
