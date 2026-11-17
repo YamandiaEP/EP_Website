@@ -28,11 +28,13 @@ export const GET: APIRoute = async ({ site }) => {
   if (!site) throw new Error('astro.config.mjs musi mieć ustawione `site`');
 
   const szczyty = await getCollection('szczyty');
+  const inne = await getCollection('inne');
   const trasy = await getCollection('trasy');
 
   const sciezki: string[] = [
     '/',
     '/kgp',
+    '/poza-kgp',
     '/trasy',
     '/o-nas',
 
@@ -41,6 +43,9 @@ export const GET: APIRoute = async ({ site }) => {
 
     // Relacje ze szczytów — rdzeń treści
     ...szczyty.map(s => `/szczyty/${s.id}`),
+
+    // Szczyty poza KGP
+    ...inne.map(s => `/poza-kgp/${s.id}`),
 
     // Trasy rowerowe
     ...trasy.map(t => `/trasy/${t.id}`),

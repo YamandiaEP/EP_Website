@@ -9,14 +9,15 @@ import {
   KGP_PRZYPADKI,
 } from '../data/kgp';
 
-const { szczyt, slug } = Astro.props;
+const { szczyt, slug, inne = false } = Astro.props;  // inne = szczyt spoza KGP (/poza-kgp/…)
 const { nazwa, region, wysokosc, czas, przewyzszenie, trudnosc,
         done, data, photo, photoCredit, photos, instagram, tiktok, gpx, parking, trasa,
         parkingDarmowy, parkingInfo, psyDozwolone, psyInfo,
         gastronomiaDostepna, gastronomiaInfo } = szczyt;
 
 const base = import.meta.env.BASE_URL;
-const strona = new URL(`/szczyty/${slug}`, Astro.site).toString();
+const sciezkaBazowa = inne ? 'poza-kgp' : 'szczyty';
+const strona = new URL(`/${sciezkaBazowa}/${slug}`, Astro.site).toString();
 
 /* ------------------------------------------------------------------ meta */
 
@@ -44,7 +45,7 @@ const faq: Faq[] = [];
 
 // Odmiana nazwy szczytu — bez niej wychodziło „parking pod Śnieżka".
 // Fallback na mianownik, gdyby brakowało wpisu dla nowego szczytu.
-const p = KGP_PRZYPADKI[szczyt.kolejnosc];
+const p = inne ? undefined : KGP_PRZYPADKI[szczyt.kolejnosc];
 const podNazwa  = p?.narzednik   ?? nazwa;  // parking pod …
 const naNazwa   = p?.biernik     ?? nazwa;  // wejście na …
 const naNazwieL = p?.miejscownik ?? nazwa;  // czy na … jest …
@@ -80,7 +81,7 @@ faq.push({
   // 28 nazw pasm to kolejna tabela. Dwukropek działa poprawnie dla każdej nazwy.
   odpowiedz:
     `${nazwa} ma ${wysokosc} m n.p.m. Pasmo: ${region}. ` +
-    `To jeden z 28 szczytów Korony Gór Polski.`,
+    (inne ? `Szczyt poza Koroną Gór Polski.` : `To jeden z 28 szczytów Korony Gór Polski.`),
 });
 
 /* -------------------------------------------------------------- JSON-LD */
@@ -92,7 +93,9 @@ const autor = {
   sameAs: ['https://instagram.com/yamandiaep', 'https://tiktok.com/@yamandia.ep'],
 };
 
-const obrazOg = new URL(`/og/${slug}.jpg`, Astro.site).toString();
+// Bez zdjęcia nie ma wygenerowanego og — wtedy domyślny obrazek z Layout.astro.
+const obrazOgSciezka = photo ? `/og/${slug}.jpg` : undefined;
+const obrazOg = new URL(obrazOgSciezka ?? '/og/default.jpg', Astro.site).toString();
 const geo = gpx ? szczytZGpx(gpx, wysokosc) : null;
 
 const jsonLd: unknown[] = [
@@ -122,7 +125,9 @@ const jsonLd: unknown[] = [
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Strona główna', item: Astro.site?.toString() },
-      { '@type': 'ListItem', position: 2, name: 'Korona Gór Polski', item: new URL('/kgp', Astro.site).toString() },
+      inne
+        ? { '@type': 'ListItem', position: 2, name: 'Poza KGP', item: new URL('/poza-kgp', Astro.site).toString() }
+        : { '@type': 'ListItem', position: 2, name: 'Korona Gór Polski', item: new URL('/kgp', Astro.site).toString() },
       { '@type': 'ListItem', position: 3, name: nazwa, item: strona },
     ],
   },
@@ -140,7 +145,7 @@ const jsonLd: unknown[] = [
 <Layout
   title={metaTitle}
   description={metaDescription}
-  image={`/og/${slug}.jpg`}
+  image={obrazOgSciezka}
   ogType="article"
   jsonLd={jsonLd}
   darkHero
@@ -501,7 +506,7 @@ const jsonLd: unknown[] = [
     : <div class="szczyt-photo-placeholder"></div>
   }
   <div class="szczyt-hero-content">
-    <a href={base} class="back-link">← Wszystkie szczyty</a>
+    <a href={inne ? `${base}poza-kgp` : base} class="back-link">{inne ? '← Szczyty poza KGP' : '← Wszystkie szczyty'}</a>
     <div class="szczyt-region">{region}</div>
     <h1 class="szczyt-nazwa">{nazwa}</h1>
     {data && <div class="szczyt-data">Zdobyty: {data}</div>}

@@ -66,7 +66,7 @@ async function main() {
   const zadania = [];
 
   // 1) Szczyty i trasy — po jednym obrazku na slug, ze zdjęcia z frontmattera
-  for (const kolekcja of ['szczyty', 'trasy']) {
+  for (const kolekcja of ['szczyty', 'inne', 'trasy']) {
     const dir = path.join(ROOT, 'src', 'content', kolekcja);
     let pliki;
     try {

@@ -31,6 +31,13 @@ const szczyty = defineCollection({
   }),
 });
 
+// Szczyty spoza Korony Gór Polski — ten sam kształt co `szczyty`, tylko `kolejnosc`
+// to zwykła kolejność dodania (nie ma rankingu jak przy KGP).
+const inne = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/inne' }),
+  schema: szczyty.schema,
+});
+
 const trasy = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/trasy' }),
   schema: z.object({
@@ -55,4 +62,4 @@ const trasy = defineCollection({
   }),
 });
 
-export const collections = { szczyty, trasy };
+export const collections = { szczyty, inne, trasy };

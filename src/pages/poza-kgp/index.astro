@@ -1,0 +1,128 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { TRUDNOSC_LABEL } from '../../data/kgp';
+
+const base = import.meta.env.BASE_URL;
+const wszystkie = await getCollection('inne');
+const szczyty = wszystkie.filter(s => s.data.done).sort((a, b) => a.data.kolejnosc - b.data.kolejnosc);
+
+const metaTitle = 'Szczyty poza Koroną Gór Polski — relacje i GPX | Yamandia EP';
+const metaDescription =
+  `Szlaki i szczyty spoza Korony Gór Polski, także za granicą: trasa, czas przejścia, ` +
+  `przewyższenie i plik GPX. ${szczyty.length} ` +
+  `${szczyty.length === 1 ? 'relacja' : 'relacji'}.`;
+
+const organizacja = {
+  '@type': 'Organization',
+  name: 'Yamandia EP',
+  url: Astro.site?.toString(),
+  sameAs: ['https://instagram.com/yamandiaep', 'https://tiktok.com/@yamandia.ep'],
+};
+
+const jsonLd: unknown[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Szczyty poza Koroną Gór Polski',
+    description: metaDescription,
+    url: new URL('/poza-kgp', Astro.site).toString(),
+    inLanguage: 'pl-PL',
+    publisher: organizacja,
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: szczyty.length,
+      itemListElement: szczyty.map((s, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: s.data.nazwa,
+        url: new URL(`/poza-kgp/${s.id}`, Astro.site).toString(),
+      })),
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Strona główna', item: Astro.site?.toString() },
+      { '@type': 'ListItem', position: 2, name: 'Poza KGP', item: new URL('/poza-kgp', Astro.site).toString() },
+    ],
+  },
+];
+---
+<Layout title={metaTitle} description={metaDescription} jsonLd={jsonLd}>
+<style>
+.t-hero { min-height: 60vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 9rem 2rem 3rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+.t-hero-kicker { font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-bottom:1rem; display:flex; align-items:center; gap:1rem; }
+.t-hero-kicker::before { content:''; width:2.5rem; height:1px; background:var(--muted); }
+.t-hero-title { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(3rem,10vw,8rem); line-height:0.9; letter-spacing:-0.02em; text-transform:uppercase; color:var(--white); }
+.t-hero-title .inv { background:var(--white); color:var(--black); padding:0 0.12em; }
+
+.section-head { padding:3rem 2rem 2rem; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:baseline; }
+.sh-title { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(2rem,5vw,3.5rem); text-transform:uppercase; letter-spacing:-0.02em; line-height:1; }
+.sh-sub { font-family:'Space Mono',monospace; font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; }
+
+.routes { display:flex; flex-direction:column; }
+.route { position:relative; border-bottom:1px solid var(--border); padding:2.4rem 2rem; transition:background 0.2s; overflow:hidden; }
+.route:hover { background:var(--grey); }
+.route-link { position:absolute; inset:0; z-index:3; }
+.route-top { display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:1.2rem; position:relative; z-index:1; flex-wrap:wrap; }
+.route-tag { font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); border:1px solid var(--border); padding:0.3rem 0.7rem; }
+.route-region { font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); }
+.route-name { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(2.2rem,6vw,4.2rem); text-transform:uppercase; letter-spacing:-0.02em; line-height:0.92; margin-bottom:1.4rem; position:relative; z-index:1; }
+.route-stats { display:flex; gap:2.5rem; flex-wrap:wrap; padding-top:1.2rem; border-top:1px solid var(--border); position:relative; z-index:1; }
+.rs-v { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:1.6rem; color:var(--white); line-height:1; }
+.rs-k { font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-top:0.2rem; }
+.route-cta { margin-left:auto; align-self:flex-end; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:1rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--white); display:inline-flex; align-items:center; gap:0.4rem; transition:gap 0.2s; }
+.route:hover .route-cta { gap:0.9rem; }
+.empty { padding:3rem 2rem 5rem; color:var(--muted); font-family:'Space Mono',monospace; font-size:0.8rem; letter-spacing:0.05em; }
+
+@media (max-width:768px) {
+  .t-hero { min-height:48vh; padding:7rem 1.3rem 2.2rem; }
+  .section-head { padding:2.4rem 1.3rem 1.4rem; }
+  .route { padding:1.9rem 1.3rem; }
+  .route-cta { flex-basis:100%; margin-left:0; margin-top:0.4rem; padding-top:1rem; border-top:1px solid var(--border); justify-content:space-between; }
+}
+@media (max-width:600px) {
+  .route-stats { gap:1.3rem; }
+  .rs-v { font-size:1.4rem; }
+}
+</style>
+
+<div class="t-hero">
+  <div class="t-hero-kicker">Yamandia EP · Nie tylko KGP</div>
+  <h1 class="t-hero-title">Szczyty<br><span class="inv">poza KGP</span></h1>
+</div>
+
+<div class="section-head">
+  <h2 class="sh-title">Wszystkie szlaki</h2>
+  <span class="sh-sub">{szczyty.length} {szczyty.length === 1 ? 'relacja' : 'relacji'}</span>
+</div>
+
+{szczyty.length === 0 ? (
+  <div class="empty">Wkrótce pierwsze relacje — wracaj niedługo.</div>
+) : (
+  <div class="routes">
+    {szczyty.map((s) => {
+      const d = s.data;
+      return (
+        <div class="route">
+          <a href={`${base}poza-kgp/${s.id}`} class="route-link" aria-label={d.nazwa}></a>
+          <div class="route-top">
+            <span class="route-tag">{TRUDNOSC_LABEL[d.trudnosc]}</span>
+            <span class="route-region">{d.region}</span>
+          </div>
+          <div class="route-name">{d.nazwa}</div>
+          <div class="route-stats">
+            <div><div class="rs-v">{d.wysokosc} m</div><div class="rs-k">Wysokość</div></div>
+            <div><div class="rs-v">{d.czas}</div><div class="rs-k">Czas</div></div>
+            <div><div class="rs-v">{d.przewyzszenie}</div><div class="rs-k">Przewyższ.</div></div>
+            <span class="route-cta">Czytaj relację →</span>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+)}
+
+</Layout>
