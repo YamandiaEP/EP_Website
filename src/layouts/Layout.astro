@@ -1,6 +1,8 @@
 ---
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
+import { getCollection } from 'astro:content';
+import { KGP_LISTA } from '../data/kgp';
 export interface Props {
   title?: string;
   description?: string;
@@ -25,6 +27,26 @@ const base = import.meta.env.BASE_URL;
 const canonicalPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const canonicalUrl = new URL(canonicalPath, Astro.site).toString();
 const imageUrl = new URL(image, Astro.site).toString();
+
+// Indeks wyszukiwarki szczytów (nawigacja). Relacja nadrzędna nad KGP_LISTA —
+// szczyty KGP bez relacji trafiają do indeksu bez linku ("wkrótce").
+const [szczytyKol, inneKol] = await Promise.all([getCollection('szczyty'), getCollection('inne')]);
+const poKolejnosci = new Map(szczytyKol.map(s => [s.data.kolejnosc, s]));
+const indeksSzukaj = [
+  ...KGP_LISTA.map(k => {
+    const w = poKolejnosci.get(k.kolejnosc);
+    return {
+      n: w?.data.nazwa ?? k.nazwa,
+      r: w?.data.region ?? k.pasmo,
+      h: w?.data.wysokosc ?? k.wysokosc,
+      g: 'KGP',
+      u: w ? `${base}szczyty/${w.id}` : null,
+    };
+  }),
+  ...inneKol.filter(s => s.data.done).map(s => ({
+    n: s.data.nazwa, r: s.data.region, h: s.data.wysokosc, g: 'Poza KGP', u: `${base}poza-kgp/${s.id}`,
+  })),
+];
 ---
 <!DOCTYPE html>
 <html lang="pl">
@@ -211,6 +233,55 @@ footer {
   color:var(--white); font-size:1.3rem; cursor:crosshair;
   padding:0.25rem 0.55rem; line-height:1; letter-spacing:0;
 }
+/* Wyszukiwarka szczytów.
+   Wyniki są wstrzykiwane przez JS (innerHTML), więc nie dostają atrybutu scoped-style
+   Astro — dlatego selektory wyników są w :global(). */
+.nav-tools { display:flex; gap:0.6rem; align-items:stretch; }
+.nav-search-btn svg { display:block; }
+.search-overlay {
+  position:fixed; inset:0; z-index:300; display:none;
+  background:rgba(0,0,0,0.6); backdrop-filter:blur(3px);
+}
+.search-overlay.open { display:block; }
+.search-box {
+  width:100%; background:var(--black); border-bottom:1px solid var(--border);
+  margin-top:4.2rem; max-height:calc(100vh - 4.2rem); display:flex; flex-direction:column;
+}
+.search-input {
+  width:100%; box-sizing:border-box; background:transparent; border:none; border-bottom:1px solid var(--border);
+  color:var(--white); padding:1.6rem 2rem; outline:none;
+  font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(1.8rem,5vw,3rem);
+  text-transform:uppercase; letter-spacing:-0.01em;
+}
+.search-input::placeholder { color:var(--muted); }
+.search-results { list-style:none; overflow-y:auto; overscroll-behavior:contain; }
+.search-results :global(li) { border-bottom:1px solid var(--border); }
+.search-results :global(li:last-child) { border-bottom:none; }
+.search-results :global(.sr-row) {
+  display:flex; align-items:center; justify-content:space-between; gap:1.5rem;
+  padding:1.1rem 2rem; text-decoration:none; color:var(--white); transition:background 0.15s;
+}
+.search-results :global(a.sr-row:hover), .search-results :global(li.active a.sr-row) { background:var(--grey); }
+.search-results :global(.sr-main) { display:flex; flex-direction:column; gap:0.3rem; min-width:0; }
+.search-results :global(.sr-name) {
+  font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(1.6rem,4vw,2.4rem);
+  text-transform:uppercase; letter-spacing:-0.01em; line-height:1;
+}
+.search-results :global(.sr-meta) {
+  font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);
+}
+.search-results :global(.sr-h) {
+  font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:clamp(1.3rem,3vw,1.8rem);
+  white-space:nowrap; text-align:right; line-height:1;
+}
+.search-results :global(.sr-h small) { display:block; font-family:'Space Mono',monospace; font-weight:400; font-size:0.55rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-top:0.3rem; }
+.search-results :global(span.sr-row) { opacity:0.4; cursor:default; }
+.search-results :global(.search-empty) { padding:1.6rem 2rem; font-family:'Space Mono',monospace; font-size:0.75rem; color:var(--muted); }
+@media (max-width:768px) {
+  .search-input { padding:1.2rem 1.3rem; }
+  .search-results :global(.sr-row) { padding:1rem 1.3rem; }
+}
+.nav-dark-hero:not(.scrolled) .nav-search-btn { color:#f2f0eb; border-color:rgba(242,240,235,0.4); }
 @media (max-width:768px) {
   body::after { display:none; }
   .nav-hamburger { display:block; }
@@ -235,10 +306,15 @@ footer {
     <img src={`${base}images/EP_logo.png`} alt="" style="height: 2.2rem; width: auto;" />
     Yamandia EP
   </a>
+  <div class="nav-tools">
+  <button class="nav-theme nav-search-btn" id="searchOpen" aria-label="Szukaj szczytu" title="Szukaj szczytu ( / )">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+  </button>
   <button class="nav-theme" id="themeToggle" aria-label="Przełącz tryb">
     <span class="theme-icon-day">☀</span>
     <span class="theme-icon-night">☾</span>
   </button>
+  </div>
   <button class="nav-hamburger" id="hamburger" aria-label="Menu">≡</button>
   <ul class="nav-links">
     <li><a href={`${base}kgp`}>KGP</a></li>
@@ -247,6 +323,14 @@ footer {
     <li><a href={`${base}o-nas`}>O nas</a></li>
   </ul>
 </nav>
+
+<div class="search-overlay" id="searchOverlay" role="dialog" aria-label="Wyszukiwarka szczytów">
+  <div class="search-box">
+    <input type="search" class="search-input" id="searchInput" placeholder="Szukaj szczytu, pasma…" autocomplete="off" />
+    <ul class="search-results" id="searchResults"></ul>
+  </div>
+</div>
+<script type="application/json" id="searchData" set:html={JSON.stringify(indeksSzukaj)} />
 
 <slot />
 
@@ -273,6 +357,60 @@ footer {
   </div>
 </footer>
 <script>document.getElementById('footer-year').textContent = new Date().getFullYear().toString();</script>
+
+<script>
+  type Wpis = { n: string; r: string; h: number; g: string; u: string | null };
+  const dane: Wpis[] = JSON.parse(document.getElementById('searchData')?.textContent ?? '[]');
+  const overlay = document.getElementById('searchOverlay')!;
+  const input = document.getElementById('searchInput') as HTMLInputElement;
+  const wyniki = document.getElementById('searchResults')!;
+  // Bez polskich znaków i wielkości liter ("sleza" / "ŚLĘŻA" = to samo).
+  const norm = (t: string) => t.toLowerCase().replace(/ł/g, 'l').normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const esc = (t: string) => t.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
+  let aktywny = -1;
+
+  function render() {
+    const q = norm(input.value.trim());
+    const trafione = dane
+      .filter(d => !q || norm(`${d.n} ${d.r}`).includes(q) || String(d.h).startsWith(q))
+      .sort((a, b) => Number(!!b.u) - Number(!!a.u) || a.h - b.h);
+    aktywny = -1;
+    wyniki.innerHTML = trafione.length
+      ? trafione.map(d => {
+          const meta = `${esc(d.r)}${d.g === 'Poza KGP' ? ' · poza KGP' : ''}${d.u ? '' : ' · wkrótce'}`;
+          const tresc = `<span class="sr-main"><span class="sr-name">${esc(d.n)}</span><span class="sr-meta">${meta}</span></span>` +
+                        `<span class="sr-h">${d.h} m<small>n.p.m.</small></span>`;
+          return d.u ? `<li><a class="sr-row" href="${d.u}">${tresc}</a></li>` : `<li><span class="sr-row">${tresc}</span></li>`;
+        }).join('')
+      : '<li class="search-empty">Brak wyników — spróbuj innej nazwy.</li>';
+  }
+  function otworz() { overlay.classList.add('open'); input.value = ''; render(); input.focus(); }
+  function zamknij() { overlay.classList.remove('open'); }
+  function przesun(d: number) {
+    const linki = [...wyniki.querySelectorAll('li a')];
+    if (!linki.length) return;
+    aktywny = (aktywny + d + linki.length) % linki.length;
+    wyniki.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+    linki[aktywny].parentElement!.classList.add('active');
+    linki[aktywny].scrollIntoView({ block: 'nearest' });
+  }
+  document.getElementById('searchOpen')?.addEventListener('click', otworz);
+  overlay.addEventListener('click', e => { if (e.target === overlay) zamknij(); });
+  input.addEventListener('input', render);
+  input.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); przesun(1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); przesun(-1); }
+    else if (e.key === 'Enter') {
+      const cel = (wyniki.querySelector('li.active a') ?? wyniki.querySelector('li a')) as HTMLAnchorElement | null;
+      if (cel) location.href = cel.href;
+    }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') zamknij();
+    const wPolu = /^(input|textarea|select)$/i.test((e.target as HTMLElement)?.tagName ?? '');
+    if (e.key === '/' && !wPolu && !e.ctrlKey && !e.metaKey) { e.preventDefault(); otworz(); }
+  });
+</script>
 
 <script>
   const nav = document.getElementById('nav');

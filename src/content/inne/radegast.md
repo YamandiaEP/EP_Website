@@ -3,7 +3,7 @@ nazwa: "Radhošť i Radegast"
 region: "Beskid Morawsko-Śląski (Czechy)"
 wysokosc: 1129
 czas: "~4,5h"
-przewyzszenie: "~590m"
+przewyzszenie: "~700m"
 trudnosc: "średnia"
 done: true
 data: ""
