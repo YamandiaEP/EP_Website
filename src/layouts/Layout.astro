@@ -247,8 +247,14 @@ footer {
   width:100%; background:var(--black); border-bottom:1px solid var(--border);
   margin-top:4.2rem; max-height:calc(100vh - 4.2rem); display:flex; flex-direction:column;
 }
+.search-bar { display:flex; align-items:stretch; border-bottom:1px solid var(--border); }
+.search-close {
+  flex:none; width:5rem; background:var(--white); color:var(--black); border:none; cursor:pointer;
+  font-size:1.8rem; font-weight:700; line-height:1; transition:opacity 0.15s;
+}
+.search-close:hover { opacity:0.8; }
 .search-input {
-  width:100%; box-sizing:border-box; background:transparent; border:none; border-bottom:1px solid var(--border);
+  flex:1; min-width:0; box-sizing:border-box; background:transparent; border:none;
   color:var(--white); padding:1.6rem 2rem; outline:none;
   font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(1.8rem,5vw,3rem);
   text-transform:uppercase; letter-spacing:-0.01em;
@@ -279,6 +285,7 @@ footer {
 .search-results :global(.search-empty) { padding:1.6rem 2rem; font-family:'Space Mono',monospace; font-size:0.75rem; color:var(--muted); }
 @media (max-width:768px) {
   .search-input { padding:1.2rem 1.3rem; }
+  .search-close { width:4rem; }
   .search-results :global(.sr-row) { padding:1rem 1.3rem; }
 }
 .nav-dark-hero:not(.scrolled) .nav-search-btn { color:#f2f0eb; border-color:rgba(242,240,235,0.4); }
@@ -326,7 +333,10 @@ footer {
 
 <div class="search-overlay" id="searchOverlay" role="dialog" aria-label="Wyszukiwarka szczytów">
   <div class="search-box">
-    <input type="search" class="search-input" id="searchInput" placeholder="Szukaj szczytu, pasma…" autocomplete="off" />
+    <div class="search-bar">
+      <input type="search" class="search-input" id="searchInput" placeholder="Szukaj szczytu, pasma…" autocomplete="off" />
+      <button type="button" class="search-close" id="searchClose" aria-label="Zamknij wyszukiwarkę" title="Zamknij (Esc)">✕</button>
+    </div>
     <ul class="search-results" id="searchResults"></ul>
   </div>
 </div>
@@ -395,6 +405,7 @@ footer {
     linki[aktywny].scrollIntoView({ block: 'nearest' });
   }
   document.getElementById('searchOpen')?.addEventListener('click', otworz);
+  document.getElementById('searchClose')?.addEventListener('click', zamknij);
   overlay.addEventListener('click', e => { if (e.target === overlay) zamknij(); });
   input.addEventListener('input', render);
   input.addEventListener('keydown', e => {
